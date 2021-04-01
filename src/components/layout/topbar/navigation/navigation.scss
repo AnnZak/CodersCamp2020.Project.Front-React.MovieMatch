@@ -1,0 +1,47 @@
+.topbar-navigation {
+    font-size: 1.5rem;
+
+    ul {
+        list-style-type: none;
+        display: flex;
+
+        >li {
+            padding: 0 1rem;
+
+            &.search {
+                display: flex;
+            }
+        }
+
+        >li:hover ul>li {
+            display: block;
+        }
+
+        .visible {
+            display: block;
+            transition: display 0.35s ease-out;
+        }
+
+        .invisible {
+            display: none;
+            transition: display 0.35s ease-out;
+        }
+
+        .search-input {
+            border: 1px dotted rgba(0, 0, 0, 0.5);
+            padding: 5px;
+            margin-left: 10px;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    @media screen and (max-width: 817px) {
+        font-size: 1.3rem;
+        padding-bottom: 0.5rem;
+    }
+}

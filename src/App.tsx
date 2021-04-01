@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.scss';
+import Topbar from './components/layout/topbar/topbar';
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello World!</h1>
+      <Topbar />
     </div>
   );
 }
