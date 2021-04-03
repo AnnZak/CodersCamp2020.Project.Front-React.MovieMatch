@@ -1,33 +1,14 @@
 .topbar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.5);
-    line-height: 2.2rem;
-    font-size: 1.1rem;
+    padding: 1.2rem 2rem;
+    font-size: 1.2rem;
 
-    >* {
-        padding: 0 10px;
-    }
-
-    .logo:hover {
-        opacity: 0.7;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    @media screen and (max-width: 817px) {
-
-        justify-content: center;
-
-        .logo {
-            flex: 2 2 100%;
-            text-align: center;
-            padding: 1rem 10px;
-        }
+    @media screen and (max-width: 320px) {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
     }
 }

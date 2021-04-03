@@ -20,9 +20,11 @@ const Navigation = () => {
                 <li>
                     <a href="#"><i className="fas fa-border-all"></i></a>
                 </li>
-                <li className="search">
+                <li>
                     <a href="#"><i className="fas fa-search" onClick={handleVisibility}></i></a>
-                    <input className={visible ? "search-input visible" : "invisible"} placeholder="Search..." type="text" />
+                </li>
+                <li className="search-bar">
+                    <input className={visible ? "search-input visible" : "search-input invisible"} placeholder="Search movie..." type="text" />
                 </li>
             </ul>
         </div>
