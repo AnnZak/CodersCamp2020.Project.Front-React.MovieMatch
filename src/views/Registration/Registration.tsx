@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import './Registration.scss';
+import React, { useState } from 'react';
 import RegistrationForm from '../../components/layout/registrationForm/registrationForm';
 
 function Registration() {
@@ -18,13 +17,7 @@ function Registration() {
 
   return (
     <div className="registration">
-      <RegistrationForm step={currentStep}/>
-      <button onClick={() => handlePrevious()}>
-        Previous
-      </button>
-      <button onClick={() => handleNext()}>
-        Next
-      </button>
+      <RegistrationForm step={currentStep} handleP={handlePrevious} handleN={handleNext} />
     </div>
   );
 }
