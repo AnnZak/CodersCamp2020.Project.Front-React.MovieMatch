@@ -16,7 +16,7 @@
             >ul {
                 position: absolute;
                 right: 0;
-                width: 50vw;
+                width: 100vw;
                 background-color: $color-dark-95;
                 border-radius: 5px;
 
@@ -38,12 +38,6 @@
 
     @media screen and (max-width: 770px) {
         // flex: 2
-    }
-
-    @media screen and (max-width: 592px) {
-        ul>li ul {
-            width: 100vw;
-        }
     }
 
     @media screen and (max-width: 320px) {
