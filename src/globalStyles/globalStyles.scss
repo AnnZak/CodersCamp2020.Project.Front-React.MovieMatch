@@ -54,11 +54,85 @@ h1 {
     color: $color-accent;
 }
 
-input[type=text] {
+button {
     background: inherit;
-    color: inherit;
+    color: $color-light;
     padding: 0.5rem;
     border: 1px dashed $color-yellow;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+input {
+    background: inherit;
+    color: $color-light;
+    padding: 0.5rem;
+    border: 1px dashed $color-yellow;
+    font-family: inherit;
+    font-size: inherit;
+    width: 100%;
+
+    &:hover,
+    &:active,
+    &:focus {
+        outline: none;
+        border: 1px dashed $color-accent;
+    }
+
+    &:focus {
+        background-color: $color-dark-95;
+    }
+
+    &[type=color] {
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+    }
+
+    &[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+    &[type=submit]:active,
+    &[type=button]:active {
+
+        // background-color: navajowhite;
+        border: 1px solid $color-accent;
+    }
+
+    &[type=submit],
+    &[type=button],
+    &::file-selector-button {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 90%;
+        font-weight: bold;
+        // width: auto;
+        // padding: 0.5rem;
+        cursor: pointer;
+        // font-variant: small-caps;
+        // font-style: italic;
+        background-color: $color-dark;
+        padding: 0.7rem 0;
+
+    }
+
+
+    &[type=file] {
+        padding: 0 0.5rem 0 0;
+    }
+
+    &::file-selector-button {
+        background-color: inherit;
+        color: inherit;
+        padding: 0.5rem;
+        border: none;
+        border-right: 1px dashed $color-yellow;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+
 }
 
 .avatar {
