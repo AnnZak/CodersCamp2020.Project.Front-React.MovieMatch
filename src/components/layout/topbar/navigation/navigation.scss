@@ -1,47 +1,74 @@
+@import '../../../../globalStyles/colors.scss';
+
 .topbar-navigation {
-    font-size: 1.5rem;
+    padding: 0 1rem;
+    flex: 2 2 400px;
+    flex-wrap: wrap;
 
     ul {
-        list-style-type: none;
         display: flex;
+        align-items: center;
 
         >li {
             padding: 0 1rem;
 
-            &.search {
-                display: flex;
+            &.search-bar {
+                padding: 0;
+            }
+
+            .search-input {
+                transition: all 1s ease-in-out;
+
+                &.visible {
+                    width: 14rem;
+                }
+
+                &.invisible {
+                    width: 0;
+                    border: 1px dashed $color-dark;
+                }
             }
         }
+    }
 
-        >li:hover ul>li {
-            display: block;
-        }
+    @media screen and (max-width: 770px) {
+        flex: 1 1 100%;
+        order: 2;
+        padding: 0.5rem 0;
+        justify-content: center;
 
-        .visible {
-            display: block;
-            transition: display 0.35s ease-out;
-        }
-
-        .invisible {
-            display: none;
-            transition: display 0.35s ease-out;
-        }
-
-        .search-input {
-            border: 1px dotted rgba(0, 0, 0, 0.5);
-            padding: 5px;
-            margin-left: 10px;
+        ul>li:first-child {
+            padding-left: 0;
         }
     }
 
-    a {
-        text-decoration: none;
-        color: inherit;
-        display: block;
+    @media screen and (max-width: 592px) {
+
+        ul>li {
+            text-align: center;
+
+            &:not(:last-child) {
+                flex-basis: 25%;
+            }
+        }
     }
 
-    @media screen and (max-width: 817px) {
-        font-size: 1.3rem;
-        padding-bottom: 0.5rem;
+    @media screen and (max-width: 480px) {
+        ul {
+            flex-wrap: wrap;
+            align-content: space-between;
+
+            >li {
+                padding: 1rem 0;
+
+                &.search-bar {
+                    flex-basis: 100%;
+
+                    .search-input.visible {
+                        width: 90%;
+                    }
+                }
+            }
+        }
     }
 }

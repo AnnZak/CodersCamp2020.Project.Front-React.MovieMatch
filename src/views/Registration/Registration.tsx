@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Registration.scss';
 import RegistrationForm from '../../components/layout/registrationForm/registrationForm';
+import TopLogo from '../../components/ui/topLogo/topLogo';
 
 function Registration() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,13 +19,8 @@ function Registration() {
 
   return (
     <div className="registration">
-      <RegistrationForm step={currentStep}/>
-      <button onClick={() => handlePrevious()}>
-        Previous
-      </button>
-      <button onClick={() => handleNext()}>
-        Next
-      </button>
+      <TopLogo />
+      <RegistrationForm step={currentStep} handleP={handlePrevious} handleN={handleNext} />
     </div>
   );
 }

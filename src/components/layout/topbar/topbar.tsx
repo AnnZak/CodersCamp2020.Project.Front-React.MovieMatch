@@ -2,11 +2,12 @@ import React from 'react';
 import './topbar.scss';
 import Navigation from './navigation/navigation';
 import Dropdown from './dropdown/dropdown';
+import TopLogo from '../../ui/topLogo/topLogo';
 
 const Topbar = () => {
     return (
         <div className="topbar">
-            <h1 className="logo"><a href="#">MovieMatch</a></h1>
+            <TopLogo />
             <Navigation />
             <Dropdown />
         </div>
