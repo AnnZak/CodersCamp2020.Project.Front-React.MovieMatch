@@ -27,7 +27,6 @@ function ExampleForm() {
             // formNavFunctions={{ handleP, handleN }}
             info={`Provide all the required information.`}
         />
-
     );
 }
 

@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 
     .form-container {
         background-color: $color-accent-5;
@@ -17,6 +18,7 @@
         .form-heading {
             padding: 2rem 2rem 1.5rem;
             line-height: 3rem;
+            text-align: center;
         }
 
         .form-info {
@@ -26,7 +28,6 @@
         }
 
         form {
-            // border: 1px solid green;
             width: 70%;
             padding-bottom: 2rem;
 
