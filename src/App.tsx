@@ -5,6 +5,7 @@ import './App.scss';
 // import ExampleForm from './views/ExampleForm/ExampleForm';
 // import ForgotPassword from './views/ForgotPassword/ForgotPassword';
 // import ResetPassword from './views/ResetPassword/ResetPassword';
+// import UserSettings from './views/UserSettings/UserSettings';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       {/* <Registration /> */}
       {/* <ForgotPassword /> */}
       {/* <ResetPassword /> */}
+      {/* <UserSettings /> */}
     </div>
   );
 }
