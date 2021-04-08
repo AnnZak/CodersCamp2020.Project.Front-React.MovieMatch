@@ -8,6 +8,8 @@ import Topbar from './components/layout/topbar/topbar';
 import ForgotPassword from './views/ForgotPassword/ForgotPassword';
 import ResetPassword from './views/ResetPassword/ResetPassword';
 import UserSettings from './views/UserSettings/UserSettings';
+import MovieDetails from './views/MovieDetails/MovieDetails';
+
 
 function App() {
   return (
@@ -19,7 +21,8 @@ function App() {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/reset-password" component={ResetPassword} />
           <Route exact path="/settings" component={UserSettings} />
-          <Route exact path="/topbar-deme" component={Topbar} />
+          <Route exact path="/movie-demo" component={MovieDetails} />
+          <Route exact path="/topbar-demo" component={Topbar} />
         </Switch>
       </Router>
     </div>
