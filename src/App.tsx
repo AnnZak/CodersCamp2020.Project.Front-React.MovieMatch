@@ -6,6 +6,7 @@ import './App.scss';
 // import ForgotPassword from './views/ForgotPassword/ForgotPassword';
 // import ResetPassword from './views/ResetPassword/ResetPassword';
 // import UserSettings from './views/UserSettings/UserSettings';
+import MovieDetails from './views/MovieDetails/MovieDetails';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       {/* <ForgotPassword /> */}
       {/* <ResetPassword /> */}
       {/* <UserSettings /> */}
+      <MovieDetails />
     </div>
   );
 }
