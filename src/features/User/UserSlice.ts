@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { RootState } from '../../app/store';
-
 
 export const userSlice = createSlice({
 
@@ -13,7 +13,6 @@ export const userSlice = createSlice({
         isError: false,
         errorMsg: '',
     },
-
     reducers: {
         clearState: (state) => {
             state.isError = false;
@@ -23,6 +22,9 @@ export const userSlice = createSlice({
             return state;
         },
     },
+    extraReducers: {
+
+    },
 })
 
 export const userSelector = (state: RootState) => state.user;
@@ -31,25 +33,18 @@ export const loginUser = createAsyncThunk(
     'users/login',
     async ( userCredentials: {login: string, password: string}, thunkApi) => {
         try {
-            const response = await fetch(
-                'https://awesome-movie-match.herokuapp.com/api/users/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userCredentials
-                    }),
+
+            const response = await axios.post(
+                'https://awesome-movie-match.herokuapp.com/api/users/login', {
+                    email: userCredentials.login,
+                    password: userCredentials.password,
                 }
-            );
-            const data = await response.json();
+            )
             if(response.status === 200) {
-                localStorage.setItem('token', data.token);
-                return data;
+                localStorage.setItem('token', response.data.token);
+                return response.data;
             } else {
-                return thunkApi.rejectWithValue(data);
+                return thunkApi.rejectWithValue(response.data);
             }
         } catch (error) {
             console.log("Error", error.response.data);

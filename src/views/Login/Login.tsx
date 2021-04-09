@@ -1,23 +1,22 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Login.scss';
-// import LoginForm from '../../components/layout/form/loginForm/loginForm'; TODO: remove later
-import TopLogo from '../../components/ui/topLogo/topLogo';
 import { loginUser, userSelector, clearState } from '../../features/User/UserSlice'
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'; //TODO
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import TopLogo from '../../components/ui/topLogo/topLogo';
 import Form from '../../components/layout/form/form';
 
 const Login = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const {register, handleSubmit } = useForm();
-  const { isFetching, isError, isSuccess, errorMsg } = useSelector(
+  // const {register, handleSubmit } = useForm();
+  const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(
     userSelector
   );
 
-  const onSubmit = (data: {login: string, password: string}) => { //todo: add interface or custom type
+  const onSubmit = (data: {login: string, password: string}) => { //TODO: add interface or custom type
     dispatch(loginUser(data));
   }
 
@@ -34,13 +33,12 @@ const Login = () => {
     }
     if (isSuccess) {
       dispatch(clearState());
-      history.push('/');
+      history.push('/'); // TODO ??
     }
   }, [isError, isSuccess]);
 
   return (
-    // <div className="login">
-    <>
+    <div className="login">
       <TopLogo />
       <Form
         heading="Sign In to your account"
@@ -49,12 +47,10 @@ const Login = () => {
           { type: 'password', label: 'Password:', placeholder: 'password' },
           { type: 'submit', value: 'Log in'}
         ]}
+        onSubmit={onSubmit}
       />
       <h5>or <Link to="register">Sign Up</Link></h5>
-
-    </>
-
-    // </div>
+    </div>
   );
 }
 

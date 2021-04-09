@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import './App.scss';
 import Login from './views/Login/Login';
 import Registration from './views/Registration/Registration'
-// import Topbar from './components/layout/topbar/topbar';
-// import ExampleForm from './views/ExampleForm/ExampleForm';
 
 function App() {
   return (

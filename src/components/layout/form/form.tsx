@@ -17,9 +17,10 @@ interface IProps {
     formNavButtons?: { previous: boolean, next: boolean };
     formNavFunctions?: { handleP?: Function | undefined, handleN?: Function | undefined }
     info?: string;
+    onSubmit?: Function;
 }
 
-function Form({ heading, inputs, formNavButtons, formNavFunctions, info }: IProps) {
+function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmit }: IProps) {
 
     function handlePrevious() {
         if (!formNavFunctions || !formNavFunctions.handleP) return undefined;
