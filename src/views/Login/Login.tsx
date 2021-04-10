@@ -10,7 +10,6 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [submitted, setSubmitted] = useState("no");  // TODO
 
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -18,8 +17,7 @@ const Login = () => {
     userSelector
   );
 
-  const onSubmit = (data: UserCredentials) => { //TODO: add interface or custom type
-    setSubmitted("yes"); // TODO
+  const onSubmit = (data: UserCredentials) => {
     dispatch(loginUser(data));
   }
 
@@ -53,7 +51,6 @@ const Login = () => {
         onSubmit={() => { onSubmit({ email, password }) }}
       />
       <h5>or <Link to="register">Sign Up</Link></h5>
-      <p>{`submit button clicked: ${submitted}`}</p> {/* TODO */}
     </div>
   );
 }

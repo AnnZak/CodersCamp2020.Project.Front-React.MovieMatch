@@ -4,7 +4,7 @@ import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
 
 export type UserCredentials = {
-    email: string, 
+    email: string,
     password: string,
 };
 
@@ -23,6 +23,18 @@ type LoginResponse = {
 type ErrorResponse = {
     error: string
 }
+
+type RegisterResponse = {
+    message: string,
+}
+
+export type RegisterCredentials = {
+    email: string,
+    name: string,
+    displayedName: string,
+    password: string,
+};
+
 
 export const loginUser = createAsyncThunk<
     LoginResponse,
@@ -43,6 +55,31 @@ export const loginUser = createAsyncThunk<
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
                 return response.data as LoginResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            console.log("Error", error.response.data);
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
+
+export const registerUser = createAsyncThunk<
+    RegisterResponse,
+    RegisterCredentials,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'user/register',
+    async (userCredentials, thunkApi) => {
+        try {
+            const response = await axios.post(
+                `${API_URL}/users/register`, userCredentials
+            )
+            if (response.status === 200) {
+                return response.data as RegisterResponse;
             } else {
                 return thunkApi.rejectWithValue(response.data as ErrorResponse);
             }
@@ -80,17 +117,31 @@ export const userSlice = createSlice({
             state.isFetching = false;
             state.isSuccess = true;
             state.errorMsg = "";
-            return state;
         });
 
         builder.addCase(loginUser.rejected, (state, action) => {
-            console.log('payload', action.error);
             state.isFetching = false;
             state.isError = true;
             state.errorMsg = action.payload ? action.payload.error : "unknown error occured";
         });
 
         builder.addCase(loginUser.pending, (state) => {
+            state.isFetching = true;
+        });
+        builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+            // state.errorMsg = payload.message;
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.errorMsg = "";
+        });
+
+        builder.addCase(registerUser.rejected, (state, action) => {
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = action.payload ? action.payload.error : "unknown error occured";
+        });
+
+        builder.addCase(registerUser.pending, (state) => {
             state.isFetching = true;
         });
     }
