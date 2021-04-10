@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Login.scss';
-import { loginUser, userSelector, clearState } from '../../features/User/UserSlice'
+import { loginUser, userSelector, clearState, UserCredentials } from '../../features/User/UserSlice'
 import { Link, useHistory } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import TopLogo from '../../components/ui/topLogo/topLogo';
@@ -14,12 +14,11 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const history = useHistory();
-  // const {register, handleSubmit } = useForm();
   const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(
     userSelector
   );
 
-  const onSubmit = (data: { email: string, password: string }) => { //TODO: add interface or custom type
+  const onSubmit = (data: UserCredentials) => { //TODO: add interface or custom type
     setSubmitted("yes"); // TODO
     dispatch(loginUser(data));
   }
@@ -32,7 +31,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isError) {
-      console.log(errorMsg);
+      //TODO handle errors
       dispatch(clearState());
     }
     if (isSuccess) {

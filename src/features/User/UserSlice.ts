@@ -3,9 +3,36 @@ import axios from 'axios';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
 
-export const loginUser = createAsyncThunk(
-    'users/login', // TODO user czy users?
-    async (userCredentials: { email: string, password: string }, thunkApi) => {
+export type UserCredentials = {
+    email: string, 
+    password: string,
+};
+
+type UserAttributes = {
+    _id: string,
+    email: string,
+    name: string,
+    displayedName: string,
+}
+
+type LoginResponse = {
+    token: string,
+    user: UserAttributes,
+}
+
+type ErrorResponse = {
+    error: string
+}
+
+export const loginUser = createAsyncThunk<
+    LoginResponse,
+    UserCredentials,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'user/login',
+    async (userCredentials, thunkApi) => {
         try {
             const response = await axios.post(
                 `${API_URL}/users/login`, {
@@ -15,13 +42,13 @@ export const loginUser = createAsyncThunk(
             )
             if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
-                return response.data;
+                return response.data as LoginResponse;
             } else {
-                return thunkApi.rejectWithValue(response.data);
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
             }
         } catch (error) {
             console.log("Error", error.response.data);
-            thunkApi.rejectWithValue(error.response.data);
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
         }
     }
 );
@@ -52,17 +79,18 @@ export const userSlice = createSlice({
             state.email = payload.user.email;
             state.isFetching = false;
             state.isSuccess = true;
+            state.errorMsg = "";
             return state;
         });
 
-        builder.addCase(loginUser.rejected, (state, { payload }) => {
-            console.log('payload', payload);
+        builder.addCase(loginUser.rejected, (state, action) => {
+            console.log('payload', action.error);
             state.isFetching = false;
             state.isError = true;
-            // state.errorMsg = payload.message;
+            state.errorMsg = action.payload ? action.payload.error : "unknown error occured";
         });
 
-        builder.addCase(loginUser.pending, (state, { payload }) => {
+        builder.addCase(loginUser.pending, (state) => {
             state.isFetching = true;
         });
     }
