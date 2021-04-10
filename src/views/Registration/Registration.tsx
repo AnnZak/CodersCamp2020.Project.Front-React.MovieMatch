@@ -60,9 +60,9 @@ function Registration() {
         <Form
           heading="Welcome, tell us more about yourself!"
           inputs={[
-            { type: 'text', label: 'First Name:', placeholder: 'e.g. Geralt', value: name, setValue: setName },
-            { type: 'text', label: 'Displayed name:', placeholder: 'e.g. Gwynbleidd', value: displayedName, setValue: setDisplayedName },
-            { type: 'email', label: 'Email:', placeholder: 'e.g. geralt@kaermorhen.com', value: email, setValue: setEmail },
+            { type: 'text', label: 'First Name:', placeholder: 'Enter your first name', value: name, setValue: setName },
+            { type: 'text', label: 'Displayed name:', placeholder: 'Enter your displayed name', value: displayedName, setValue: setDisplayedName },
+            { type: 'email', label: 'Email:', placeholder: 'Enter your email address', value: email, setValue: setEmail },
           ]}
           formNavButtons={{ previous: false, next: true }}
           formNavFunctions={{ handlePrevious, handleNext }}
@@ -80,10 +80,10 @@ function Registration() {
       } */}
       {currentStep === 2 &&
         <Form
-          heading={'Set & repeat a new password'}
+          heading={'Secure your account'}
           inputs={[
-            { type: 'password', label: 'Password:', placeholder: 'e.g. Rivia123*', value: password, setValue: setPassword },
-            { type: 'password', label: 'Repeat password:', placeholder: 'e.g. Rivia123*' },
+            { type: 'password', label: 'Password:', placeholder: 'Choose a password', value: password, setValue: setPassword },
+            { type: 'password', label: 'Repeat password:', placeholder: 'Repeat password' },
           ]}
           formNavButtons={{ previous: true, next: true }}
           formNavFunctions={{ handlePrevious, handleNext }}

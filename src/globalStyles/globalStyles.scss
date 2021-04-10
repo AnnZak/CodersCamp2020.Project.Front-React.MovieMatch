@@ -40,12 +40,12 @@ h1,
 h2,
 h3 {
     color: $color-yellow;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 h1 {
     font-weight: 700;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 .accent-text {
@@ -67,11 +67,11 @@ button {
 
 input {
     background: $color-input;
-    color: $color-light;
+    // color: $color-light;
     padding: 1rem;
     border: 1px solid $color-accent;
     border-radius: 8px;
-    font-family: inherit;
+    font-family: "Segoe UI";
     font-size: inherit;
     width: 100%;
 
@@ -80,10 +80,6 @@ input {
     &:focus {
         outline: none;
         border: 1px solid $color-accent;
-    }
-
-    &:focus {
-        background-color: $color-dark-95;
     }
 
     &[type=color] {
@@ -98,9 +94,10 @@ input {
 
     &[type=submit]:active,
     &[type=button]:active {
-
-        // background-color: navajowhite;
-        border: 1px solid $color-accent;
+        background-color: $color-button-background;
+        color: $color-white;
+        border: 1ps solid $color-button-background;
+        box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24);
     }
 
     &[type=submit],
@@ -115,9 +112,11 @@ input {
         cursor: pointer;
         // font-variant: small-caps;
         // font-style: italic;
-        background-color: $color-dark;
+        background-color: $color-white;
+        border: 1px solid $color-button-background;
+        color: $color-button-background;
         padding: 0.7rem 0;
-
+        
     }
 
     &[type=file] {
