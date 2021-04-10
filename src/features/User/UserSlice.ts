@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../../app/store';
+import { API_URL } from '../../constants';
 
 export const userSlice = createSlice({
 
@@ -18,7 +19,7 @@ export const userSlice = createSlice({
             state.isError = false;
             state.isSuccess = false;
             state.isFetching = false;
-      
+
             return state;
         },
     },
@@ -31,16 +32,15 @@ export const userSelector = (state: RootState) => state.user;
 
 export const loginUser = createAsyncThunk(
     'users/login',
-    async ( userCredentials: {login: string, password: string}, thunkApi) => {
+    async (userCredentials: { email: string, password: string }, thunkApi) => {
         try {
-
             const response = await axios.post(
-                'https://awesome-movie-match.herokuapp.com/api/users/login', {
-                    email: userCredentials.login,
-                    password: userCredentials.password,
-                }
+                `${API_URL}/users/login`, {
+                email: userCredentials.email,
+                password: userCredentials.password,
+            }
             )
-            if(response.status === 200) {
+            if (response.status === 200) {
                 localStorage.setItem('token', response.data.token);
                 return response.data;
             } else {
@@ -53,4 +53,4 @@ export const loginUser = createAsyncThunk(
     }
 );
 
-export const { clearState }  = userSlice.actions;
+export const { clearState } = userSlice.actions;

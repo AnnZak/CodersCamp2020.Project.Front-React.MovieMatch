@@ -9,6 +9,7 @@ interface IInput {
     value?: string;
     placeholder?: string;
     attr?: { accept?: string };
+    setValue?: Function;
 }
 
 interface IProps {
@@ -39,7 +40,12 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
             <div className='form-container'>
                 <h1 className='form-heading'>{heading}</h1>
                 <p className='form-info'>{info}</p>
-                <form>
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    if (onSubmit) {
+                        onSubmit();
+                    }
+                }}>
                     {inputs.map((input, index) => {
                         return (
                             <div className={
@@ -52,6 +58,7 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                                     placeholder={input.placeholder ? input.placeholder : undefined}
                                     value={input.value ? input.value : undefined}
                                     accept={input.attr && input.attr.accept ? input.attr.accept : undefined}
+                                    onChange={(e) => { if (input.setValue) input.setValue(e.target.value); }}
                                 />
                             </div>
                         );
@@ -63,7 +70,6 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                         <button onClick={() => handleNext()} className={formNavButtons.next ? undefined : 'btn-hidden'}>Next Page</button>
                     </div>
                 ) : undefined}
-
             </div>
         </div>
     );
