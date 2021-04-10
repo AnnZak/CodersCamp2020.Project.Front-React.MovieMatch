@@ -11,6 +11,8 @@ import ResetPassword from './views/ResetPassword/ResetPassword';
 import UserSettings from './views/UserSettings/UserSettings';
 import MovieDetails from './views/MovieDetails/MovieDetails';
 import Dashboard from './views/Dashboard/Dashboard';
+import CheckEmail from './views/CheckEmail/CheckEmail';
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <PrivateRoute exact path="/settings" component={UserSettings} />
           <PrivateRoute exact path="/movie-demo" component={MovieDetails} />
           <Route exact path="/topbar-demo" component={Topbar} />
+          <Route exact path="/check-email" component={CheckEmail} /> {/*TODO: only accesible through registration beeing succesful*/}
         </Switch>
       </Router>
     </div>
