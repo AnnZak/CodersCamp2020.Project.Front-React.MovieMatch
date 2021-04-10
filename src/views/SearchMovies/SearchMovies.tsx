@@ -10,6 +10,10 @@ function SearchFriends() {
         movieSelector
     );
 
+    function handleToggleWatched() {
+
+    }
+
     return (
         <div>
             <Topbar />
@@ -28,6 +32,10 @@ function SearchFriends() {
                                 { movie.Title &&
                                     <h2 className="movie-title">{movie.Title}</h2>
                                 }
+                                <div className="movie-actions-icons">
+                                    <a href="#" onClick={() => { handleToggleWatched() }}><i className="fas fa-border-all"></i></a>
+                                    <a href="#" onClick={() => { handleToggleWatched() }}><i className="fas fa-border-all"></i></a>
+                                </div>
                             </div>
                         )) :
                         <h2>Search movie by title...</h2>

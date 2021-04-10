@@ -21,6 +21,7 @@
             &>* {
                 padding: 1rem;
             }
+
             >h2 {
                 display: flex;
                 justify-content: center;
@@ -32,6 +33,16 @@
                 height: 22rem;
                 object-fit: cover;
                 max-width: auto;
+            }
+            .movie-actions-icons {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding-bottom: 2rem;
+                >a {
+                    font-size: 2rem;
+                    opacity: 0.5;
+                }
             }
         }
     }
