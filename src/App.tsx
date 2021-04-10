@@ -9,6 +9,7 @@ import ForgotPassword from './views/ForgotPassword/ForgotPassword';
 import ResetPassword from './views/ResetPassword/ResetPassword';
 import UserSettings from './views/UserSettings/UserSettings';
 import MovieDetails from './views/MovieDetails/MovieDetails';
+import CheckEmail from './views/CheckEmail/CheckEmail';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/settings" component={UserSettings} />
           <Route exact path="/movie-demo" component={MovieDetails} />
           <Route exact path="/topbar-demo" component={Topbar} />
+          <Route exact path="/check-email" component={CheckEmail} />
         </Switch>
       </Router>
     </div>
