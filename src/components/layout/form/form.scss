@@ -4,13 +4,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 90vh;
 
     .container-div {
         display: flex;
-        flex-direction: column;
-        height: 90vh;   
+        flex-direction: column; 
     }
 
     .form-heading {
@@ -18,6 +15,7 @@
         line-height: 3rem;
         text-align: center;
         color: $color-header;
+        font-size: 1.5rem;
     }
      
     .form-container {
@@ -28,8 +26,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-basis: 350px;
-
+        // min-width: 600px;
+        // min-height: 400px;
+ 
         .form-info {
             width: 70%;
             line-height: 1.7rem;
@@ -51,6 +50,7 @@
                     padding: 0.8rem 0;
                     text-transform: uppercase;
                     font-size: 12px;
+                    font-weight: 600;
                 }
 
                 input[type=submit] {
@@ -85,8 +85,6 @@
     .form-container-nav {
         display: flex;
         justify-content: flex-end;
-        // align-items: flex-end;
-        // border: 1px solid red;
 
         .form-nav {
             width: 50%;
@@ -105,11 +103,19 @@
                 background-color: $color-white;
                 color: $color-button;
 
+                &:hover,
+                &:active,
+                &:focus
+                 {
+                    background-color: $color-button-background;
+                    color: $color-white;
+                    border: 1ps solid $color-button-background;
+                    box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24)
+                }
+
                 &.btn-hidden {
                     opacity: 0.2;
                     display: none;
-                    // width: 0;
-                    // border: 1px solid red;
                 }
             }
         }        

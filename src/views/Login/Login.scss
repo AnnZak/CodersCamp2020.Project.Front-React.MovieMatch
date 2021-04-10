@@ -1,15 +1,35 @@
+@import '../../globalStyles/colors.scss';
+
 .login {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 2rem 0 3rem 0;
 
-    &>:first-child {
-        padding: 1rem 0 3rem 0;
+    &-container {
+        display: flex;
+       // justify-content: space-around;
+        width: 100vw;
+
+        &-picture {
+            width: 40%;
+            height: auto;
+            margin: 0 5% 0 10%;
+           // min-width: 300px;
+        }
     }
 
     h5 {
         padding: 1rem 0;
+        display: flex;
+        justify-content: center;
+        color: $color-dark;
+        font-size: 14px;
+        
+        &:hover,
+        &:active,
+        &:focus {
+            color: $color-button-background;
+        }
     }
 }
