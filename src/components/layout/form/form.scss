@@ -34,7 +34,7 @@
             width: 70%;
             line-height: 1.7rem;
             text-align: center;
-            padding-bottom: 1rem;
+            padding: 1rem 0;
         }
 
         form {
@@ -85,14 +85,17 @@
     .form-container-nav {
         display: flex;
         justify-content: flex-end;
+        // align-items: flex-end;
+        // border: 1px solid red;
 
         .form-nav {
-            // width: 50%;
+            width: 50%;
             display: flex;
             justify-content: space-between;
             padding: 1rem 0rem;
 
             button {
+                flex-basis: 100%;
                 border-style: solid;
                 width: 250px;
                 margin: 0.2rem;
@@ -103,7 +106,10 @@
                 color: $color-button;
 
                 &.btn-hidden {
-                    opacity: 0;
+                    opacity: 0.2;
+                    display: none;
+                    // width: 0;
+                    // border: 1px solid red;
                 }
             }
         }        

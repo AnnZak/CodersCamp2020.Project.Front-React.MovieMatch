@@ -35,7 +35,6 @@ export type RegisterCredentials = {
     password: string,
 };
 
-
 export const loginUser = createAsyncThunk<
     LoginResponse,
     UserCredentials,

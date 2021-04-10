@@ -31,7 +31,7 @@ function Registration() {
   }
 
   function handleNext() {
-    if (currentStep === 2) return undefined;
+    if (currentStep === 3) return undefined;
     setCurrentStep(currentStep + 1);
     return undefined;
   }
@@ -84,11 +84,21 @@ function Registration() {
           inputs={[
             { type: 'password', label: 'Password:', placeholder: 'e.g. Rivia123*', value: password, setValue: setPassword },
             { type: 'password', label: 'Repeat password:', placeholder: 'e.g. Rivia123*' },
+          ]}
+          formNavButtons={{ previous: true, next: true }}
+          formNavFunctions={{ handlePrevious, handleNext }}
+          info={`At least: 1 small letter, 1 big letter, 1 number & 1 special character.`}
+        />
+      }
+      {currentStep === 3 &&
+        <Form
+          heading={"You're all set. Ready?"}
+          inputs={[
             { type: 'submit', value: 'Register' }
           ]}
           formNavButtons={{ previous: true, next: false }}
           formNavFunctions={{ handlePrevious, handleNext }}
-          info={`At least: 1 small letter, 1 big letter, 1 number & 1 special character.`}
+          info={`After registration go to your email to confirm.`}
           onSubmit={() => { onSubmit({ email, name, displayedName, password }) }}
         />
       }
