@@ -16,18 +16,22 @@ function SearchFriends() {
             <div className="container-searched-movies">
                 <div className="movie-cards-container">
 
-                    {searchedMovies && searchedMovies.map((movie) =>
-                    (
-                        <div className="movie-card">
-                            {movie.Poster && movie.Poster !== "N/A" ?
-                                <img className="movie-poster" src={movie.Poster} alt="movie poster" /> :
-                                <img className="movie-poster" src={moviedefault} alt="movie poster" style={{ opacity: 0.5 }} />
-                            }
-                            <h2 className="movie-title">{movie.Title}</h2>
-                        </div>
-                    )
-                    )}
-
+                    {searchedMovies[0].Title ?
+                        searchedMovies.map((movie) => (
+                            <div className="movie-card">
+                                { (movie.Poster && movie.Poster !== "N/A") &&
+                                    <img className="movie-poster" src={movie.Poster} alt="movie poster" />
+                                }
+                                { (movie.Poster === "N/A") &&
+                                    <img className="movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
+                                }
+                                { movie.Title &&
+                                    <h2 className="movie-title">{movie.Title}</h2>
+                                }
+                            </div>
+                        )) :
+                        <h2>Search movie by title...</h2>
+                    }
                 </div>
             </div>
         </div>
