@@ -5,21 +5,30 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 90vh;
 
+    .container-div {
+        display: flex;
+        flex-direction: column;
+        height: 90vh;   
+    }
+
+    .form-heading {
+        padding: 2rem 2rem 1.5rem;
+        line-height: 3rem;
+        text-align: center;
+        color: $color-header;
+    }
+     
     .form-container {
-        background-color: $color-accent-5;
-        border: 3px dashed $color-accent;
+        background-color: $color-white;
+        border-radius: 8px;
+        border: 1px solid $color-accent;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-basis: 700px;
-
-        .form-heading {
-            padding: 2rem 2rem 1.5rem;
-            line-height: 3rem;
-            text-align: center;
-        }
+        flex-basis: 350px;
 
         .form-info {
             width: 70%;
@@ -29,21 +38,23 @@
         }
 
         form {
-            width: 70%;
+            width: 85%;
             padding-bottom: 2rem;
 
             .form-item {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 0.5rem 0;
+                padding: 0.2rem 0;
 
                 label {
-                    padding: 0.7rem 0;
+                    padding: 0.8rem 0;
+                    text-transform: uppercase;
+                    font-size: 12px;
                 }
 
                 input[type=submit] {
-                    margin-top: 2rem;
+                    margin-top: 1rem;
                 }
 
                 &.oneline {
@@ -69,20 +80,33 @@
                 }
             }
         }
+    }
+
+    .form-container-nav {
+        display: flex;
+        justify-content: flex-end;
 
         .form-nav {
-            width: 70%;
+            // width: 50%;
             display: flex;
             justify-content: space-between;
-            padding-bottom: 2rem;
+            padding: 1rem 0rem;
 
             button {
                 border-style: solid;
+                width: 250px;
+                margin: 0.2rem;
+                padding: 0.8rem 0.3rem;
+                font-size: .8rem;
+                font-weight: 600;
+                background-color: $color-white;
+                color: $color-button;
 
                 &.btn-hidden {
                     opacity: 0;
                 }
             }
-        }
+        }        
     }
+
 }

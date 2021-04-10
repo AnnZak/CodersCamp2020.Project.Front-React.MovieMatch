@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Registration.scss';
 import RegistrationForm from '../../components/layout/registrationForm/registrationForm';
 import TopLogo from '../../components/ui/topLogo/topLogo';
+import FakeNav from '../../components/ui/fakeNav/fakeNav';
 
 function Registration() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -19,7 +20,7 @@ function Registration() {
 
   return (
     <div className="registration">
-      <TopLogo />
+      <FakeNav />
       <RegistrationForm step={currentStep} handleP={handlePrevious} handleN={handleNext} />
     </div>
   );

@@ -36,34 +36,37 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
 
     return (
         <div className='container'>
-            <div className='form-container'>
+            <div className='container-div'>
                 <h1 className='form-heading'>{heading}</h1>
-                <p className='form-info'>{info}</p>
-                <form>
-                    {inputs.map((input, index) => {
-                        return (
-                            <div className={
-                                input.type === 'radio' || input.type === 'checkbox' || input.type === 'color' ?
-                                    'form-item oneline' : 'form-item'
-                            }>
-                                {input.label ? (<label htmlFor={`input${index}`}>{input.label}</label>) : undefined}
-                                <input type={input.type}
-                                    id={`input${index}`}
-                                    placeholder={input.placeholder ? input.placeholder : undefined}
-                                    value={input.value ? input.value : undefined}
-                                    accept={input.attr && input.attr.accept ? input.attr.accept : undefined}
-                                />
-                            </div>
-                        );
-                    })}
-                </form>
-                {formNavButtons ? (
-                    <div className='form-nav'>
-                        <button onClick={() => handlePrevious()} className={formNavButtons.previous ? undefined : 'btn-hidden'}>Previous Page</button>
-                        <button onClick={() => handleNext()} className={formNavButtons.next ? undefined : 'btn-hidden'}>Next Page</button>
-                    </div>
-                ) : undefined}
-
+                <div className='form-container'> 
+                    <p className='form-info'>{info}</p>
+                    <form>
+                        {inputs.map((input, index) => {
+                            return (
+                                <div className={
+                                    input.type === 'radio' || input.type === 'checkbox' || input.type === 'color' ?
+                                        'form-item oneline' : 'form-item'
+                                }>
+                                    {input.label ? (<label htmlFor={`input${index}`}>{input.label}</label>) : undefined}
+                                    <input type={input.type}
+                                        id={`input${index}`}
+                                        placeholder={input.placeholder ? input.placeholder : undefined}
+                                        value={input.value ? input.value : undefined}
+                                        accept={input.attr && input.attr.accept ? input.attr.accept : undefined}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </form>
+                </div>
+                <div className='form-container-nav'>
+                    {formNavButtons ? (
+                        <div className='form-nav'>
+                            <button onClick={() => handlePrevious()} className={formNavButtons.previous ? undefined : 'btn-hidden'}>Previous Page</button>
+                            <button onClick={() => handleNext()} className={formNavButtons.next ? undefined : 'btn-hidden'}>Next Page</button>
+                        </div>
+                    ) : undefined}  
+                </div>
             </div>
         </div>
     );
