@@ -52,7 +52,7 @@ export const loginUser = createAsyncThunk<
             }
             )
             if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('authorization', `Bearer ${response.data.token}`);
                 return response.data as LoginResponse;
             } else {
                 return thunkApi.rejectWithValue(response.data as ErrorResponse);

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-// import { searchMovie } from '../../features/Movie/MovieSlice';
-import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
+import { searchMovies } from '../../../../features/Movie/MovieSlice';
+import { useAppDispatch } from '../../../../app/hooks';
 import './navigation.scss';
 
 const Navigation = () => {
     const [visible, setVisible] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const [submitValue, setSubmitValue] = useState("");
 
     const dispatch = useAppDispatch();
     const history = useHistory();
@@ -18,9 +17,8 @@ const Navigation = () => {
 
     function handleEnterPress(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter") {
-            setSubmitValue(searchValue);
             // setSearchValue("");
-            // dispatch(searchMovie(submitValue));
+            dispatch(searchMovies(searchValue));
             history.push('/search-movies'); // TODO
         }
     }
