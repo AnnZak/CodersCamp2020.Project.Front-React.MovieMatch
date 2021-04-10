@@ -9,13 +9,14 @@ interface IInput {
     value?: string;
     placeholder?: string;
     attr?: { accept?: string };
+    setValue?: Function;
 }
 
 interface IProps {
     heading: string;
     inputs: Array<IInput>;
     formNavButtons?: { previous: boolean, next: boolean };
-    formNavFunctions?: { handleP?: Function | undefined, handleN?: Function | undefined }
+    formNavFunctions?: { handlePrevious?: Function | undefined, handleNext?: Function | undefined }
     info?: string;
     onSubmit?: Function;
 }
@@ -23,14 +24,14 @@ interface IProps {
 function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmit }: IProps) {
 
     function handlePrevious() {
-        if (!formNavFunctions || !formNavFunctions.handleP) return undefined;
-        formNavFunctions.handleP();
+        if (!formNavFunctions || !formNavFunctions.handlePrevious) return undefined;
+        formNavFunctions.handlePrevious();
         return undefined;
     }
 
     function handleNext() {
-        if (!formNavFunctions || !formNavFunctions.handleN) return undefined;
-        formNavFunctions.handleN();
+        if (!formNavFunctions || !formNavFunctions.handleNext) return undefined;
+        formNavFunctions.handleNext();
         return undefined;
     }
 
@@ -40,7 +41,12 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                 <h1 className='form-heading'>{heading}</h1>
                 <div className='form-container'> 
                     <p className='form-info'>{info}</p>
-                    <form>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        if (onSubmit) {
+                            onSubmit();
+                        }
+                    }}>
                         {inputs.map((input, index) => {
                             return (
                                 <div className={
@@ -53,6 +59,7 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                                         placeholder={input.placeholder ? input.placeholder : undefined}
                                         value={input.value ? input.value : undefined}
                                         accept={input.attr && input.attr.accept ? input.attr.accept : undefined}
+                                        onChange={(e) => { if (input.setValue) input.setValue(e.target.value); }}
                                     />
                                 </div>
                             );

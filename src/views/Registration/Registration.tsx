@@ -1,11 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Registration.scss';
-import RegistrationForm from '../../components/layout/registrationForm/registrationForm';
+import Form from '../../components/layout/form/form';
 import TopLogo from '../../components/ui/topLogo/topLogo';
 import FakeNav from '../../components/ui/fakeNav/fakeNav';
+import { RegisterCredentials, registerUser, clearState, userSelector } from '../../features/User/UserSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useHistory } from 'react-router-dom';
 
 function Registration() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [displayedName, setDisplayedName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useAppDispatch();
+  const history = useHistory();
+  const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(
+    userSelector
+  );
+
+  const onSubmit = (data: RegisterCredentials) => { //TODO: add interface or custom type
+    dispatch(registerUser(data));
+  }
+
   function handlePrevious() {
     if (currentStep === 1) return undefined;
     setCurrentStep(currentStep - 1);
@@ -13,15 +31,67 @@ function Registration() {
   }
 
   function handleNext() {
-    if (currentStep === 3) return undefined;
+    if (currentStep === 2) return undefined;
     setCurrentStep(currentStep + 1);
     return undefined;
   }
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearState());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isError) {
+      //TODO handle errors
+      dispatch(clearState());
+    }
+    if (isSuccess) {
+      dispatch(clearState());
+      history.push('/check-email'); // TODO
+    }
+  }, [isError, isSuccess]);
+
   return (
     <div className="registration">
-      <FakeNav />
-      <RegistrationForm step={currentStep} handleP={handlePrevious} handleN={handleNext} />
+      <TopLogo />
+      {currentStep === 1 &&
+        <Form
+          heading="Welcome, tell us more about yourself!"
+          inputs={[
+            { type: 'text', label: 'First Name:', placeholder: 'e.g. Geralt', value: name, setValue: setName },
+            { type: 'text', label: 'Displayed name:', placeholder: 'e.g. Gwynbleidd', value: displayedName, setValue: setDisplayedName },
+            { type: 'email', label: 'Email:', placeholder: 'e.g. geralt@kaermorhen.com', value: email, setValue: setEmail },
+          ]}
+          formNavButtons={{ previous: false, next: true }}
+          formNavFunctions={{ handlePrevious, handleNext }}
+        />
+      }
+      {/* {currentStep === 2 &&
+        <Form
+          heading={'Upload a profile picture'}
+          inputs={[
+            { type: 'file', label: 'Choose an avatar:', attr: { accept: "image/png, image/jpeg" } },
+          ]}
+          formNavButtons={{ previous: true, next: true }}
+          formNavFunctions={{ handlePrevious, handleNext }}
+        />
+      } */}
+      {currentStep === 2 &&
+        <Form
+          heading={'Set & repeat a new password'}
+          inputs={[
+            { type: 'password', label: 'Password:', placeholder: 'e.g. Rivia123*', value: password, setValue: setPassword },
+            { type: 'password', label: 'Repeat password:', placeholder: 'e.g. Rivia123*' },
+            { type: 'submit', value: 'Register' }
+          ]}
+          formNavButtons={{ previous: true, next: false }}
+          formNavFunctions={{ handlePrevious, handleNext }}
+          info={`At least: 1 small letter, 1 big letter, 1 number & 1 special character.`}
+          onSubmit={() => { onSubmit({ email, name, displayedName, password }) }}
+        />
+      }
     </div>
   );
 }

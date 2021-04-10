@@ -3,7 +3,9 @@ import './topLogo.scss';
 
 const TopLogo = () => {
     return (
-        <h1 className="logo"><a href="#">MovieMatch</a></h1>
+        <div className="logoNav">
+            <h1 className="logo"><a href="#">MovieMatch</a></h1>
+        </div>
     );
 }
 
