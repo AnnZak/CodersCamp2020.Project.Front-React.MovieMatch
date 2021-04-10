@@ -16,7 +16,7 @@ function SearchFriends() {
             <div className="container-searched-movies">
                 <div className="movie-cards-container">
 
-                    {searchedMovies[0].Title ?
+                    {searchedMovies && searchedMovies[0].Title ?
                         searchedMovies.map((movie) => (
                             <div className="movie-card">
                                 { (movie.Poster && movie.Poster !== "N/A") &&
