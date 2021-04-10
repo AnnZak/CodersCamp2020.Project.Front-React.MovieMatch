@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Registration.scss';
 import Form from '../../components/layout/form/form';
 import TopLogo from '../../components/ui/topLogo/topLogo';
+import FakeNav from '../../components/ui/fakeNav/fakeNav';
 import { RegisterCredentials, registerUser, clearState, userSelector } from '../../features/User/UserSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useHistory } from 'react-router-dom';
@@ -30,7 +31,7 @@ function Registration() {
   }
 
   function handleNext() {
-    if (currentStep === 2) return undefined;
+    if (currentStep === 3) return undefined;
     setCurrentStep(currentStep + 1);
     return undefined;
   }
@@ -59,9 +60,9 @@ function Registration() {
         <Form
           heading="Welcome, tell us more about yourself!"
           inputs={[
-            { type: 'text', label: 'First Name:', placeholder: 'e.g. Geralt', value: name, setValue: setName },
-            { type: 'text', label: 'Displayed name:', placeholder: 'e.g. Gwynbleidd', value: displayedName, setValue: setDisplayedName },
-            { type: 'email', label: 'Email:', placeholder: 'e.g. geralt@kaermorhen.com', value: email, setValue: setEmail },
+            { type: 'text', label: 'First Name:', placeholder: 'Enter your first name', value: name, setValue: setName },
+            { type: 'text', label: 'Displayed name:', placeholder: 'Enter your displayed name', value: displayedName, setValue: setDisplayedName },
+            { type: 'email', label: 'Email:', placeholder: 'Enter your email address', value: email, setValue: setEmail },
           ]}
           formNavButtons={{ previous: false, next: true }}
           formNavFunctions={{ handlePrevious, handleNext }}
@@ -79,15 +80,25 @@ function Registration() {
       } */}
       {currentStep === 2 &&
         <Form
-          heading={'Set & repeat a new password'}
+          heading={'Secure your account'}
           inputs={[
-            { type: 'password', label: 'Password:', placeholder: 'e.g. Rivia123*', value: password, setValue: setPassword },
-            { type: 'password', label: 'Repeat password:', placeholder: 'e.g. Rivia123*' },
+            { type: 'password', label: 'Password:', placeholder: 'Choose a password', value: password, setValue: setPassword },
+            { type: 'password', label: 'Repeat password:', placeholder: 'Repeat password' },
+          ]}
+          formNavButtons={{ previous: true, next: true }}
+          formNavFunctions={{ handlePrevious, handleNext }}
+          info={`At least: 1 small letter, 1 big letter, 1 number & 1 special character.`}
+        />
+      }
+      {currentStep === 3 &&
+        <Form
+          heading={"You're all set. Ready?"}
+          inputs={[
             { type: 'submit', value: 'Register' }
           ]}
           formNavButtons={{ previous: true, next: false }}
           formNavFunctions={{ handlePrevious, handleNext }}
-          info={`At least: 1 small letter, 1 big letter, 1 number & 1 special character.`}
+          info={`After registration go to your email to confirm.`}
           onSubmit={() => { onSubmit({ email, name, displayedName, password }) }}
         />
       }

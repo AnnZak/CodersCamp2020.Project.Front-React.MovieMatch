@@ -41,16 +41,21 @@ const Login = () => {
   return (
     <div className="login">
       <TopLogo />
-      <Form
-        heading="Sign In to your account"
-        inputs={[
-          { type: 'email', label: 'Email:', placeholder: 'e.g. geralt@kaermorhen.com', value: email, setValue: setEmail },
-          { type: 'password', label: 'Password:', placeholder: 'e.g. Rivia123*', value: password, setValue: setPassword },
-          { type: 'submit', value: 'Log in' }
-        ]}
-        onSubmit={() => { onSubmit({ email, password }) }}
-      />
-      <h5>or <Link to="register">Sign Up</Link></h5>
+      <div className="login-container">
+        <img className="login-container-picture" src="https://friendkit.cssninja.io/assets/img/illustrations/login/login.svg" />
+        <div className="login-containers-form">
+          <Form
+            heading="Sign In to your account"
+            inputs={[
+              { type: 'email', label: 'Email:', placeholder: 'Enter your email address', value: email, setValue: setEmail },
+              { type: 'password', label: 'Password:', placeholder: 'Enter your password', value: password, setValue: setPassword },
+              { type: 'submit', value: 'Log in' }
+            ]}
+            onSubmit={() => { onSubmit({ email, password }) }}
+          />
+          <h5><Link to="register">Don't have an account? Sign Up</Link></h5>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,16 +1,14 @@
 @import '../../../globalStyles/colors.scss';
 
-.logoNav {
+.fakeNav {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: $color-white;
     width: 100%;
     height: 10vh;
-    min-height: 50px;
 }
 
 .logo {
     padding: 0px;
-    color: $color-logo;
 }

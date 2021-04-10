@@ -9,8 +9,8 @@
 }
 
 body {
-    background: $color-dark;
-    color: $color-light;
+    background: $color-background;
+    color: $color-header;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     line-height: 1;
@@ -40,12 +40,12 @@ h1,
 h2,
 h3 {
     color: $color-yellow;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 h1 {
     font-weight: 700;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 .accent-text {
@@ -56,19 +56,22 @@ h1 {
 
 button {
     background: inherit;
-    color: $color-light;
+    color: $color-logo;
     padding: 0.5rem;
-    border: 1px dashed $color-yellow;
+    border: 1px solid $color-accent;
+    border-radius: 4px;
     font-family: inherit;
     font-size: inherit;
+    cursor: pointer;
 }
 
 input {
-    background: inherit;
-    color: $color-light;
-    padding: 0.5rem;
-    border: 1px dashed $color-yellow;
-    font-family: inherit;
+    background: $color-input;
+    // color: $color-light;
+    padding: 1rem;
+    border: 1px solid $color-accent;
+    border-radius: 8px;
+    font-family: "Segoe UI";
     font-size: inherit;
     width: 100%;
 
@@ -76,11 +79,7 @@ input {
     &:active,
     &:focus {
         outline: none;
-        border: 1px dashed $color-accent;
-    }
-
-    &:focus {
-        background-color: $color-dark-95;
+        border: 1px solid $color-accent;
     }
 
     &[type=color] {
@@ -95,9 +94,10 @@ input {
 
     &[type=submit]:active,
     &[type=button]:active {
-
-        // background-color: navajowhite;
-        border: 1px solid $color-accent;
+        background-color: $color-button-background;
+        color: $color-white;
+        border: 1ps solid $color-button-background;
+        box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24);
     }
 
     &[type=submit],
@@ -112,24 +112,25 @@ input {
         cursor: pointer;
         // font-variant: small-caps;
         // font-style: italic;
-        background-color: $color-dark;
+        background-color: $color-white;
+        border: 1px solid $color-button-background;
+        color: $color-button-background;
         padding: 0.7rem 0;
-
+        
     }
-
 
     &[type=file] {
         padding: 0 0.5rem 0 0;
     }
 
     &::file-selector-button {
-        background-color: inherit;
-        color: inherit;
-        padding: 0.5rem;
-        border: none;
-        border-right: 1px dashed $color-yellow;
-        cursor: pointer;
-        margin-right: 10px;
+        // background-color: inherit;
+        // color: inherit;
+        // padding: 0.5rem;
+        // border: none;
+        // border-right: 1px dashed $color-yellow;
+        // cursor: pointer;
+        // margin-right: 10px;
     }
 
 

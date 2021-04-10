@@ -1,12 +1,12 @@
 import React from 'react';
-import './topLogo.scss';
+import './fakeNav.scss';
 
-const TopLogo = () => {
+const FakeNav = () => {
     return (
-        <div className="logoNav">
+        <div className="fakeNav">
             <h1 className="logo"><a href="#">MovieMatch</a></h1>
         </div>
     );
 }
 
-export default TopLogo;
+export default FakeNav;
