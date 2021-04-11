@@ -5,8 +5,37 @@ import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
 
 type ErrorResponse = {
-    error: string
+    error?: string,
+    message?: string,
 };
+
+export const toggleLiked = createAsyncThunk<
+    string,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movie/like',
+    async (movieId, thunkApi) => {
+        try {
+            const response = await axios({
+                method: 'POST',
+                headers: {
+                    'authorization': localStorage.getItem('authorization'),
+                },
+                url: `${API_URL}/movies/${movieId}`
+            });
+            if (response.status === 200) {
+                return `${movieId}` as string;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
 
 export const getMovieDetails = createAsyncThunk<
     MovieDetailsResponse,
@@ -15,7 +44,7 @@ export const getMovieDetails = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movie/search',
+    'movie/show',
     async (movieId, thunkApi) => {
         try {
             const response = await axios.get(
@@ -23,8 +52,7 @@ export const getMovieDetails = createAsyncThunk<
                 headers: {
                     'authorization': localStorage.getItem('authorization'),
                 },
-            }
-            )
+            });
             if (response.status === 200) {
                 return response.data as MovieDetailsResponse;
             } else {
@@ -54,8 +82,7 @@ export const searchMovies = createAsyncThunk<
                 headers: {
                     'authorization': localStorage.getItem('authorization'),
                 },
-            }
-            )
+            });
             if (response.status === 200) {
                 return response.data as SearchMoviesResponse;
             } else {
@@ -70,7 +97,9 @@ export const searchMovies = createAsyncThunk<
 export const movieSlice = createSlice({
     name: 'movies',
     initialState: {
-        movieCollection: [],
+        movieCollection: [
+            '',
+        ],
         searchedMovies: [
             {
                 Title: '',
@@ -117,7 +146,7 @@ export const movieSlice = createSlice({
         builder.addCase(searchMovies.rejected, (state, { payload }) => {
             state.isFetching = false;
             state.isError = true;
-            state.errorMsg = payload ? payload.error : 'unknown error occured';
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
         });
 
         builder.addCase(searchMovies.pending, (state) => {
@@ -134,11 +163,34 @@ export const movieSlice = createSlice({
         builder.addCase(getMovieDetails.rejected, (state, { payload }) => {
             state.isFetching = false;
             state.isError = true;
-            state.errorMsg = payload ? payload.error : 'unknown error occured';
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
         });
 
         builder.addCase(getMovieDetails.pending, (state) => {
             state.isFetching = true;
+        });
+
+        builder.addCase(toggleLiked.fulfilled, (state, { payload }) => {
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMsg = '';
+            if (state.movieCollection.length === 1 && state.movieCollection[0] === '') state.movieCollection = [payload];
+            else state.movieCollection = [...state.movieCollection, payload];
+        });
+
+        builder.addCase(toggleLiked.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(toggleLiked.pending, (state) => {
+            state.isSuccess = false;
+            state.isFetching = true;
+            state.isError = false;
+            state.errorMsg = '';
         });
     }
 });

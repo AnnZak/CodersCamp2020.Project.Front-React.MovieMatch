@@ -35,7 +35,7 @@ const Navigation = () => {
                     <Link to="register"><i className="fas fa-users"></i></Link>
                 </li>
                 <li>
-                    <a><i className="fas fa-search" onClick={handleVisibility}></i></a>
+                    <button><i className="fas fa-search" onClick={handleVisibility}></i></button>
                 </li>
                 <li className="search-bar">
                     <input

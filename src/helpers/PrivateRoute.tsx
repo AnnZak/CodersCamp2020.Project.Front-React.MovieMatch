@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute: React.FC<{
-    component: React.FC;
+    component: React.FunctionComponent<{ location?: { search?: string } }>;
     path: string;
     exact: boolean;
 }> = (props) => {

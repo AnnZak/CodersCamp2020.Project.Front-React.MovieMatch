@@ -6,20 +6,20 @@ import Topbar from '../../components/layout/topbar/topbar';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { movieSelector } from '../../features/Movie/MovieSlice';
 import moviedefault from '../../assets/images/moviedefault.jpg';
-import { searchMovies } from '../../features/Movie/MovieSlice';
+import { searchMovies, toggleLiked } from '../../features/Movie/MovieSlice';
 
-function SearchMovies(props: { location?: { search: string } }) {
+function SearchMovies(props: { location?: { search?: string } }) {
 
     const dispatch = useAppDispatch();
     const { searchedMovies } = useAppSelector(movieSelector);
 
     useEffect(() => {
-        const searchBy = props.location?.search.replace("?title=", "").replace("%20", "+");
+        const searchBy = props.location?.search?.replace("?title=", "").replace("%20", "+");
         if (searchBy) dispatch(searchMovies(searchBy));
     }, []);
 
-    function handleToggleWatched() {
-
+    function handleToggleLiked(movieId: string) {
+        dispatch(toggleLiked(movieId));
     }
 
     return (
@@ -37,12 +37,12 @@ function SearchMovies(props: { location?: { search: string } }) {
                                     <img className="movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
                                 }
                                 { movie.Title &&
-                                    <Link to={`movies/${movie.imdbID}`}><h2 className="movie-title">{movie.Title}</h2></Link>
+                                    <div className="movie-actions-icons">
+                                        <Link to={`movies/${movie.imdbID}`}><h2 className="movie-title">{movie.Title}</h2></Link>
+                                        <button onClick={() => { handleToggleLiked(movie.imdbID) }}><i className="fas fa-heart"></i></button>
+                                        {/* <button onClick={() => { handleToggleWatched() }}><i className="far fa-eye"></i></button> */}
+                                    </div>
                                 }
-                                <div className="movie-actions-icons">
-                                    <button onClick={() => { handleToggleWatched() }}><i className="fas fa-border-all"></i></button>
-                                    <button onClick={() => { handleToggleWatched() }}><i className="fas fa-border-all"></i></button>
-                                </div>
                             </div>
                         )) :
                         <h2>Search movie by title...</h2>
