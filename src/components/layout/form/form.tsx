@@ -10,6 +10,7 @@ interface IInput {
     placeholder?: string;
     attr?: { accept?: string };
     setValue?: Function;
+    paragraph?: string;
 }
 
 interface IProps {
@@ -39,7 +40,7 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
         <div className='container'>
             <div className='container-div'>
                 <h1 className='form-heading'>{heading}</h1>
-                <div className='form-container'> 
+                <div className='form-container'>
                     <p className='form-info'>{info}</p>
                     <form onSubmit={(e) => {
                         e.preventDefault();
@@ -53,7 +54,8 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                                     input.type === 'radio' || input.type === 'checkbox' || input.type === 'color' ?
                                         'form-item oneline' : 'form-item'
                                 }>
-                                    {input.label ? (<label htmlFor={`input${index}`}>{input.label}</label>) : undefined}
+                                    {input.label && <label htmlFor={`input${index}`}>{input.label}</label>}
+                                    {input.paragraph && (<p className="input-description">{input.paragraph}</p>)}
                                     <input type={input.type}
                                         id={`input${index}`}
                                         placeholder={input.placeholder ? input.placeholder : undefined}
@@ -72,7 +74,7 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                             <button onClick={() => handlePrevious()} className={formNavButtons.previous ? undefined : 'btn-hidden'}>Previous Page</button>
                             <button onClick={() => handleNext()} className={formNavButtons.next ? undefined : 'btn-hidden'}>Next Page</button>
                         </div>
-                    ) : undefined}  
+                    ) : undefined}
                 </div>
             </div>
         </div>
