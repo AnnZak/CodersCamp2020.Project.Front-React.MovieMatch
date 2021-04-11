@@ -3,20 +3,19 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Topbar from '../../components/layout/topbar/topbar';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { movieSelector } from '../../features/Movie/MovieSlice';
 import moviedefault from '../../assets/images/moviedefault.jpg';
-import { useAppDispatch } from '../../app/hooks';
 import { searchMovies } from '../../features/Movie/MovieSlice';
 
-function SearchMovies({ location }) {
+function SearchMovies(props: { location?: { search: string } }) {
 
     const dispatch = useAppDispatch();
     const { searchedMovies } = useAppSelector(movieSelector);
 
     useEffect(() => {
-        const searchBy = location.search.replace("?title=", "").replace("%20", "+");
-        dispatch(searchMovies(searchBy));
+        const searchBy = props.location?.search.replace("?title=", "").replace("%20", "+");
+        if (searchBy) dispatch(searchMovies(searchBy));
     }, []);
 
     function handleToggleWatched() {

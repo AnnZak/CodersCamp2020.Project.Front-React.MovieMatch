@@ -1,12 +1,40 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { SearchMoviesResponse } from './ts/movieTypes';
+import { SearchMoviesResponse, MovieDetailsResponse } from './ts/movieTypes';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
 
 type ErrorResponse = {
     error: string
 };
+
+export const getMovieDetails = createAsyncThunk<
+    MovieDetailsResponse,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movie/search',
+    async (movieId, thunkApi) => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/movies/${movieId}`, {
+                headers: {
+                    'authorization': localStorage.getItem('authorization'),
+                },
+            }
+            )
+            if (response.status === 200) {
+                return response.data as MovieDetailsResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
 
 export const searchMovies = createAsyncThunk<
     SearchMoviesResponse,
@@ -93,6 +121,23 @@ export const movieSlice = createSlice({
         });
 
         builder.addCase(searchMovies.pending, (state) => {
+            state.isFetching = true;
+        });
+
+        builder.addCase(getMovieDetails.fulfilled, (state, { payload }) => {
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.errorMsg = '';
+            state.movieDetails = payload;
+        });
+
+        builder.addCase(getMovieDetails.rejected, (state, { payload }) => {
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(getMovieDetails.pending, (state) => {
             state.isFetching = true;
         });
     }
