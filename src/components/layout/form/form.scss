@@ -53,6 +53,11 @@
                     font-weight: 600;
                 }
 
+                .input-description {
+                    padding-bottom: 0.5rem;
+                    color: $color-important;
+                }
+
                 input[type=submit] {
                     margin-top: 1rem;
                 }
