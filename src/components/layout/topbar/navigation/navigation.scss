@@ -12,6 +12,11 @@
         >li {
             padding: 0 1rem;
 
+            button {
+                color: $color-header;
+                border:none;
+            }
+
             &.search-bar {
                 padding: 0;
             }
