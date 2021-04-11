@@ -1,21 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { SearchMoviesResponse } from './ts/movieTypes';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
 
 type ErrorResponse = {
     error: string
 };
-
-type SearchMoviesResponse = [
-    {
-        Title: string,
-        Year: string,
-        imdbID: string,
-        Type: string,
-        Poster: string
-    },
-];
 
 export const searchMovies = createAsyncThunk<
     SearchMoviesResponse,

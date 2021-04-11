@@ -17,9 +17,8 @@ const Navigation = () => {
 
     function handleEnterPress(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter") {
-            // setSearchValue("");
+            history.push(`/movies?title=${searchValue}`);
             dispatch(searchMovies(searchValue));
-            history.push('/search-movies'); // TODO
         }
     }
 

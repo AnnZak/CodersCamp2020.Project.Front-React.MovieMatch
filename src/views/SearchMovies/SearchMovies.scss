@@ -39,9 +39,15 @@
                 justify-content: space-around;
                 align-items: center;
                 padding-bottom: 2rem;
-                >a {
+                >button {
+                    border: none;
                     font-size: 2rem;
                     opacity: 0.5;
+                    &:active, &:focus {
+                        // border: none;
+                        outline: none;
+                        opacity: 0.9;
+                    }
                 }
             }
         }
