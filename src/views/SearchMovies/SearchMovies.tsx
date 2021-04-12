@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 
 import Topbar from '../../components/layout/topbar/topbar';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { movieSelector, removeFromLiked } from '../../features/Movie/MovieSlice';
+import { movieSelector, removeFromLiked, searchMovies, addToLiked } from '../../features/Movie/MovieSlice';
 import moviedefault from '../../assets/images/moviedefault.jpg';
-import { searchMovies, addToLiked } from '../../features/Movie/MovieSlice';
 
 function SearchMovies(props: { location?: { search?: string } }) {
 
