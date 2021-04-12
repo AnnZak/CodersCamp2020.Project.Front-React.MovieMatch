@@ -2,12 +2,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
-import { setToken }  from '../../helpers/auth/auth';
+import { deleteToken, setToken }  from '../../helpers/auth/auth';
 
 export type UserCredentials = {
     email: string,
     password: string,
 };
+
+type SliceState = {
+    displayedName: string,
+    name: string,
+    email: string,
+    isFetching: boolean,
+    isSuccess: boolean,
+    isError: boolean,
+    errorMsg: string,
+}
 
 type UserAttributes = {
     _id: string,
@@ -90,18 +100,20 @@ export const registerUser = createAsyncThunk<
     }
 );
 
+const initialState: SliceState = {
+    displayedName: '',
+    name: '',
+    email: '',
+    isFetching: false,
+    isSuccess: false,
+    isError: false,
+    errorMsg: '',
+}
+
 export const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        _id: '',
-        displayedName: '',
-        name: '',
-        email: '',
-        isFetching: false,
-        isSuccess: false,
-        isError: false,
-        errorMsg: '',
-    },
+
+    initialState,
     reducers: {
         clearState: (state) => {
             state.isError = false;
@@ -109,6 +121,13 @@ export const userSlice = createSlice({
             state.isFetching = false;
             return state;
         },
+        resetState: () => {
+            return initialState;
+        },
+        logout: () => {
+            deleteToken();
+            return initialState;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(loginUser.fulfilled, (state, { payload }) => {
@@ -130,8 +149,7 @@ export const userSlice = createSlice({
         builder.addCase(loginUser.pending, (state) => {
             state.isFetching = true;
         });
-        builder.addCase(registerUser.fulfilled, (state, { payload }) => {
-            // state.errorMsg = payload.message;
+        builder.addCase(registerUser.fulfilled, (state) => {
             state.isFetching = false;
             state.isSuccess = true;
             state.errorMsg = "";
@@ -150,4 +168,4 @@ export const userSlice = createSlice({
 });
 
 export const userSelector = (state: RootState) => state.user;
-export const { clearState } = userSlice.actions;
+export const { clearState, resetState, logout } = userSlice.actions;
