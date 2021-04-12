@@ -1,0 +1,11 @@
+.container-collection-movies {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .collection-movie-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-basis: 1700px;
+    }
+}

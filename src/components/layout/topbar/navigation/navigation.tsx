@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { searchMovies } from '../../../../features/Movie/MovieSlice';
-import { useAppDispatch } from '../../../../app/hooks';
+import { userSelector } from '../../../../features/User/UserSlice';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import './navigation.scss';
 
 const Navigation = () => {
@@ -10,13 +11,14 @@ const Navigation = () => {
 
     const dispatch = useAppDispatch();
     const history = useHistory();
+    const { _id } = useAppSelector(userSelector);
 
     const handleVisibility = () => {
         setVisible(prev => !prev);
     };
 
     function handleEnterPress(e: React.KeyboardEvent<HTMLInputElement>) {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && searchValue !== "") {
             history.push(`/movies?title=${searchValue}`);
             dispatch(searchMovies(searchValue));
         }
@@ -26,20 +28,20 @@ const Navigation = () => {
         <div className="topbar-navigation">
             <ul>
                 <li>
-                    <Link to="dashboard"><i className="fas fa-border-all"></i></Link>
+                    <Link to="/dashboard"><i className="fas fa-border-all"></i></Link>
                 </li>
                 <li>
-                    <Link to="register"><i className="fas fa-heart"></i></Link>
+                    <Link to={`/collection/${_id}`} replace><i className="fas fa-heart"></i></Link>
                 </li>
                 <li>
-                    <Link to="register"><i className="fas fa-users"></i></Link>
+                    <Link to="/search-friends"><i className="fas fa-users"></i></Link>
                 </li>
                 <li>
-                    <button><i className="fas fa-search" onClick={handleVisibility}></i></button>
+                    <i className="fas fa-search"></i>
                 </li>
                 <li className="search-bar">
                     <input
-                        className={visible ? "search-input visible" : "search-input invisible"}
+                        className="search-input visible"
                         placeholder="Search movie..."
                         type="text"
                         value={searchValue}

@@ -10,6 +10,9 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailWarning, setEmailWarning] = useState("");
+  const [passwordWarning, setPasswordWarning] = useState("");
+  const [wrongCredentials, setWrongCredentials] = useState("");
 
   const dispatch = useAppDispatch();
   const history = useHistory();
@@ -18,7 +21,20 @@ const Login = () => {
   );
 
   const onSubmit = (data: UserCredentials) => {
-    dispatch(loginUser(data));
+    const emailRegEx = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
+    setWrongCredentials("");
+
+    if (!emailRegEx.test(email)) {
+      setEmailWarning("(provide valid email)");
+    } else setEmailWarning("");
+
+    if (password.length < 7) {
+      setPasswordWarning("(provide valid password)");
+    } else setPasswordWarning("");
+
+    if (emailRegEx.test(email) && password.length >= 7) {
+      dispatch(loginUser(data));
+    }
   }
 
   useEffect(() => {
@@ -30,6 +46,7 @@ const Login = () => {
   useEffect(() => {
     if (isError) {
       //TODO handle errors
+      setWrongCredentials("! Wrong email or password !");
       dispatch(clearState());
     }
     if (isSuccess) {
@@ -47,9 +64,9 @@ const Login = () => {
           <Form
             heading="Sign In to your account"
             inputs={[
-              { type: 'email', label: 'Email:', placeholder: 'Enter your email address', value: email, setValue: setEmail },
-              { type: 'password', label: 'Password:', placeholder: 'Enter your password', value: password, setValue: setPassword },
-              { type: 'submit', value: 'Log in' }
+              { type: 'email', label: 'Email:', placeholder: 'Enter your email address', value: email, setValue: setEmail, paragraph: emailWarning },
+              { type: 'password', label: 'Password:', placeholder: 'Enter your password', value: password, setValue: setPassword, paragraph: passwordWarning },
+              { type: 'submit', value: 'Log in', paragraph: wrongCredentials }
             ]}
             onSubmit={() => { onSubmit({ email, password }) }}
           />

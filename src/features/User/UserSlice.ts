@@ -93,6 +93,7 @@ export const registerUser = createAsyncThunk<
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
+        _id: '',
         displayedName: '',
         name: '',
         email: '',
@@ -111,6 +112,7 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+            state._id = payload.user._id;
             state.displayedName = payload.user.displayedName;
             state.name = payload.user.name;
             state.email = payload.user.email;
