@@ -63,6 +63,13 @@ button {
     font-family: inherit;
     font-size: inherit;
     cursor: pointer;
+
+    &.heart-collection {
+        color: $color-button;
+        &.liked {
+            color: $color-important;
+        }
+    }
 }
 
 input {

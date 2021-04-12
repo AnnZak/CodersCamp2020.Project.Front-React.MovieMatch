@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 
 import Topbar from '../../components/layout/topbar/topbar';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { movieSelector } from '../../features/Movie/MovieSlice';
+import { movieSelector, removeFromLiked, searchMovies, addToLiked } from '../../features/Movie/MovieSlice';
 import moviedefault from '../../assets/images/moviedefault.jpg';
-import { searchMovies, toggleLiked } from '../../features/Movie/MovieSlice';
 
 function SearchMovies(props: { location?: { search?: string } }) {
 
@@ -19,7 +18,13 @@ function SearchMovies(props: { location?: { search?: string } }) {
     }, []);
 
     function handleToggleLiked(movieId: string) {
-        dispatch(toggleLiked(movieId));
+        const toggle = async () => {
+            const liked = await dispatch(addToLiked(movieId));
+            if (liked.payload !== movieId) {
+                await dispatch(removeFromLiked(movieId));
+            }
+        }
+        toggle();
     }
 
     return (

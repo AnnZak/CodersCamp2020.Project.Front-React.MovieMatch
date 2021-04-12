@@ -41,7 +41,7 @@ export const showCollection = createAsyncThunk<
     }
 );
 
-export const toggleLiked = createAsyncThunk<
+export const addToLiked = createAsyncThunk<
     string,
     string,
     {
@@ -56,6 +56,36 @@ export const toggleLiked = createAsyncThunk<
 
             const response = await axios({
                 method: 'POST',
+                headers: {
+                    'authorization': token,
+                },
+                url: `${API_URL}/movies/${movieId}`
+            });
+            if (response.status === 200) {
+                return `${movieId}` as string;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
+
+export const removeFromLiked = createAsyncThunk<
+    string,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movie/unlike',
+    async (movieId, thunkApi) => {
+        try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+            const response = await axios({
+                method: 'DELETE',
                 headers: {
                     'authorization': token,
                 },
@@ -216,7 +246,7 @@ export const movieSlice = createSlice({
             state.isFetching = true;
         });
 
-        builder.addCase(toggleLiked.fulfilled, (state, { payload }) => {
+        builder.addCase(addToLiked.fulfilled, (state, { payload }) => {
             state.isSuccess = true;
             state.isFetching = false;
             state.isError = false;
@@ -232,14 +262,41 @@ export const movieSlice = createSlice({
             else state.movieCollection = [...state.movieCollection, newMovie];
         });
 
-        builder.addCase(toggleLiked.rejected, (state, { payload }) => {
+        builder.addCase(addToLiked.rejected, (state, { payload }) => {
             state.isSuccess = false;
             state.isFetching = false;
             state.isError = true;
             state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
         });
 
-        builder.addCase(toggleLiked.pending, (state) => {
+        builder.addCase(addToLiked.pending, (state) => {
+            state.isSuccess = false;
+            state.isFetching = true;
+            state.isError = false;
+            state.errorMsg = '';
+        });
+
+        builder.addCase(removeFromLiked.fulfilled, (state, { payload }) => {
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMsg = '';
+            const newMovie = {
+                _id: '',
+                imdbId: payload,
+                watched: false
+            };
+            state.movieCollection.filter(obj => obj.imdbId !== payload);
+        });
+
+        builder.addCase(removeFromLiked.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(removeFromLiked.pending, (state) => {
             state.isSuccess = false;
             state.isFetching = true;
             state.isError = false;
