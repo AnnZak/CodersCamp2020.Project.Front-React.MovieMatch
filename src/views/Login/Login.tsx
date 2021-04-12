@@ -34,7 +34,7 @@ const Login = () => {
     }
     if (isSuccess) {
       dispatch(clearState());
-      history.push('/'); // TODO
+      history.push('/');
     }
   }, [isError, isSuccess]);
 

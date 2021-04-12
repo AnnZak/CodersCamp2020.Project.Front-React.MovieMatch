@@ -31,4 +31,8 @@ const getToken = () : null | string => {
     return item.token;
 }
 
-export {getToken, setToken}
+const deleteToken = () => {
+    localStorage.removeItem(KEY);
+}
+
+export {getToken, setToken, deleteToken}
