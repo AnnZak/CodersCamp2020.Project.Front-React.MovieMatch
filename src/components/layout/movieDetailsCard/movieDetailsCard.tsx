@@ -23,6 +23,7 @@ function MovieDetailsCard(props: { movieId: string }) {
                         <p className="mv-country">{movieDetails.Country}</p>
                         <p className="mv-rating">{movieDetails.imdbRating}/10</p>
                         <p className="mv-runtime">{movieDetails.Runtime}</p>
+                        <button className="heart-collection liked"> <i className="fas fa-heart" > </i></button >
                     </div>
                     {(movieDetails.Poster && movieDetails.Poster !== "N/A") &&
                         <img className="movie-poster" src={movieDetails.Poster} alt="movie poster" />
