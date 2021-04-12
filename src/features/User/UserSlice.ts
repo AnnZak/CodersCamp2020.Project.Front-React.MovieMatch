@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
-import { deleteToken, setToken }  from '../../helpers/auth/auth';
+import { deleteToken, setToken } from '../../helpers/auth/auth';
 
 export type UserCredentials = {
     email: string,
@@ -10,6 +10,7 @@ export type UserCredentials = {
 };
 
 type SliceState = {
+    _id: string,
     displayedName: string,
     name: string,
     email: string,
@@ -101,6 +102,7 @@ export const registerUser = createAsyncThunk<
 );
 
 const initialState: SliceState = {
+    _id: '',
     displayedName: '',
     name: '',
     email: '',
