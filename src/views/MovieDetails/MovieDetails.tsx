@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
 import Topbar from '../../components/layout/topbar/topbar';
-import MovieCard from '../../components/layout/movieCard/movieCard';
+import MovieDetailsCard from '../../components/layout/movieDetailsCard/movieDetailsCard';
 
 interface ParamTypes {
     movieid: string;
@@ -14,7 +14,7 @@ function MovieDetails() {
     return (
         <div className="movie-details">
             <Topbar />
-            <MovieCard movieId={movieid} />
+            <MovieDetailsCard movieId={movieid} />
         </div>
     );
 }

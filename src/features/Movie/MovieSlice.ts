@@ -1,13 +1,45 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { SearchMoviesResponse, MovieDetailsResponse } from './ts/movieTypes';
+import { SearchMoviesResponse, MovieDetailsResponse, MovieCollectionResponse } from './ts/movieTypes';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
+import { getToken } from '../../helpers/auth/auth';
 
 type ErrorResponse = {
     error?: string,
     message?: string,
 };
+
+export const showCollection = createAsyncThunk<
+    MovieCollectionResponse,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movies/collection',
+    async (userId, thunkApi) => {
+        try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
+            const response = await axios({
+                method: 'GET',
+                headers: {
+                    'authorization': token,
+                },
+                url: `${API_URL}/movies/collection/${userId}`
+            });
+            if (response.status === 200) {
+                return response.data as MovieCollectionResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
 
 export const toggleLiked = createAsyncThunk<
     string,
@@ -19,10 +51,13 @@ export const toggleLiked = createAsyncThunk<
     'movie/like',
     async (movieId, thunkApi) => {
         try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
             const response = await axios({
                 method: 'POST',
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
                 url: `${API_URL}/movies/${movieId}`
             });
@@ -47,11 +82,15 @@ export const getMovieDetails = createAsyncThunk<
     'movie/show',
     async (movieId, thunkApi) => {
         try {
-            const response = await axios.get(
-                `${API_URL}/movies/${movieId}`, {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
+            const response = await axios({
+                method: 'GET',
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
+                url: `${API_URL}/movies/${movieId}`
             });
             if (response.status === 200) {
                 return response.data as MovieDetailsResponse;
@@ -74,13 +113,16 @@ export const searchMovies = createAsyncThunk<
     'movies/search',
     async (searchQuery, thunkApi) => {
         try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
             const response = await axios.get(
                 `${API_URL}/movies`, {
                 params: {
                     title: searchQuery
                 },
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
             });
             if (response.status === 200) {
@@ -98,7 +140,11 @@ export const movieSlice = createSlice({
     name: 'movies',
     initialState: {
         movieCollection: [
-            '',
+            {
+                _id: '',
+                imdbId: '',
+                watched: false
+            },
         ],
         searchedMovies: [
             {
@@ -175,8 +221,15 @@ export const movieSlice = createSlice({
             state.isFetching = false;
             state.isError = false;
             state.errorMsg = '';
-            if (state.movieCollection.length === 1 && state.movieCollection[0] === '') state.movieCollection = [payload];
-            else state.movieCollection = [...state.movieCollection, payload];
+            const newMovie = {
+                _id: '',
+                imdbId: payload,
+                watched: false
+            };
+            if (state.movieCollection.length === 1 && state.movieCollection[0]._id === '') {
+                state.movieCollection = [newMovie];
+            }
+            else state.movieCollection = [...state.movieCollection, newMovie];
         });
 
         builder.addCase(toggleLiked.rejected, (state, { payload }) => {
@@ -187,6 +240,28 @@ export const movieSlice = createSlice({
         });
 
         builder.addCase(toggleLiked.pending, (state) => {
+            state.isSuccess = false;
+            state.isFetching = true;
+            state.isError = false;
+            state.errorMsg = '';
+        });
+
+        builder.addCase(showCollection.fulfilled, (state, { payload }) => {
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMsg = '';
+            state.movieCollection = payload;
+        });
+
+        builder.addCase(showCollection.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(showCollection.pending, (state) => {
             state.isSuccess = false;
             state.isFetching = true;
             state.isError = false;

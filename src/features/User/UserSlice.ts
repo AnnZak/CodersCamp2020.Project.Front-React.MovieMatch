@@ -112,6 +112,7 @@ const initialState: SliceState = {
 
 export const userSlice = createSlice({
     name: 'user',
+
     initialState,
     reducers: {
         clearState: (state) => {
@@ -130,6 +131,7 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+            state._id = payload.user._id;
             state.displayedName = payload.user.displayedName;
             state.name = payload.user.name;
             state.email = payload.user.email;

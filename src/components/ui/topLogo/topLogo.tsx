@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './topLogo.scss';
 
 const TopLogo = () => {
     return (
         <div className="logoNav">
-            <h1 className="logo"><a href="#">MovieMatch</a></h1>
+            <Link to="/"><h1 className="logo">MovieMatch</h1></Link>
         </div>
     );
 }

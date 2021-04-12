@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import './movieCard.scss';
+import './movieDetailsCard.scss';
 import moviedefault from '../../../assets/images/moviedefault.jpg';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { movieSelector, getMovieDetails } from '../../../features/Movie/MovieSlice';
 
-function MovieCard(props: { movieId: string }) {
+function MovieDetailsCard(props: { movieId: string }) {
 
     const dispatch = useAppDispatch();
     const { movieDetails } = useAppSelector(movieSelector);
@@ -46,4 +46,4 @@ function MovieCard(props: { movieId: string }) {
     );
 }
 
-export default MovieCard;
+export default MovieDetailsCard;
