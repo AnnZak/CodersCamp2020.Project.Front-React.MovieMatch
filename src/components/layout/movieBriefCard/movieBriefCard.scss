@@ -1,0 +1,43 @@
+.collection-movie-card {
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    flex-basis: 15%;
+    // flex: 1 1 30%;
+    background: white;
+    border-radius: 10px;
+    margin: 0.5rem;
+    
+    &>* {
+        padding: 1rem;
+    }
+
+    >h2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .collection-movie-poster {
+        flex-basis: 100%;
+        height: 22rem;
+        object-fit: cover;
+        max-width: auto;
+    }
+    .collection-movie-actions-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 2rem;
+        >button {
+            border: none;
+            font-size: 2rem;
+            opacity: 0.5;
+            &:active, &:focus {
+                // border: none;
+                outline: none;
+                opacity: 0.9;
+            }
+        }
+    }
+}

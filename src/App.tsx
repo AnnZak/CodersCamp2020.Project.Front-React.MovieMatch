@@ -14,6 +14,7 @@ import CheckEmail from './views/CheckEmail/CheckEmail';
 import SearchFriends from './views/SearchFriends/SearchFriends';
 import SearchMovies from './views/SearchMovies/SearchMovies';
 import RegisterConfirm from './views/RegisterConfirm/RegisterConfirm';
+import MovieCollection from './views/MovieCollection/MovieCollection';
 
 
 function App() {
@@ -28,11 +29,12 @@ function App() {
           <Route exact path="/check-email" component={CheckEmail} /> {/*TODO: only accesible through registration beeing succesful*/}
           <Route exact path="/register-confirm/:resetToken" component={RegisterConfirm} />
           <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/settings" component={UserSettings} />
-          {/* <PrivateRoute exact path="/movie-demo" component={MovieDetails} /> */}
           <PrivateRoute exact path="/search-friends" component={SearchFriends} />
-          <PrivateRoute exact path="/movies" component={SearchMovies} />
           <PrivateRoute exact path="/movies/:movieid" component={MovieDetails} />
+          <PrivateRoute exact path="/movies" component={SearchMovies} />
+          <PrivateRoute exact path="/collection/:userid" component={MovieCollection} />
           <Redirect to="/" />
         </Switch>
       </Router>

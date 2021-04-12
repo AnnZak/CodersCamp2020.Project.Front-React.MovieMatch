@@ -21,3 +21,12 @@ export type MovieDetailsResponse = {
     Plot: string,
     Poster: string,
 };
+export type MovieCollectionDetailsResponse = MovieInCollection[];
+
+export type MovieInCollection = {
+    _id: string,
+    imdbId: string,
+    watched: boolean,
+}
+
+export type MovieCollectionResponse = MovieInCollection[];
