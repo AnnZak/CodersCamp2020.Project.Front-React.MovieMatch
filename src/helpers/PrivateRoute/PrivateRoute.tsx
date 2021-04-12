@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { getToken } from '../auth/auth';
 
 const PrivateRoute: React.FC<{
-    component: React.FC;
+    component: React.FunctionComponent<{ location?: { search?: string } }>;
     path: string;
     exact: boolean;
 }> = (props) => {

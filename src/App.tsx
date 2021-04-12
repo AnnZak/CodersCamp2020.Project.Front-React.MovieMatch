@@ -29,9 +29,10 @@ function App() {
           <Route exact path="/register-confirm/:resetToken" component={RegisterConfirm} />
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/settings" component={UserSettings} />
-          <PrivateRoute exact path="/movie-demo" component={MovieDetails} />
+          {/* <PrivateRoute exact path="/movie-demo" component={MovieDetails} /> */}
           <PrivateRoute exact path="/search-friends" component={SearchFriends} />
-          <PrivateRoute exact path="/search-movies" component={SearchMovies} />
+          <PrivateRoute exact path="/movies" component={SearchMovies} />
+          <PrivateRoute exact path="/movies/:movieid" component={MovieDetails} />
           <Redirect to="/" />
         </Switch>
       </Router>
