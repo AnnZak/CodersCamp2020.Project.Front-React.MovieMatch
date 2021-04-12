@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SearchMoviesResponse, MovieDetailsResponse, MovieCollectionResponse } from './ts/movieTypes';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
+import { getToken } from '../../helpers/auth/auth';
 
 type ErrorResponse = {
     error?: string,
@@ -19,10 +20,13 @@ export const showCollection = createAsyncThunk<
     'movies/collection',
     async (userId, thunkApi) => {
         try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
             const response = await axios({
                 method: 'GET',
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
                 url: `${API_URL}/movies/collection/${userId}`
             });
@@ -47,10 +51,13 @@ export const toggleLiked = createAsyncThunk<
     'movie/like',
     async (movieId, thunkApi) => {
         try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
             const response = await axios({
                 method: 'POST',
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
                 url: `${API_URL}/movies/${movieId}`
             });
@@ -75,10 +82,13 @@ export const getMovieDetails = createAsyncThunk<
     'movie/show',
     async (movieId, thunkApi) => {
         try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
             const response = await axios({
                 method: 'GET',
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
                 url: `${API_URL}/movies/${movieId}`
             });
@@ -103,13 +113,16 @@ export const searchMovies = createAsyncThunk<
     'movies/search',
     async (searchQuery, thunkApi) => {
         try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
             const response = await axios.get(
                 `${API_URL}/movies`, {
                 params: {
                     title: searchQuery
                 },
                 headers: {
-                    'authorization': localStorage.getItem('authorization'),
+                    'authorization': token,
                 },
             });
             if (response.status === 200) {
