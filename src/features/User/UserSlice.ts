@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
+import { setToken }  from '../../helpers/auth/auth';
 
 export type UserCredentials = {
     email: string,
@@ -52,7 +53,7 @@ export const loginUser = createAsyncThunk<
             }
             )
             if (response.status === 200) {
-                localStorage.setItem('authorization', `Bearer ${response.data.token}`);
+                setToken(response.data.token);
                 return response.data as LoginResponse;
             } else {
                 return thunkApi.rejectWithValue(response.data as ErrorResponse);
