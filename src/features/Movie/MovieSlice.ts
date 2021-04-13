@@ -10,6 +10,37 @@ type ErrorResponse = {
     message?: string,
 };
 
+export const getUserCollection = createAsyncThunk<
+    MovieCollectionResponse,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movies/usercollection',
+    async (userId, thunkApi) => {
+        try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
+            const response = await axios({
+                method: 'GET',
+                headers: {
+                    'authorization': token,
+                },
+                url: `${API_URL}/movies/collection/${userId}`
+            });
+            if (response.status === 200) {
+                return response.data as MovieCollectionResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
+
 export const showCollection = createAsyncThunk<
     MovieCollectionResponse,
     string,
@@ -170,6 +201,13 @@ export const searchMovies = createAsyncThunk<
 export const movieSlice = createSlice({
     name: 'movies',
     initialState: {
+        userMovieCollection: [
+            {
+                _id: '',
+                imdbId: '',
+                watched: false
+            },
+        ],
         movieCollection: [
             {
                 _id: '',
@@ -258,10 +296,10 @@ export const movieSlice = createSlice({
                 imdbId: payload,
                 watched: false
             };
-            if (state.movieCollection.length === 1 && state.movieCollection[0]._id === '') {
-                state.movieCollection = [newMovie];
+            if (state.userMovieCollection.length === 1 && state.userMovieCollection[0]._id === '') {
+                state.userMovieCollection = [newMovie];
             }
-            else state.movieCollection = [...state.movieCollection, newMovie];
+            else state.userMovieCollection = [...state.userMovieCollection, newMovie];
         });
 
         builder.addCase(addToLiked.rejected, (state, { payload }) => {
@@ -288,7 +326,7 @@ export const movieSlice = createSlice({
                 imdbId: payload,
                 watched: false
             };
-            state.movieCollection.filter(obj => obj.imdbId !== payload);
+            state.userMovieCollection.filter(obj => obj.imdbId !== payload);
         });
 
         builder.addCase(removeFromLiked.rejected, (state, { payload }) => {
@@ -321,6 +359,28 @@ export const movieSlice = createSlice({
         });
 
         builder.addCase(showCollection.pending, (state) => {
+            state.isSuccess = false;
+            state.isFetching = true;
+            state.isError = false;
+            state.errorMsg = '';
+        });
+
+        builder.addCase(getUserCollection.fulfilled, (state, { payload }) => {
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMsg = '';
+            state.userMovieCollection = payload;
+        });
+
+        builder.addCase(getUserCollection.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(getUserCollection.pending, (state) => {
             state.isSuccess = false;
             state.isFetching = true;
             state.isError = false;

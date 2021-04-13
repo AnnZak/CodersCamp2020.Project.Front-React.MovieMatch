@@ -7,7 +7,8 @@ import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCar
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getMovieDetails, movieSelector } from '../../features/Movie/MovieSlice';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
-import { showCollection } from '../../features/Movie/MovieSlice';
+import { showCollection, getUserCollection } from '../../features/Movie/MovieSlice';
+import { clearState, userSelector } from '../../features/User/UserSlice';
 
 interface ParamTypes {
     userid: string;
@@ -17,14 +18,23 @@ function MovieCollection() {
 
     const { userid } = useParams<ParamTypes>();
 
-    const [userMovieCollection, setUserMovieCollection] = useState<MovieDetailsResponse[]>([]);
+    const [displayedMovies, setDisplayedMovies] = useState<MovieDetailsResponse[]>([]);
 
     const dispatch = useAppDispatch();
     const { movieCollection, movieDetails, isSuccess } = useAppSelector(movieSelector);
+    // const { _id } = useAppSelector(userSelector);
 
     useEffect(() => {
+        setDisplayedMovies([]);
         const getCollection = async () => {
+            // await dispatch(getUserCollection(_id));
+            // dispatch(clearState());
             await dispatch(showCollection(userid));
+            dispatch(clearState());
+            // for (const movie of movieCollection) {
+            //     await dispatch(getMovieDetails(movie.imdbId));
+            //     dispatch(clearState());
+            // }
         }
         getCollection();
     }, []);
@@ -33,24 +43,27 @@ function MovieCollection() {
         const getMoviesInfo = () => {
             for (const movie of movieCollection) {
                 dispatch(getMovieDetails(movie.imdbId));
+                dispatch(clearState());
             }
         }
         if (isSuccess) getMoviesInfo();
     }, [movieCollection]);
 
     useEffect(() => {
-        if (isSuccess) setUserMovieCollection(state => [...state, movieDetails])
+        if (isSuccess) setDisplayedMovies(state => [...state, movieDetails]);
     }, [movieDetails]);
 
     return (
         <div>
             <Topbar />
             <div className="container-collection-movies">
-                <div className="collection-movie-cards-container">
-                    {userMovieCollection.map((mv) =>
-                        <MovieBriefCard movie={mv} />
-                    )}
-                </div>
+                {displayedMovies !== [] &&
+                    <div className="collection-movie-cards-container">
+                        {displayedMovies.map((mv) =>
+                            <MovieBriefCard movie={mv} />
+                        )}
+                    </div>
+                }
             </div>
         </div>
     );

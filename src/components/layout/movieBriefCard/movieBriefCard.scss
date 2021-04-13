@@ -33,7 +33,7 @@
             border: none;
             font-size: 2rem;
             opacity: 0.5;
-            &:active, &:focus {
+            &:hover, &:active, &:focus {
                 // border: none;
                 outline: none;
                 opacity: 0.9;
