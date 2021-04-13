@@ -6,7 +6,7 @@
     ul >li {
         text-align: right;
         
-        &:hover ul.topbar__dropdown-menu>li.topbar__dropdown-menu__item {
+        ul.topbar__dropdown-menu.visible>li.topbar__dropdown-menu__item {
             display: block;
         }
         
