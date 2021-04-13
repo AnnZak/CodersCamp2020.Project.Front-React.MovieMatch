@@ -12,7 +12,6 @@ const initialState: SliceState = {
     isSuccess: false,
     isError: false,
     errorMsg: "",
-    wtf: {}
 }
 
 export const friendSlice = createSlice({
@@ -46,7 +45,6 @@ export const friendSlice = createSlice({
             state.isFetching = false;
             state.isError = true;
             state.errorMsg = payload?.error || UNKNOWN_ERROR_MSG;
-            state.wtf = payload
         });
 
         //search
