@@ -13,6 +13,7 @@ function MovieBriefCard(props: { movie: MovieDetailsResponse }) {
             {props.movie.Title &&
                 <div className="collection-movie-actions-icons">
                     <h2 className="collection-movie-title">{props.movie.Title}</h2>
+                    <button className="heart-collection liked"><i className="fas fa-heart"></i></button>
                 </div>
             }
         </div>

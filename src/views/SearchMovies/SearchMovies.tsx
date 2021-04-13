@@ -44,7 +44,7 @@ function SearchMovies(props: { location?: { search?: string } }) {
                                 { movie.Title &&
                                     <div className="searched-movie-actions-icons">
                                         <Link to={`movies/${movie.imdbID}`}><h2 className="searched-movie-title">{movie.Title}</h2></Link>
-                                        <button onClick={() => { handleToggleLiked(movie.imdbID) }}><i className="fas fa-heart"></i></button>
+                                        <button className="heart-collection liked" onClick={() => { handleToggleLiked(movie.imdbID) }}><i className="fas fa-heart"></i></button>
                                         {/* <button onClick={() => { handleToggleWatched() }}><i className="far fa-eye"></i></button> */}
                                     </div>
                                 }

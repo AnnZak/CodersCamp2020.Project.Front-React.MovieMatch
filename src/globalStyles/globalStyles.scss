@@ -39,7 +39,7 @@ ol {
 h1,
 h2,
 h3 {
-    color: $color-yellow;
+    color: $color-logo;
     font-weight: 500;
 }
 
@@ -68,6 +68,10 @@ button {
         color: $color-button;
         &.liked {
             color: $color-important;
+        }
+
+        &:hover {
+            transform: scale(1.1);
         }
     }
 }
@@ -139,8 +143,6 @@ input {
         // cursor: pointer;
         // margin-right: 10px;
     }
-
-
 }
 
 .avatar {
