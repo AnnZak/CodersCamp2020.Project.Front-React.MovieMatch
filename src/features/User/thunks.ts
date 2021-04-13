@@ -4,16 +4,13 @@ import { API_URL } from '../../constants';
 import { setToken } from '../../helpers/auth/auth';
 import { ErrorResponse, SuccessResponse } from "../common";
 import { LoginResponse, LoginCredentials, RegisterCredentials } from "./types";
+import * as userApi from './api';
 
+type KnownReject = {
+    rejectValue: ErrorResponse
+}
 
-
-export const loginUser = createAsyncThunk<
-    LoginResponse,
-    LoginCredentials,
-    {
-        rejectValue: ErrorResponse,
-    }
->(
+export const loginUser = createAsyncThunk<LoginResponse, LoginCredentials, KnownReject>(
     'user/login',
     async (userCredentials, thunkApi) => {
         try {
@@ -36,13 +33,7 @@ export const loginUser = createAsyncThunk<
     }
 );
 
-export const registerUser = createAsyncThunk<
-    SuccessResponse,
-    RegisterCredentials,
-    {
-        rejectValue: ErrorResponse,
-    }
->(
+export const registerUser = createAsyncThunk<SuccessResponse, RegisterCredentials, KnownReject>(
     'user/register',
     async (userCredentials, thunkApi) => {
         try {
@@ -60,3 +51,19 @@ export const registerUser = createAsyncThunk<
         }
     }
 );
+
+export const confirmRegistration = createAsyncThunk<SuccessResponse, string, KnownReject>(
+    'user/confirm',
+    async (regToken:string, thunkApi) => {
+
+        try {
+            const response = await userApi.confirmRegistration(regToken);
+            if(response.status === 200) return response.data as SuccessResponse;
+            
+            return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+)

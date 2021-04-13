@@ -27,7 +27,7 @@ function App() {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/reset-password" component={ResetPassword} />
           <Route exact path="/check-email" component={CheckEmail} /> {/*TODO: only accesible through registration beeing succesful*/}
-          <Route exact path="/register-confirm/:resetToken" component={RegisterConfirm} />
+          <Route exact path="/register-confirm/:regToken" component={RegisterConfirm} />
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
           <PrivateRoute exact path="/settings" component={UserSettings} />
