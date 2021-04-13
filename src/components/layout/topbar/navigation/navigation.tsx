@@ -6,16 +6,11 @@ import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import './navigation.scss';
 
 const Navigation = () => {
-    const [visible, setVisible] = useState(false);
     const [searchValue, setSearchValue] = useState("");
 
     const dispatch = useAppDispatch();
     const history = useHistory();
     const { _id } = useAppSelector(userSelector);
-
-    const handleVisibility = () => {
-        setVisible(prev => !prev);
-    };
 
     function handleEnterPress(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter" && searchValue !== "") {
@@ -25,7 +20,7 @@ const Navigation = () => {
     }
 
     return (
-        <div className="topbar-navigation">
+        <div className="topbar__navigation">
             <ul>
                 <li>
                     <Link to="/dashboard"><i className="fas fa-border-all"></i></Link>
@@ -36,12 +31,12 @@ const Navigation = () => {
                 <li>
                     <Link to="/search-friends"><i className="fas fa-users"></i></Link>
                 </li>
-                <li>
+                <li className="navbar__search-icon">
                     <i className="fas fa-search"></i>
                 </li>
-                <li className="search-bar">
+                <li className="navbar__search-bar">
                     <input
-                        className="search-input visible"
+                        className="navbar__search-input"
                         placeholder="Search movie..."
                         type="text"
                         value={searchValue}
