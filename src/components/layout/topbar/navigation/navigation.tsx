@@ -24,7 +24,7 @@ const Navigation = () => {
                     <Link to="/dashboard"><i className="fas fa-border-all"></i></Link>
                 </li>
                 <li>
-                    <Link to={`/collection/${_id}`} replace><i className="fas fa-heart"></i></Link>
+                    <Link to={`/collection/${_id}`}><i className="fas fa-heart"></i></Link>
                 </li>
                 <li>
                     <Link to="/search-friends"><i className="fas fa-users"></i></Link>
