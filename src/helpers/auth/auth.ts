@@ -10,13 +10,15 @@ const setToken = (token: string) => {
 
     const now = new Date();
 
-    localStorage.setItem(KEY, JSON.stringify({
+    const tokenItem = JSON.stringify({
         token: `Bearer ${token}`,
         expiry: now.getTime() + TTL
-    }));
+    })
+
+    localStorage.setItem(KEY, tokenItem);
 };
 
-const getToken = () : null | string => {
+const getToken = () => {
 
     const itemStr = localStorage.getItem(KEY);
     if(!itemStr) return null;

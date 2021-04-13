@@ -123,12 +123,12 @@ export const userSlice = createSlice({
             state.isFetching = false;
             return state;
         },
-        resetState: () => {
-            return initialState;
+        resetState: (state) => {
+            state = initialState;
         },
-        logout: () => {
+        logout: (state) => {
             deleteToken();
-            return initialState;
+            state = initialState;
         }
     },
     extraReducers: (builder) => {

@@ -39,7 +39,7 @@ ol {
 h1,
 h2,
 h3 {
-    color: $color-yellow;
+    color: $color-logo;
     font-weight: 500;
 }
 
@@ -126,19 +126,24 @@ input {
         
     }
 
+    &::placeholder {
+        font-size: 1rem;
+        color: $color-placeholder;
+    }
+
     &[type=file] {
         padding: 0 0.5rem 0 0;
     }
 
-    &::file-selector-button {
-        // background-color: inherit;
-        // color: inherit;
-        // padding: 0.5rem;
-        // border: none;
-        // border-right: 1px dashed $color-yellow;
-        // cursor: pointer;
-        // margin-right: 10px;
-    }
+    // &::file-selector-button {
+    //     background-color: inherit;
+    //     color: inherit;
+    //     padding: 0.5rem;
+    //     border: none;
+    //     border-right: 1px dashed $color-yellow;
+    //     cursor: pointer;
+    //     margin-right: 10px;
+    // }
 
 
 }

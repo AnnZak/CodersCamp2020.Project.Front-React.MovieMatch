@@ -1,30 +1,19 @@
 import './SearchFriends.scss'
 import Topbar from '../../components/layout/topbar/topbar';
 import avatardefault from '../../assets/images/avatardefault.png';
-
-const friends = {
-    nextPage: 2,
-    previousPage: 0,
-    results: [
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-        { name: "Benny", displayedName: "BennyLava" },
-    ]
-}
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { friendsSelector, getAll } from '../../features/Friends/FriendSlice';
+import { Link } from 'react-router-dom';
 
 function SearchFriends() {
+
+    const dispatch = useAppDispatch();
+    const {allFriends} = useAppSelector(friendsSelector);
+
+    useEffect(() => {
+        dispatch(getAll())
+    }, [])
 
     return (
         <div>
@@ -32,12 +21,14 @@ function SearchFriends() {
             <div className="container-search-friends">
                 <div className="friend-cards-container">
 
-                    {friends.results.map((friend) =>
-                        <div className="friend-card">
-                            <img className="avatar" src={avatardefault} alt="friend's profile picture" />
-                            <p className="friend-name">{friend.name}</p>
-                            <p className="friend-name">{friend.displayedName}</p>
-                        </div>
+                    {allFriends.map((friend) =>
+                        <Link to={`/collection/${friend._id}`}>
+                            <div className="friend-card">
+                                <img className="avatar" src={avatardefault} alt="friend's profile picture" />
+                                <p className="friend-name">{friend.name}</p>
+                                <p className="friend-name">{friend.displayedName}</p>
+                            </div>
+                        </Link>
 
                     )}
                 </div>

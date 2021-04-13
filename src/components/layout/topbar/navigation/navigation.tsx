@@ -18,7 +18,7 @@ const Navigation = () => {
     }
 
     return (
-        <div className="topbar-navigation">
+        <div className="topbar__navigation">
             <ul>
                 <li>
                     <Link to="/dashboard"><i className="fas fa-border-all"></i></Link>
@@ -29,12 +29,12 @@ const Navigation = () => {
                 <li>
                     <Link to="/search-friends"><i className="fas fa-users"></i></Link>
                 </li>
-                <li>
+                <li className="navbar__search-icon">
                     <i className="fas fa-search"></i>
                 </li>
-                <li className="search-bar">
+                <li className="navbar__search-bar">
                     <input
-                        className="search-input visible"
+                        className="navbar__search-input"
                         placeholder="Search movie..."
                         type="text"
                         value={searchValue}
