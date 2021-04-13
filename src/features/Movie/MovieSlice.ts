@@ -123,7 +123,8 @@ export const getMovieDetails = createAsyncThunk<
                 url: `${API_URL}/movies/${movieId}`
             });
             if (response.status === 200) {
-                return response.data as MovieDetailsResponse;
+                let res = { imdbId: movieId, ...response.data };
+                return res as MovieDetailsResponse;
             } else {
                 return thunkApi.rejectWithValue(response.data as ErrorResponse);
             }
@@ -186,6 +187,7 @@ export const movieSlice = createSlice({
             },
         ],
         movieDetails: {
+            imdbId: '',
             Title: '',
             imdbRating: '',
             Runtime: '',
