@@ -1,9 +1,10 @@
 @import '../../../../globalStyles/colors.scss';
 
-.topbar-navigation {
+.topbar__navigation {
     padding: 0 1rem;
     flex: 2 2 400px;
     flex-wrap: wrap;
+    margin-left: 1.5rem;
 
     ul {
         display: flex;
@@ -12,66 +13,68 @@
         >li {
             padding: 0 1rem;
 
-            button {
-                color: $color-header;
-                border:none;
+            &.navbar__search-icon:hover >* {
+                color:inherit;
             }
 
-            &.search-bar {
+            &:hover >* {
+                color:$color-logo;
+            }
+
+            &.navbar__search-bar {
                 padding: 0;
-            }
-
-            .search-input {
-                transition: all 1s ease-in-out;
-
-                &.visible {
-                    width: 14rem;
-                }
-
-                &.invisible {
-                    width: 0;
-                    border: 1px dashed $color-dark;
+                
+                .navbar__search-input {
+                    font-size: 1.1rem;
+                    color: $color-logo;
                 }
             }
         }
     }
 
     @media screen and (max-width: 770px) {
+        margin: 0;
         flex: 1 1 100%;
         order: 2;
-        padding: 0.5rem 0;
+        padding: 0;
         justify-content: center;
-
-        ul>li:first-child {
-            padding-left: 0;
-        }
-    }
-
-    @media screen and (max-width: 592px) {
-
+        
         ul>li {
             text-align: center;
 
             &:not(:last-child) {
-                flex-basis: 25%;
+                flex: 10 10 25%;
+            }
+            
+            &.navbar__search-bar {
+                flex: 1 1 75%; 
+            }
+            
+            &.navbar__search-icon {
+                display: none;
+            }
+
+            &:first-child {
+                padding-left: 0;
             }
         }
     }
 
     @media screen and (max-width: 480px) {
+        margin: 0;
         ul {
             flex-wrap: wrap;
             align-content: space-between;
-
+            
             >li {
                 padding: 1rem 0;
 
-                &.search-bar {
-                    flex-basis: 100%;
-
-                    .search-input.visible {
-                        width: 90%;
-                    }
+                &:not(:last-child) {
+                    flex: 1 1 30%;
+                }
+                
+                &.navbar__search-bar {
+                    flex: 1 1 100%; 
                 }
             }
         }

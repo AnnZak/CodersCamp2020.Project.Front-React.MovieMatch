@@ -10,19 +10,19 @@ const Dropdown = () => {
     const dispatch = useAppDispatch();
     const history = useHistory();
 
-    const handleLogOut = ()=> {
+    const handleLogOut = () => {
         dispatch(logout());
         history.push("/");
     }
 
     return (
-        <div className="topbar-dropdown">
+        <div className="topbar__dropdown">
             <ul>
                 <li>
-                    <a className="avatar-a" href="#"><img className="avatar" src={avatardefault} /></a>
-                    <ul>
-                        <li><Link to="/settings">Settings</Link></li>
-                        <li><button onClick={handleLogOut}>Log Out</button></li>
+                    <a className="topbar__avatar-link" href="#"><img className="topbar__avatar-img" src={avatardefault} /></a>
+                    <ul className="topbar__dropdown-menu">
+                        <li className="topbar__dropdown-menu__item"><Link to="/settings">Settings</Link></li>
+                        <li className="topbar__dropdown-menu__item"><button onClick={handleLogOut}>Log Out</button></li>
                     </ul>
                 </li>
             </ul>
