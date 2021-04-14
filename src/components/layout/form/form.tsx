@@ -10,6 +10,7 @@ interface IInput {
     placeholder?: string;
     attr?: { accept?: string };
     setValue?: Function;
+    onClick?: Function;
     paragraph?: string;
 }
 
@@ -62,6 +63,7 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                                         value={input.value ? input.value : undefined}
                                         accept={input.attr && input.attr.accept ? input.attr.accept : undefined}
                                         onChange={(e) => { if (input.setValue) input.setValue(e.target.value); }}
+                                        onClick={(e) => { if (input.onClick) input.onClick()}}
                                     />
                                 </div>
                             );
