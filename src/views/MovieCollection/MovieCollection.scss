@@ -11,6 +11,11 @@
         display: flex;
         color: $color-header;
         justify-content: flex-end;
+        
+        .collection__owner {
+            color: $color-logo;
+            white-space: pre-wrap;
+        }
     }
     
     .collection-movie-cards-container {
