@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# Movie Match!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**CodersCamp 2020 - Project Node.js**
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Project scope](#project-scope)
+- [Team](#team)
+- [Live Preview](#live-preview)
 
-### `npm start`
+## General info
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The aim of this project was to create front-end for Awesome MovieMatch application.
+Awesome MovieMatch is meant to be a platform for people to create movie collections & find people with similar movie interests. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Project was created during [CodersCamp Course](https://coderscamp.edu.pl) in Mar - Apr 2021 using React.
 
-### `npm test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Project was created with:
 
-### `npm run build`
+- React(https://reactjs.org/)
+- Redux Toolkit(https://redux-toolkit.js.org/)
+- JEST(https://jestjs.io/)
+- JSEX(https://www.npmjs.com/package/jsex/v/1.0.2)
+- SCSS(https://sass-lang.com/)
+- Typescript(https://www.typescriptlang.org/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project scope
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Client-server communication
+- functional component
+- React hooks
+- Component list creation
+- JSX
+- testing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Team
 
-### `npm run eject`
+#### Development:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [Michał Ciborowski](https://github.com/Cidebur)
+- [Anna Żak](https://github.com/AnnZak)
+- [Aleksandra Żochowska](https://github.com/AleksandraZochowska)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### Tech Lead:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [Anna Żak](https://github.com/AnnZak)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+##### Product Owner:
 
-## Learn More
+- [Aleksandra Żochowska](https://github.com/AleksandraZochowska)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+##### Development Manager:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Michał Ciborowski](https://github.com/Cidebur)
+
+#### Mentor:
+
+- [Piotr Bartkowicz](https://github.com/BartkowiczPiotr)
+
+## Live Preview
+
+To see our project, visit:
+
+https://awesome-moviematch.herokuapp.com/login
