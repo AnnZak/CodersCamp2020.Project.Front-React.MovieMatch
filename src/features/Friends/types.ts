@@ -7,11 +7,7 @@ export interface Friend {
     avatar?: any
 }
 
-export interface SliceState extends BasicState, WTF {
+export interface SliceState extends BasicState {
     allFriends: Array<Friend>
     shownFriends: Array<Friend>
-}
-
-interface WTF {
-    wtf: any
 }

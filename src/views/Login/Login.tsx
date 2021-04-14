@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Login.scss';
-import { loginUser, userSelector, clearState, UserCredentials } from '../../features/User/UserSlice'
+import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User/UserSlice'
 import { Link, useHistory } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import TopLogo from '../../components/ui/topLogo/topLogo';
@@ -20,7 +20,7 @@ const Login = () => {
     userSelector
   );
 
-  const onSubmit = (data: UserCredentials) => {
+  const onSubmit = (data: LoginCredentials) => {
     const emailRegEx = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
     setWrongCredentials("");
 
@@ -71,6 +71,7 @@ const Login = () => {
             onSubmit={() => { onSubmit({ email, password }) }}
           />
           <h5><Link to="register">Don't have an account? Sign Up</Link></h5>
+          <h6><Link to ="/forgot-password">Forgot Password?</Link></h6>
         </div>
       </div>
     </div>

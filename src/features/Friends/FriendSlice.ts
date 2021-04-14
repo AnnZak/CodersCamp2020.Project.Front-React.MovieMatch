@@ -12,7 +12,6 @@ const initialState: SliceState = {
     isSuccess: false,
     isError: false,
     errorMsg: "",
-    wtf: {}
 }
 
 export const friendSlice = createSlice({
@@ -46,7 +45,6 @@ export const friendSlice = createSlice({
             state.isFetching = false;
             state.isError = true;
             state.errorMsg = payload?.error || UNKNOWN_ERROR_MSG;
-            state.wtf = payload
         });
 
         //search
@@ -120,3 +118,4 @@ export const friendSlice = createSlice({
 
 export const friendsSelector = (state: RootState) => state.friends
 export { getAll, search, invite, accept, decline }
+export type { Friend } from './types'
