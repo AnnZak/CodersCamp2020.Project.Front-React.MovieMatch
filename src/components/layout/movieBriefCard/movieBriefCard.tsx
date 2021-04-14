@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import moviedefault from '../../../assets/images/moviedefault.jpg';
 import './movieBriefCard.scss';
@@ -39,12 +40,19 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched: bo
     return (
         <div className="collection-movie-card">
             {(el.movie.Poster && el.movie.Poster !== "N/A") ?
-                <img className="collection-movie-poster" src={el.movie.Poster} alt="movie poster" />
-                : <img className="collection-movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
+                <Link to={`/movies/${el.movie.imdbId}`}>
+                    <img className="collection-movie-poster" src={el.movie.Poster} alt="movie poster" />
+                </Link>
+
+                : <Link to={`/movies/${el.movie.imdbId}`}>
+                    <img className="collection-movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
+                </Link>
             }
             {el.movie.Title &&
                 <div className="collection-movie-actions-icons">
-                    <h2 className="collection-movie-title">{el.movie.Title}</h2>
+                    <Link to={`/movies/${el.movie.imdbId}`}>
+                        <h2 className="collection-movie-title">{el.movie.Title}</h2>
+                    </Link>
                     <button className={heartClass} onClick={() => { handleToggleLiked(el.movie.imdbId) }}>
                         <i className="fas fa-heart"></i>
                     </button>
