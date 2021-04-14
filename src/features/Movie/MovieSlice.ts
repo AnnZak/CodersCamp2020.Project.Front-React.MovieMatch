@@ -198,6 +198,36 @@ export const searchMovies = createAsyncThunk<
     }
 );
 
+export const getSuggestedMovies = createAsyncThunk<
+    SearchMoviesResponse,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movie/suggest',
+    async (empty, thunkApi) => {
+        try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
+            const response = await axios.get(
+                `${API_URL}/movies/suggest`, {
+                headers: {
+                    'authorization': token,
+                },
+            });
+            if (response.status === 200) {
+                return response.data as SearchMoviesResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
+
 export const movieSlice = createSlice({
     name: 'movie',
     initialState: {
@@ -216,6 +246,15 @@ export const movieSlice = createSlice({
             },
         ],
         searchedMovies: [
+            {
+                Title: '',
+                Year: '',
+                imdbID: '',
+                Type: '',
+                Poster: '',
+            },
+        ],
+        suggestedMovies: [
             {
                 Title: '',
                 Year: '',
@@ -275,6 +314,23 @@ export const movieSlice = createSlice({
         });
 
         builder.addCase(searchMovies.pending, (state) => {
+            state.isFetching = true;
+        });
+
+        builder.addCase(getSuggestedMovies.fulfilled, (state, { payload }) => {
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.errorMsg = '';
+            state.suggestedMovies = payload;
+        });
+
+        builder.addCase(getSuggestedMovies.rejected, (state, { payload }) => {
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(getSuggestedMovies.pending, (state) => {
             state.isFetching = true;
         });
 

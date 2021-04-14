@@ -54,9 +54,19 @@ function MovieCollection() {
                 dispatch(getMovieDetails(movie.imdbId)).then(unwrapResult).then(originalResult => {
                     dispatch(clearState());
                     setDisplayedMovies(state => [...state, { movie: originalResult, watched: movie.watched }]);
-                }).catch(e => { setErrMessage("You don't have access to this collection.") });
+                }).catch(e => {
+                    setErrMessage((state) => {
+                        if (userid === _id) return "No movies in collection";
+                        else return "You don't have access to this collection";
+                    });
+                });
             }
-        }).catch(e => { setErrMessage("You don't have access to this collection.") });
+        }).catch(e => {
+            setErrMessage((state) => {
+                if (userid === _id) return "No movies in collection";
+                else return "You don't have access to this collection";
+            });
+        });
     }, [userid]);
 
     return (
