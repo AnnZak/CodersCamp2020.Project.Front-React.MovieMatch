@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 import './MovieCollection.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getMovieDetails, movieSelector } from '../../features/Movie/MovieSlice';
+import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
-import { showCollection, getUserCollection } from '../../features/Movie/MovieSlice';
-import { clearState, userSelector } from '../../features/User/UserSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface ParamTypes {
     userid: string;
@@ -18,52 +17,55 @@ function MovieCollection() {
 
     const { userid } = useParams<ParamTypes>();
 
-    const [displayedMovies, setDisplayedMovies] = useState<MovieDetailsResponse[]>([]);
+    const displayedInitialState = {
+        imdbId: "",
+        Title: "",
+        imdbRating: "",
+        Runtime: "",
+        Year: "",
+        Country: "",
+        Genre: "",
+        Director: "",
+        Actors: "",
+        Awards: "",
+        Plot: "",
+        Poster: "",
+    }
+
+    const [displayedMovies, setDisplayedMovies] = useState<MovieDetailsResponse[]>([displayedInitialState]);
+    const [errMessage, setErrMessage] = useState("");
 
     const dispatch = useAppDispatch();
-    const { movieCollection, movieDetails, isSuccess } = useAppSelector(movieSelector);
     // const { _id } = useAppSelector(userSelector);
 
     useEffect(() => {
-        setDisplayedMovies([]);
-        const getCollection = async () => {
-            // await dispatch(getUserCollection(_id));
-            // dispatch(clearState());
-            await dispatch(showCollection(userid));
+        setDisplayedMovies([displayedInitialState]);
+        setErrMessage("");
+
+        // dispatch(getUserCollection(_id));
+        dispatch(showCollection(userid)).then(unwrapResult).then(originalResult => {
             dispatch(clearState());
-            // for (const movie of movieCollection) {
-            //     await dispatch(getMovieDetails(movie.imdbId));
-            //     dispatch(clearState());
-            // }
-        }
-        getCollection();
-    }, []);
-
-    useEffect(() => {
-        const getMoviesInfo = () => {
-            for (const movie of movieCollection) {
-                dispatch(getMovieDetails(movie.imdbId));
-                dispatch(clearState());
+            for (const movie of originalResult) {
+                dispatch(getMovieDetails(movie.imdbId)).then(unwrapResult).then(originalResult => {
+                    dispatch(clearState());
+                    setDisplayedMovies(state => [...state, originalResult]);
+                }).catch(e => { setErrMessage("You don't have access to this collection.") });
             }
-        }
-        if (isSuccess) getMoviesInfo();
-    }, [movieCollection]);
-
-    useEffect(() => {
-        if (isSuccess) setDisplayedMovies(state => [...state, movieDetails]);
-    }, [movieDetails]);
+        }).catch(e => { setErrMessage("You don't have access to this collection.") });
+    }, [userid]);
 
     return (
         <div>
             <Topbar />
             <div className="container-collection-movies">
-                {displayedMovies !== [] &&
-                    <div className="collection-movie-cards-container">
-                        {displayedMovies.map((mv) =>
-                            <MovieBriefCard movie={mv} />
-                        )}
-                    </div>
-                }
+                <div className="collection-movie-cards-container">
+                    {errMessage !== "" ?
+                        <div className="collection__error-container">
+                            <h1>{errMessage}</h1>
+                        </div> :
+                        displayedMovies.map((mv) => mv.Title && <MovieBriefCard movie={mv} />)
+                    }
+                </div>
             </div>
         </div>
     );

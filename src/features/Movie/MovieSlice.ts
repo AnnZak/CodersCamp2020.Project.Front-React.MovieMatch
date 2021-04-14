@@ -17,7 +17,7 @@ export const getUserCollection = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movies/usercollection',
+    'movie/usercollection',
     async (userId, thunkApi) => {
         try {
             const token = getToken();
@@ -48,7 +48,7 @@ export const showCollection = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movies/collection',
+    'movie/collection',
     async (userId, thunkApi) => {
         try {
             const token = getToken();
@@ -140,7 +140,7 @@ export const getMovieDetails = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movie/show',
+    'movie/details',
     async (movieId, thunkApi) => {
         try {
             const token = getToken();
@@ -172,7 +172,7 @@ export const searchMovies = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movies/search',
+    'movie/search',
     async (searchQuery, thunkApi) => {
         try {
             const token = getToken();
@@ -199,7 +199,7 @@ export const searchMovies = createAsyncThunk<
 );
 
 export const movieSlice = createSlice({
-    name: 'movies',
+    name: 'movie',
     initialState: {
         userMovieCollection: [
             {
@@ -249,6 +249,15 @@ export const movieSlice = createSlice({
             state.isSuccess = false;
             state.isFetching = false;
             return state;
+        },
+        clearCollection: (state) => {
+            state.movieCollection = [
+                {
+                    _id: '',
+                    imdbId: '',
+                    watched: false
+                },
+            ];
         },
     },
     extraReducers: (builder) => {
@@ -321,11 +330,6 @@ export const movieSlice = createSlice({
             state.isFetching = false;
             state.isError = false;
             state.errorMsg = '';
-            const newMovie = {
-                _id: '',
-                imdbId: payload,
-                watched: false
-            };
             state.userMovieCollection.filter(obj => obj.imdbId !== payload);
         });
 
@@ -390,4 +394,4 @@ export const movieSlice = createSlice({
 });
 
 export const movieSelector = (state: RootState) => state.movies;
-export const { clearState } = movieSlice.actions;
+export const { clearState, clearCollection } = movieSlice.actions;
