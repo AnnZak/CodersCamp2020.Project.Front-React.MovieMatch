@@ -1,10 +1,11 @@
 # Movie Match!
 
-**CodersCamp 2020 - Project Node.js**
+**CodersCamp 2020 - Project React**
 
 ## Table of contents
 
 - [General info](#general-info)
+- [Functionalitites](#functionalitites)
 - [Technologies](#technologies)
 - [Project scope](#project-scope)
 - [Team](#team)
@@ -16,6 +17,22 @@ The aim of this project was to create front-end for Awesome MovieMatch applicati
 Awesome MovieMatch is meant to be a platform for people to create movie collections & find people with similar movie interests. 
 
 Project was created during [CodersCamp Course](https://coderscamp.edu.pl) in Mar - Apr 2021 using React.
+
+## Functionalitites
+
+1. Registration (filling in the registration form, confirmation of the account via a link/button in the e-mail) 
+2. Signing in (logging in with e-mail and password). 
+Additionally: 
+- password recovery option (by clicking on 'Forgot Password?') 
+- possibility to register by clicking on 'Don't have an account? Sign Up' 
+3. Dashboard - list of suggested movies to watch - list of liked movies 
+4. A view of all liked movies (accessible by clicking on the heart in the top bar) 
+5. A list of user's friends, possibility to add a user to friends 
+6. A view of friends' liked movies 
+7. Search the movie by title 
+8. Display of the movie details (title, photo, description, production date...) 
+9. Account settings form - possibility to change the displayed name, account e-mail and password 
+10. Logout
 
 ## Technologies
 
