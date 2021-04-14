@@ -1,0 +1,30 @@
+@import '../../globalStyles/colors.scss';
+
+.collection__container-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1.collection__main-header {
+        width: 90vw;
+        padding: 2rem 3rem;
+        display: flex;
+        color: $color-header;
+        justify-content: flex-end;
+    }
+    
+    .collection-movie-cards-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        flex-basis: 90vw;
+        
+        >.collection__error-container {
+            width: 100%;
+            padding: 5rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

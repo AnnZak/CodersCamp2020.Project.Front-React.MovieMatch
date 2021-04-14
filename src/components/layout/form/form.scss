@@ -1,0 +1,129 @@
+@import '../../../globalStyles/colors.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container-div {
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .form-heading {
+        padding: 2rem 2rem 1.5rem;
+        line-height: 3rem;
+        text-align: center;
+        color: $color-header;
+        font-size: 1.5rem;
+    }
+     
+    .form-container {
+        background-color: $color-white;
+        border-radius: 8px;
+        border: 1px solid $color-accent;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        // min-width: 600px;
+        // min-height: 400px;
+ 
+        .form-info {
+            width: 70%;
+            line-height: 1.7rem;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        form {
+            width: 85%;
+            padding-bottom: 2rem;
+
+            .form-item {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.2rem 0;
+
+                label {
+                    padding: 0.8rem 0;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+
+                .input-description {
+                    padding-bottom: 0.5rem;
+                    color: $color-important;
+                }
+
+                input[type=submit] {
+                    margin-top: 1rem;
+                }
+
+                &.oneline {
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    label {
+                        width: auto;
+                        padding-left: 10px;
+                        order: 2;
+                    }
+
+                    input {
+                        width: 1rem;
+                        height: 1rem;
+                    }
+
+                    input[type=color] {
+                        width: 1.2rem;
+                        height: 1.2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .form-container-nav {
+        display: flex;
+        justify-content: flex-end;
+
+        .form-nav {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0rem;
+
+            button {
+                flex-basis: 100%;
+                border-style: solid;
+                width: 250px;
+                margin: 0.2rem;
+                padding: 0.8rem 0.3rem;
+                font-size: .8rem;
+                font-weight: 600;
+                background-color: $color-white;
+                color: $color-button;
+
+                &:hover,
+                &:active,
+                &:focus
+                 {
+                    background-color: $color-button-background;
+                    color: $color-white;
+                    border: 1ps solid $color-button-background;
+                    box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24)
+                }
+
+                &.btn-hidden {
+                    opacity: 0.2;
+                    display: none;
+                }
+            }
+        }        
+    }
+
+}

@@ -1,0 +1,21 @@
+@import '../../../globalStyles/colors.scss';
+
+.svg {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    stroke: #3d70b2;
+    fill: #3d70b2;
+}
+
+.friend-card-status-isFriend {
+    background-color: $color-button-background;
+}
+
+.friend-card-status-notFriend {
+    background-color: $color-dark;
+}
+
+polygon {
+    fill: $color-button-background; 
+    color: $color-button-background;
+}

@@ -1,0 +1,165 @@
+@import './colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap%27');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: $color-background;
+    color: $color-header;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 16px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .15s ease-in-out;
+
+    &:hover {
+        color: $color-accent;
+    }
+
+    &:active {
+        color: $color-yellow;
+    }
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+h1,
+h2,
+h3 {
+    color: $color-logo;
+    font-weight: 500;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.accent-text {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: $color-accent;
+}
+
+button {
+    background: inherit;
+    color: $color-logo;
+    padding: 0.5rem;
+    border: 1px solid $color-accent;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+
+    &.heart-collection {
+        color: $color-button;
+
+        &.liked {
+            color: $color-important;
+        }
+        
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &.watched-movie {
+        color: $color-button;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+input {
+    background: $color-input;
+    // color: $color-light;
+    padding: 1rem;
+    border: 1px solid $color-accent;
+    border-radius: 8px;
+    font-family: "Segoe UI";
+    font-size: inherit;
+    width: 100%;
+
+    &:hover,
+    &:active,
+    &:focus {
+        outline: none;
+        border: 1px solid $color-accent;
+    }
+
+    &[type=color] {
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+    }
+
+    &[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+
+    &[type=submit]:active,
+    &[type=button]:active {
+        background-color: $color-button-background;
+        color: $color-white;
+        border: 1ps solid $color-button-background;
+        box-shadow: 0 12px 25px 0 rgba(0,0,0,0.24);
+    }
+
+    &[type=submit],
+    &[type=button],
+    &::file-selector-button {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 90%;
+        font-weight: bold;
+        // width: auto;
+        // padding: 0.5rem;
+        cursor: pointer;
+        // font-variant: small-caps;
+        // font-style: italic;
+        background-color: $color-white;
+        border: 1px solid $color-button-background;
+        color: $color-button-background;
+        padding: 0.7rem 0;
+        
+    }
+
+    &::placeholder {
+        font-size: 1rem;
+        color: $color-placeholder;
+    }
+
+    &[type=file] {
+        padding: 0 0.5rem 0 0;
+    }
+
+    // &::file-selector-button {
+    //     background-color: inherit;
+    //     color: inherit;
+    //     padding: 0.5rem;
+    //     border: none;
+    //     border-right: 1px dashed $color-yellow;
+    //     cursor: pointer;
+    //     margin-right: 10px;
+    // }
+}
+
+.avatar {
+    border-radius: 50%;
+    max-height: 4rem;
+}

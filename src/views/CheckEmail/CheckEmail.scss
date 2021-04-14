@@ -1,0 +1,22 @@
+.forgot-password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    height: 100%;
+
+    .logo {
+        padding-top: 1.5rem;
+    }
+
+    .check-heading {
+       padding-top: 4rem;
+    }
+
+    img {
+        width: 15rem;
+        padding-top: 7rem;
+    }
+
+}

@@ -1,0 +1,93 @@
+@import '../../../globalStyles/colors.scss';
+
+.movie-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .mv-details-container {
+        padding: 2rem 1rem;
+        flex-basis: 1000px;
+        display: flex;
+        flex-wrap: wrap;
+        line-height: 1.5rem;
+
+        .mv-inline-header {
+            color: $color-button;
+            font-weight: 600;
+            font-size: 105%;
+        }
+
+        >* {
+            padding: 1rem;
+        }
+
+        h1 {
+            flex-basis: 100%;
+            font-size: 2.2rem;
+        }
+
+        .mv-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            flex-basis: 100%;
+
+            >* {
+                padding: 0 1rem;
+                flex-basis: 1 1 25%;
+                border-right: 1px solid $color-accent;
+            }
+
+            p {
+                color: $color-header;
+            }
+
+            >p:first-child {
+                padding-left: 0;
+            }
+
+            >p:last-child {
+                padding-right: 0;
+                border: none;
+                
+            }
+
+            .heart-collection {
+                border: none;
+            }
+        }
+
+        .mv-poster {
+            flex: 1 1 20%;
+            max-width: 30%;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 8px 10px 15px $color-movies-border;
+
+        }
+
+        .mv-info {
+            flex: 3 3 60%;
+            display: flex;
+            flex-direction: column;
+
+            >* {
+                padding: 0 0 1rem 0;
+            }
+
+            .mv-plot {
+                padding-top: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 840px) {
+            flex-direction: column;
+            align-items: center;
+            max-width: 700px;
+
+            .mv-poster {
+                max-width: 100%;
+            }
+        }
+    }
+}

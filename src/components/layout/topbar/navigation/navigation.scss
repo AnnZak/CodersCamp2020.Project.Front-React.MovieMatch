@@ -1,0 +1,82 @@
+@import '../../../../globalStyles/colors.scss';
+
+.topbar__navigation {
+    padding: 0 1rem;
+    flex: 2 2 400px;
+    flex-wrap: wrap;
+    margin-left: 1.5rem;
+
+    ul {
+        display: flex;
+        align-items: center;
+
+        >li {
+            padding: 0 1rem;
+
+            &.navbar__search-icon:hover >* {
+                color:inherit;
+            }
+
+            &:hover >* {
+                color:$color-logo;
+            }
+
+            &.navbar__search-bar {
+                padding: 0;
+                
+                .navbar__search-input {
+                    font-size: 1.1rem;
+                    color: $color-logo;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 770px) {
+        margin: 0;
+        flex: 1 1 100%;
+        order: 2;
+        padding: 0;
+        justify-content: center;
+        
+        ul>li {
+            text-align: center;
+
+            &:not(:last-child) {
+                flex: 10 10 25%;
+            }
+            
+            &.navbar__search-bar {
+                flex: 1 1 75%; 
+            }
+            
+            &.navbar__search-icon {
+                display: none;
+            }
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        margin: 0;
+        ul {
+            flex-wrap: wrap;
+            align-content: space-between;
+            
+            >li {
+                padding: 1rem 0;
+
+                &:not(:last-child) {
+                    flex: 1 1 30%;
+                }
+                
+                &.navbar__search-bar {
+                    flex: 1 1 100%; 
+                }
+            }
+        }
+    }
+}

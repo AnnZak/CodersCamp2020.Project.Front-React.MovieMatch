@@ -1,0 +1,80 @@
+@import '../../../../globalStyles/colors.scss';
+
+.topbar__dropdown {
+
+    font-size: 1.1rem;
+    ul >li {
+        text-align: right;
+        
+        ul.topbar__dropdown-menu.visible>li.topbar__dropdown-menu__item {
+            display: block;
+        }
+        
+        >ul.topbar__dropdown-menu {
+            position: absolute;
+            margin-top: 1rem;
+            right: 0;
+            width: 100%;
+            background-color: $color-white-translucent;
+            border-radius: 5px;
+            
+            >li.topbar__dropdown-menu__item {
+                display: none;
+                padding: 0.25rem 1.25rem;
+                line-height: 2rem;
+
+                >* {
+                    padding: 0;
+                    margin:0;
+                    border: none;
+                    outline: none;
+                    color: $color-header;
+
+                    &:hover, &:active, &:focus {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .topbar__avatar-link {
+            display: block;
+
+            >.topbar__avatar-img {
+                height: 3rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 770px) {
+        ul > li > ul.topbar__dropdown-menu {
+            margin-top: 0;
+
+            >li.topbar__dropdown-menu__item:last-child {
+                padding-bottom: 1rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        ul > li > ul.topbar__dropdown-menu >li.topbar__dropdown-menu__item:last-child {
+            padding-bottom: 10vh;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        flex-direction: column;
+
+        ul>li {
+            text-align: center;
+
+            .topbar__avatar-link {
+                padding-top: 1rem;
+            }
+
+            >ul {
+                position: fixed;
+            }
+        }
+    }
+}
