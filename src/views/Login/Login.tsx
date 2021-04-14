@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Login.scss';
-import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User/UserSlice'
+import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User'
 import { Link, useHistory } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import TopLogo from '../../components/ui/topLogo/topLogo';

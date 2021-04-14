@@ -9,6 +9,19 @@ export const confirmRegistration = async (regToken: string) => {
     );
 };
 
+export const getUserData = async () =>  {
+
+    const token = getToken();
+    if(!token) throw new Error("no token");
+
+    return await axios.get(
+        `${API_URL}/users`,
+        {
+            headers: { authorization: token },
+        }
+    );
+};
+
 export const searchUsers = async (dispName: string) =>  {
 
     const token = getToken();

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Registration.scss';
 import Form from '../../components/layout/form/form';
 import TopLogo from '../../components/ui/topLogo/topLogo';
-import { RegisterCredentials, registerUser, clearState, userSelector } from '../../features/User/UserSlice';
+import { RegisterCredentials, registerUser, clearState, userSelector } from '../../features/User';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useHistory } from 'react-router-dom';
 
