@@ -6,7 +6,8 @@ import './MovieCollection.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
 import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
-import { userSelector } from '../../features/User/UserSlice';
+import { getFriendById } from '../../features/Friends/api';
+import { userSelector } from '../../features/User';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
@@ -36,6 +37,7 @@ function MovieCollection() {
         watched: false
     }
 
+    const [collectionOwner, setCollectionOwner] = useState("");
     const [displayedMovies, setDisplayedMovies] = useState<{ movie: MovieDetailsResponse, watched: boolean }[]>([displayedInitialState]);
     const [errMessage, setErrMessage] = useState("");
 
@@ -45,6 +47,13 @@ function MovieCollection() {
     useEffect(() => {
         setDisplayedMovies([displayedInitialState]);
         setErrMessage("");
+        setCollectionOwner("");
+
+        if (userid !== _id) {
+            getFriendById(userid).then((res) => {
+                setCollectionOwner(`Browse ${res.data.displayedName}'s`);
+            }).catch(() => { setCollectionOwner("Browse") });
+        } else setCollectionOwner("Your");
 
         dispatch(showCollection(userid)).then(unwrapResult).then(originalResult => {
             dispatch(clearState());
@@ -72,16 +81,19 @@ function MovieCollection() {
     return (
         <div>
             <Topbar />
-            <div className="container-collection-movies">
-                <div className="collection-movie-cards-container">
-                    {errMessage !== "" ?
-                        <div className="collection__error-container">
-                            <h1>{errMessage}</h1>
-                        </div> :
-                        displayedMovies.map((element) =>
-                            element.movie.Title && <MovieBriefCard el={element as { movie: MovieDetailsResponse, watched: boolean }} />
-                        )
-                    }
+            <div className="collection__container-outer">
+                <div className="container-collection-movies">
+                    {errMessage === "" && <h1 className="collection__main-header">{collectionOwner} collection</h1>}
+                    <div className="collection-movie-cards-container">
+                        {errMessage !== "" ?
+                            <div className="collection__error-container">
+                                <h1>{errMessage}</h1>
+                            </div> :
+                            displayedMovies.map((element) =>
+                                element.movie.Title && <MovieBriefCard el={element as { movie: MovieDetailsResponse, watched: boolean }} />
+                            )
+                        }
+                    </div>
                 </div>
             </div>
         </div>
