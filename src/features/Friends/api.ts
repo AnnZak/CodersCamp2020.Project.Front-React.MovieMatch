@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import { getToken } from '../../helpers/auth/auth';
+import { Friend } from './types'
 
 const getAll = async () => {
-    
+
     const token = getToken();
-    if(!token) throw new Error("Invalid token");
+    if (!token) throw new Error("Invalid token");
 
     const response = await axios.get(
         `${API_URL}/friends`,
@@ -46,7 +47,7 @@ const invite = async (friendId: string) => {
         `${API_URL}/friends/invite/${friendId}`,
         {},
         {
-            headers: {authorization: token},
+            headers: { authorization: token },
         }
     );
 };
@@ -60,7 +61,7 @@ const acceptInvitation = async (invitationId: string) => {
         `${API_URL}/friends/accept/${invitationId}`,
         {},
         {
-            headers: {authorization: token},
+            headers: { authorization: token },
         }
     );
 
@@ -75,10 +76,21 @@ const declineInvitation = async (invitationId: string) => {
         `${API_URL}/friends/decline/${invitationId}`,
         {},
         {
-            headers: {authorization: token},
+            headers: { authorization: token },
         }
     );
-
 }
 
-export {getAll, search, invite, acceptInvitation, declineInvitation}
+const getFriendById = async (friendId: string) => {
+
+    const token = getToken();
+
+    return await axios.get<Friend>(
+        `${API_URL}/friends/${friendId}`,
+        {
+            headers: token,
+        }
+    );
+};
+
+export { getAll, search, invite, acceptInvitation, declineInvitation, getFriendById }
