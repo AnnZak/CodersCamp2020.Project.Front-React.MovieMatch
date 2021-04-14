@@ -26,10 +26,10 @@ function MovieDetailsCard(props: { movieId: string }) {
                         <button className="heart-collection liked"> <i className="fas fa-heart" > </i></button >
                     </div>
                     {(movieDetails.Poster && movieDetails.Poster !== "N/A") &&
-                        <img className="movie-poster" src={movieDetails.Poster} alt="movie poster" />
+                        <img className="mv-poster" src={movieDetails.Poster} alt="movie poster" />
                     }
                     {(movieDetails.Poster === "N/A") &&
-                        <img className="movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
+                        <img className="mv-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
                     }
                     <div className="mv-info">
                         <p className="mv-genre"><span className="mv-inline-header">Genre | </span>{movieDetails.Genre}</p>

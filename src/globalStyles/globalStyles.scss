@@ -69,6 +69,10 @@ button {
         &.liked {
             color: $color-important;
         }
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 }
 
@@ -144,8 +148,6 @@ input {
     //     cursor: pointer;
     //     margin-right: 10px;
     // }
-
-
 }
 
 .avatar {

@@ -1,3 +1,5 @@
+@import '../../../globalStyles/colors.scss';
+
 .collection-movie-card {
     display: flex;
     justify-items: center;
@@ -7,6 +9,15 @@
     background: white;
     border-radius: 10px;
     margin: 0.5rem;
+    margin-bottom: 0.7rem;
+    border: 1px solid $color-movies-border;
+    transition: all .2s ease-in-out;
+    box-shadow: 8px 10px 15px $color-movies-border;
+
+    &:hover {
+        box-shadow: 2px 5px 18px;
+        transform: scale(1.05);
+    }
     
     &>* {
         padding: 1rem;
@@ -19,8 +30,9 @@
     }
     
     .collection-movie-poster {
-        flex-basis: 100%;
+        //flex-basis: 100%;
         height: 22rem;
+        width: 15rem;
         object-fit: cover;
         max-width: auto;
     }
@@ -29,6 +41,15 @@
         justify-content: space-around;
         align-items: center;
         padding-bottom: 2rem;
+
+        .collection-movie-title {
+            color: $color-header;
+            font-size: 1.1rem;
+            font-family: "Montserrat",sans-serif;
+            font-weight: 500;
+
+        }
+
         >button {
             border: none;
             font-size: 2rem;
