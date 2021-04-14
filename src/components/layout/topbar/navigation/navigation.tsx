@@ -3,17 +3,20 @@ import { Link, useHistory } from 'react-router-dom';
 
 import './navigation.scss';
 import { userSelector } from '../../../../features/User/UserSlice';
-import { useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { searchMovies } from '../../../../features/Movie/MovieSlice';
 
 const Navigation = () => {
     const [searchValue, setSearchValue] = useState("");
 
+    const dispatch = useAppDispatch();
     const history = useHistory();
     const { _id } = useAppSelector(userSelector);
 
     function handleEnterPress(e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter" && searchValue !== "") {
             history.push(`/movies?title=${searchValue}`);
+            dispatch(searchMovies(searchValue));
         }
     }
 
