@@ -10,6 +10,37 @@ type ErrorResponse = {
     message?: string,
 };
 
+export const getUserCollection = createAsyncThunk<
+    MovieCollectionResponse,
+    string,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    'movie/usercollection',
+    async (userId, thunkApi) => {
+        try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
+            const response = await axios({
+                method: 'GET',
+                headers: {
+                    'authorization': token,
+                },
+                url: `${API_URL}/movies/collection/${userId}`
+            });
+            if (response.status === 200) {
+                return response.data as MovieCollectionResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
+
 export const showCollection = createAsyncThunk<
     MovieCollectionResponse,
     string,
@@ -17,7 +48,7 @@ export const showCollection = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movies/collection',
+    'movie/collection',
     async (userId, thunkApi) => {
         try {
             const token = getToken();
@@ -109,7 +140,7 @@ export const getMovieDetails = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movie/show',
+    'movie/details',
     async (movieId, thunkApi) => {
         try {
             const token = getToken();
@@ -123,7 +154,8 @@ export const getMovieDetails = createAsyncThunk<
                 url: `${API_URL}/movies/${movieId}`
             });
             if (response.status === 200) {
-                return response.data as MovieDetailsResponse;
+                let res = { imdbId: movieId, ...response.data };
+                return res as MovieDetailsResponse;
             } else {
                 return thunkApi.rejectWithValue(response.data as ErrorResponse);
             }
@@ -140,7 +172,7 @@ export const searchMovies = createAsyncThunk<
         rejectValue: ErrorResponse,
     }
 >(
-    'movies/search',
+    'movie/search',
     async (searchQuery, thunkApi) => {
         try {
             const token = getToken();
@@ -167,8 +199,15 @@ export const searchMovies = createAsyncThunk<
 );
 
 export const movieSlice = createSlice({
-    name: 'movies',
+    name: 'movie',
     initialState: {
+        userMovieCollection: [
+            {
+                _id: '',
+                imdbId: '',
+                watched: false
+            },
+        ],
         movieCollection: [
             {
                 _id: '',
@@ -186,6 +225,7 @@ export const movieSlice = createSlice({
             },
         ],
         movieDetails: {
+            imdbId: '',
             Title: '',
             imdbRating: '',
             Runtime: '',
@@ -209,6 +249,15 @@ export const movieSlice = createSlice({
             state.isSuccess = false;
             state.isFetching = false;
             return state;
+        },
+        clearCollection: (state) => {
+            state.movieCollection = [
+                {
+                    _id: '',
+                    imdbId: '',
+                    watched: false
+                },
+            ];
         },
     },
     extraReducers: (builder) => {
@@ -256,10 +305,10 @@ export const movieSlice = createSlice({
                 imdbId: payload,
                 watched: false
             };
-            if (state.movieCollection.length === 1 && state.movieCollection[0]._id === '') {
-                state.movieCollection = [newMovie];
+            if (state.userMovieCollection.length === 1 && state.userMovieCollection[0]._id === '') {
+                state.userMovieCollection = [newMovie];
             }
-            else state.movieCollection = [...state.movieCollection, newMovie];
+            else state.userMovieCollection = [...state.userMovieCollection, newMovie];
         });
 
         builder.addCase(addToLiked.rejected, (state, { payload }) => {
@@ -281,12 +330,7 @@ export const movieSlice = createSlice({
             state.isFetching = false;
             state.isError = false;
             state.errorMsg = '';
-            const newMovie = {
-                _id: '',
-                imdbId: payload,
-                watched: false
-            };
-            state.movieCollection.filter(obj => obj.imdbId !== payload);
+            state.userMovieCollection.filter(obj => obj.imdbId !== payload);
         });
 
         builder.addCase(removeFromLiked.rejected, (state, { payload }) => {
@@ -324,8 +368,30 @@ export const movieSlice = createSlice({
             state.isError = false;
             state.errorMsg = '';
         });
+
+        builder.addCase(getUserCollection.fulfilled, (state, { payload }) => {
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMsg = '';
+            state.userMovieCollection = payload;
+        });
+
+        builder.addCase(getUserCollection.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(getUserCollection.pending, (state) => {
+            state.isSuccess = false;
+            state.isFetching = true;
+            state.isError = false;
+            state.errorMsg = '';
+        });
     }
 });
 
 export const movieSelector = (state: RootState) => state.movies;
-export const { clearState } = movieSlice.actions;
+export const { clearState, clearCollection } = movieSlice.actions;

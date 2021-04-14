@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+
 import './App.scss';
 import PrivateRoute from './helpers/PrivateRoute/PrivateRoute';
-
 import Login from './views/Login/Login';
 import Registration from './views/Registration/Registration'
 import ForgotPassword from './views/ForgotPassword/ForgotPassword';

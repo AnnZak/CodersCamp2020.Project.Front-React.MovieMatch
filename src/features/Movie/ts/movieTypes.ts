@@ -9,6 +9,7 @@ export type SearchedMovie = {
 export type SearchMoviesResponse = SearchedMovie[];
 
 export type MovieDetailsResponse = {
+    imdbId: string,
     Title: string,
     imdbRating: string,
     Runtime: string,
