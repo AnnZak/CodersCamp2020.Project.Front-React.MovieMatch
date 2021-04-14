@@ -25,12 +25,15 @@
         h1 {
             flex-basis: 100%;
             font-size: 2.2rem;
+            color: $color-header;
+            line-height: 2.2rem;
         }
 
         .mv-numbers {
             display: flex;
             flex-wrap: wrap;
             flex-basis: 100%;
+            align-items: center;
 
             >* {
                 padding: 0 1rem;
@@ -54,6 +57,8 @@
 
             .heart-collection {
                 border: none;
+                outline: none;
+                font-size: 1.5rem;
             }
         }
 
@@ -70,6 +75,10 @@
             flex: 3 3 60%;
             display: flex;
             flex-direction: column;
+            font-size: 1.1rem;
+            background-color: $color-white-translucent;
+            border-radius: 20px;
+            margin: 1rem;
 
             >* {
                 padding: 0 0 1rem 0;
