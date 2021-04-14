@@ -1,16 +1,24 @@
-import './movieBriefCard.scss';
 import { useState, useEffect } from 'react';
-import { MovieDetailsResponse } from '../../../features/Movie/ts/movieTypes';
+
 import moviedefault from '../../../assets/images/moviedefault.jpg';
-import { useAppDispatch } from '../../../app/hooks';
-import { removeFromLiked, addToLiked } from '../../../features/Movie/MovieSlice';
+import './movieBriefCard.scss';
+import { removeFromLiked, addToLiked, movieSelector } from '../../../features/Movie/MovieSlice';
+import { MovieDetailsResponse } from '../../../features/Movie/ts/movieTypes';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 
-function MovieBriefCard(props: { movie: MovieDetailsResponse }) {
+function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched: boolean } }) {
 
-    const [heartClass, setHeartClass] = useState('heart-collection');
-    // useEffect(() => {
-    //     setHeartClass('heart-collection');
-    // }, []);
+    const [heartClass, setHeartClass] = useState("heart-collection");
+
+    const { userMovieCollection } = useAppSelector(movieSelector);
+
+    useEffect(() => {
+        const liked = userMovieCollection.some(element => element.imdbId === el.movie.imdbId);
+        setHeartClass((state) => {
+            if (liked) return "heart-collection liked";
+            else return "heart-collection";
+        });
+    }, [userMovieCollection]);
 
     const dispatch = useAppDispatch();
 
@@ -30,14 +38,20 @@ function MovieBriefCard(props: { movie: MovieDetailsResponse }) {
 
     return (
         <div className="collection-movie-card">
-            {(props.movie.Poster && props.movie.Poster !== "N/A") ?
-                <img className="collection-movie-poster" src={props.movie.Poster} alt="movie poster" />
+            {(el.movie.Poster && el.movie.Poster !== "N/A") ?
+                <img className="collection-movie-poster" src={el.movie.Poster} alt="movie poster" />
                 : <img className="collection-movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
             }
-            {props.movie.Title &&
+            {el.movie.Title &&
                 <div className="collection-movie-actions-icons">
-                    <h2 className="collection-movie-title">{props.movie.Title}</h2>
-                    <button className={heartClass} onClick={() => { handleToggleLiked(props.movie.imdbId) }}><i className="fas fa-heart"></i></button>
+                    <h2 className="collection-movie-title">{el.movie.Title}</h2>
+                    <button className={heartClass} onClick={() => { handleToggleLiked(el.movie.imdbId) }}>
+                        <i className="fas fa-heart"></i>
+                    </button>
+                    {el.watched ?
+                        <button><i className="fas fa-eye"></i></button> :
+                        <button><i className="far fa-eye"></i></button>
+                    }
                 </div>
             }
         </div>
