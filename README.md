@@ -24,14 +24,14 @@ Project was created during [CodersCamp Course](https://coderscamp.edu.pl) in Mar
 2. Signing in (logging in with e-mail and password). 
 Additionally: 
     - password recovery option (by clicking on 'Forgot Password?') 
-    - possibility to register by clicking on 'Don't have an account? Sign Up' 
-3. Dashboard - list of suggested movies to watch - list of liked movies 
+    - possibility to go to register by clicking on 'Don't have an account? Sign Up' 
+3. Dashboard - list of suggested movies to watch + list of liked movies 
 4. A view of all liked movies (accessible by clicking on the heart in the top bar) 
 5. A list of user's friends, possibility to add a user to friends 
 6. A view of friends' liked movies 
-7. Search the movie by title 
-8. Display of the movie details (title, photo, description, production date...) 
-9. Account settings form - possibility to change the displayed name, account e-mail and password 
+7. Search movie by title 
+8. Display of the movie details (title, photo, description, production date, etc....) 
+9. Account settings form - possibility to change name, displayed name, account e-mail and password 
 10. Logout
 
 ## Technologies
@@ -41,7 +41,7 @@ Additionally:
 - React (https://reactjs.org/)
 - Redux Toolkit (https://redux-toolkit.js.org/)
 - JEST (https://jestjs.io/)
-- JSEX (https://www.npmjs.com/package/jsex/v/1.0.2)
+- JSX
 - SCSS (https://sass-lang.com/)
 - Typescript (https://www.typescriptlang.org/)
 
