@@ -4,8 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-top: 3px dashed $color-accent;
-
+    
     .mv-details-container {
         padding: 2rem 1rem;
         flex-basis: 1000px;
@@ -14,7 +13,7 @@
         line-height: 1.5rem;
 
         .mv-inline-header {
-            color: $color-accent;
+            color: $color-button;
             font-weight: 600;
             font-size: 105%;
         }
@@ -25,6 +24,7 @@
 
         h1 {
             flex-basis: 100%;
+            font-size: 2.2rem;
         }
 
         .mv-numbers {
@@ -38,12 +38,21 @@
                 border-right: 1px solid $color-accent;
             }
 
+            p {
+                color: $color-header;
+            }
+
             >p:first-child {
                 padding-left: 0;
             }
 
             >p:last-child {
                 padding-right: 0;
+                border: none;
+                
+            }
+
+            .heart-collection {
                 border: none;
             }
         }
@@ -52,6 +61,9 @@
             flex: 1 1 20%;
             max-width: 30%;
             object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 8px 10px 15px $color-movies-border;
+
         }
 
         .mv-info {
