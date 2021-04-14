@@ -1,3 +1,53 @@
-.dashboard {
-    padding-bottom: 3rem;
+@import '../../globalStyles/colors.scss';
+
+.dashboard__container-outer {
+    // width: 100%;
+    // border: 5px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .dashboard__container-inner {
+        // border: 5px solid yellowgreen;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        // flex-direction: column;
+        flex-basis: 90vw;
+        
+        >.db__header, >.db__movies-container, >.db__link-see-more {
+            // border: 5px solid blue;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 1rem 0;
+            display: flex;
+        }
+        
+        >.db__header {
+            justify-content: flex-start;
+            padding: 1rem 2rem 0;
+            color: $color-header; 
+        }
+
+        .db__movies-container {
+            justify-content: center;
+
+            .db__error-message {
+                color: $color-placeholder;
+            }
+        }
+        
+        >.db__link-see-more {
+            justify-content: flex-end;
+            padding: 0 2rem 1rem;
+            margin: 0;
+            border: none;
+            outline: none;
+
+            &:hover, &>*:hover {
+                color: $color-logo;
+                font-weight: bold;
+            }
+        }
+    }
 }
