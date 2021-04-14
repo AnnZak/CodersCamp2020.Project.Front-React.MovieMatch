@@ -118,3 +118,4 @@ export const friendSlice = createSlice({
 
 export const friendsSelector = (state: RootState) => state.friends
 export { getAll, search, invite, accept, decline }
+export type { Friend } from './types'
