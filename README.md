@@ -23,8 +23,8 @@ Project was created during [CodersCamp Course](https://coderscamp.edu.pl) in Mar
 1. Registration (filling in the registration form, confirmation of the account via a link/button in the e-mail) 
 2. Signing in (logging in with e-mail and password). 
 Additionally: 
-- password recovery option (by clicking on 'Forgot Password?') 
-- possibility to register by clicking on 'Don't have an account? Sign Up' 
+    - password recovery option (by clicking on 'Forgot Password?') 
+    - possibility to register by clicking on 'Don't have an account? Sign Up' 
 3. Dashboard - list of suggested movies to watch - list of liked movies 
 4. A view of all liked movies (accessible by clicking on the heart in the top bar) 
 5. A list of user's friends, possibility to add a user to friends 
@@ -38,21 +38,21 @@ Additionally:
 
 ### Project was created with:
 
-- React(https://reactjs.org/)
-- Redux Toolkit(https://redux-toolkit.js.org/)
-- JEST(https://jestjs.io/)
-- JSEX(https://www.npmjs.com/package/jsex/v/1.0.2)
-- SCSS(https://sass-lang.com/)
-- Typescript(https://www.typescriptlang.org/)
+- React (https://reactjs.org/)
+- Redux Toolkit (https://redux-toolkit.js.org/)
+- JEST (https://jestjs.io/)
+- JSEX (https://www.npmjs.com/package/jsex/v/1.0.2)
+- SCSS (https://sass-lang.com/)
+- Typescript (https://www.typescriptlang.org/)
 
 ## Project scope
 
 - Client-server communication
-- functional component
+- Functional component
 - React hooks
 - Component list creation
 - JSX
-- testing
+- Testing
 
 ## Team
 
