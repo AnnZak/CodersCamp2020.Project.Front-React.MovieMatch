@@ -1,17 +1,42 @@
-import React, { useEffect } from 'react';
-import './movieDetailsCard.scss';
+import React, { useState, useEffect } from 'react';
+
 import moviedefault from '../../../assets/images/moviedefault.jpg';
+import './movieDetailsCard.scss';
+import { removeFromLiked, addToLiked, movieSelector, getMovieDetails } from '../../../features/Movie/MovieSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { movieSelector, getMovieDetails } from '../../../features/Movie/MovieSlice';
 
 function MovieDetailsCard(props: { movieId: string }) {
 
+    const [heartClass, setHeartClass] = useState("heart-collection");
+
     const dispatch = useAppDispatch();
-    const { movieDetails } = useAppSelector(movieSelector);
+    const { userMovieCollection, movieDetails } = useAppSelector(movieSelector);
 
     useEffect(() => {
         dispatch(getMovieDetails(props.movieId));
     }, []);
+
+    useEffect(() => {
+        const liked = userMovieCollection.some(element => element.imdbId === movieDetails.imdbId);
+        setHeartClass((state) => {
+            if (liked) return "heart-collection liked";
+            else return "heart-collection";
+        });
+    }, [userMovieCollection]);
+
+    function handleToggleLiked(movieId: string) {
+        const toggle = async () => {
+            const liked = await dispatch(addToLiked(movieId));
+            if (liked.payload === movieId) {
+                setHeartClass('heart-collection liked');
+            }
+            if (liked.payload !== movieId) {
+                await dispatch(removeFromLiked(movieId));
+                setHeartClass('heart-collection');
+            }
+        }
+        toggle();
+    }
 
     return (
         <div className="movie-card-container">
@@ -23,7 +48,9 @@ function MovieDetailsCard(props: { movieId: string }) {
                         <p className="mv-country">{movieDetails.Country}</p>
                         <p className="mv-rating">{movieDetails.imdbRating}/10</p>
                         <p className="mv-runtime">{movieDetails.Runtime}</p>
-                        <button className="heart-collection liked"> <i className="fas fa-heart" > </i></button >
+                        <button className={heartClass} onClick={() => { handleToggleLiked(movieDetails.imdbId) }}>
+                            <i className="fas fa-heart"></i>
+                        </button>
                     </div>
                     {(movieDetails.Poster && movieDetails.Poster !== "N/A") &&
                         <img className="mv-poster" src={movieDetails.Poster} alt="movie poster" />
