@@ -64,7 +64,7 @@ button {
     font-size: inherit;
     cursor: pointer;
 
-    &.heart-collection, .watched-movie {
+    &.heart-collection {
         color: $color-button;
 
         &.liked {
