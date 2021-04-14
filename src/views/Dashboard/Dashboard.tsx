@@ -5,14 +5,10 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import './Dashboard.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
-import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector, removeFromLiked, searchMovies, addToLiked } from '../../features/Movie/MovieSlice';
+import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector, getSuggestedMovies } from '../../features/Movie/MovieSlice';
 import { userSelector } from '../../features/User/UserSlice';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-
-interface ParamTypes {
-    userid: string;
-}
 
 function Dashboard() {
 
@@ -34,22 +30,20 @@ function Dashboard() {
         watched: false
     }
 
+    const [suggestedMovies, setSuggestedMovies] = useState<{ movie: MovieDetailsResponse, watched?: boolean }[]>([displayedInitialState]);
+    const [suggestErrMessage, setSuggestErrMessage] = useState("");
     const [collectionMovies, setCollectionMovies] = useState<{ movie: MovieDetailsResponse, watched: boolean }[]>([displayedInitialState]);
     const [collectionErrMessage, setCollectionErrMessage] = useState("");
-
-    const [suggestErrMessage, setSuggestErrMessage] = useState("");
-    const [suggestedMovies, setSuggestedMovies] = useState<{ movie: MovieDetailsResponse, watched?: boolean }[]>([displayedInitialState]);
 
     const dispatch = useAppDispatch();
     const { _id } = useAppSelector(userSelector);
     const { searchedMovies } = useAppSelector(movieSelector);
 
-    const searchBy = "Today";
     useEffect(() => {
         setSuggestedMovies([displayedInitialState]);
         setSuggestErrMessage("");
 
-        if (searchBy) dispatch(searchMovies(searchBy)).then(unwrapResult).then(originalResult => {
+        dispatch(getSuggestedMovies("")).then(unwrapResult).then(originalResult => {
             if (!searchedMovies) setSuggestErrMessage("Couldn't load suggestions.")
             dispatch(clearState());
             for (const movie of originalResult) {
@@ -61,8 +55,7 @@ function Dashboard() {
                 }).catch(e => { setSuggestErrMessage("Couldn't load suggestions.") });
             }
         }).catch(e => { setSuggestErrMessage("Couldn't load suggestions.") });
-
-    }, [searchBy]);
+    }, []);
 
     useEffect(() => {
         setCollectionMovies([displayedInitialState]);
@@ -86,7 +79,6 @@ function Dashboard() {
             <Topbar />
             <div className="dashboard__container-outer">
                 <div className="dashboard__container-inner">
-
                     <h1 className="db__header x">New things to watch...</h1>
                     <div className="db__movies-container">
                         {suggestErrMessage !== "" ?
@@ -98,7 +90,6 @@ function Dashboard() {
                             )
                         }
                     </div>
-
                     <h1 className="db__header">In your collection...</h1>
                     <div className="db__movies-container">
                         {collectionErrMessage !== "" ?
