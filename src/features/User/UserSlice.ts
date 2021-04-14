@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { deleteToken } from '../../helpers/auth/auth';
 import { UNKNOWN_ERROR_MSG } from '../common';
 import { SliceState } from "./types";
-import { loginUser, registerUser, confirmRegistration, getUserData } from './thunks';
+import { loginUser, registerUser, confirmRegistration, getUserData, changeData } from './thunks';
 
 const initialState: SliceState = {
     _id: '',
@@ -116,6 +116,27 @@ const userSlice = createSlice({
         builder.addCase(confirmRegistration.pending, (state) => {
             state.isFetching = true;
         });
+
+        //change user data
+        
+        builder.addCase(changeData.fulfilled, (state, { meta }) => {
+            const whatChanged = meta.arg.toChange;
+            state = {...state, ...whatChanged};
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.errorMsg = "";
+        });
+
+        builder.addCase(changeData.rejected, (state, action) => {
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = action.payload ? action.payload.error : UNKNOWN_ERROR_MSG;
+        });
+
+        builder.addCase(changeData.pending, (state) => {
+            state.isFetching = true;
+        });
+        
     }
 });
 
