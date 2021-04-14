@@ -1,4 +1,5 @@
 import React from 'react';
+import './CheckEmail.scss';
 import TopLogo from '../../components/ui/topLogo/topLogo';
 
 function ResetPassword() {
@@ -6,7 +7,8 @@ function ResetPassword() {
     return (
         <div className="forgot-password">
             <TopLogo />
-            <h1>Please, check you email to confirm registration</h1>
+            <img src="https://friendkit.cssninja.io/assets/img/illustrations/signup/mailbox.svg" />
+            <h1 className='check-heading'>Please, check you email to confirm registration</h1>
         </div>
     );
 }
