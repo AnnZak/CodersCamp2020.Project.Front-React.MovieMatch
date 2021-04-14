@@ -4,6 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+
+    .user-search__search-input{
+        width: 70%;
+    }
        
     .friend-cards-container {
         display: flex;
@@ -48,7 +53,7 @@
 
                 &:last-child {
                     padding-top: 0.3rem;
-                    color: red;
+                    // color: red;
                     font-weight: 400;
                     color: $color-dark;
                 }

@@ -7,7 +7,7 @@ import { removeFromLiked, addToLiked, movieSelector } from '../../../features/Mo
 import { MovieDetailsResponse } from '../../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 
-function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched: boolean } }) {
+function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: boolean } }) {
 
     const [heartClass, setHeartClass] = useState("heart-collection");
 
@@ -38,27 +38,26 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched: bo
     }
 
     return (
-        <div className="collection-movie-card">
+        <div className="movie-brief-card__container">
             {(el.movie.Poster && el.movie.Poster !== "N/A") ?
                 <Link to={`/movies/${el.movie.imdbId}`}>
-                    <img className="collection-movie-poster" src={el.movie.Poster} alt="movie poster" />
-                </Link>
-
-                : <Link to={`/movies/${el.movie.imdbId}`}>
-                    <img className="collection-movie-poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
+                    <img className="movie-brief-card__poster" src={el.movie.Poster} alt="movie poster" />
+                </Link> :
+                <Link to={`/movies/${el.movie.imdbId}`}>
+                    <img className="movie-brief-card__poster" src={moviedefault} alt="default movie poster" style={{ opacity: 0.5 }} />
                 </Link>
             }
+            <Link to={`/movies/${el.movie.imdbId}`}>
+                <h2 className="movie-brief-card__title">{el.movie.Title}</h2>
+            </Link>
             {el.movie.Title &&
-                <div className="collection-movie-actions-icons">
-                    <Link to={`/movies/${el.movie.imdbId}`}>
-                        <h2 className="collection-movie-title">{el.movie.Title}</h2>
-                    </Link>
+                <div className="movie-brief-card__action-icons">
                     <button className={heartClass} onClick={() => { handleToggleLiked(el.movie.imdbId) }}>
                         <i className="fas fa-heart"></i>
                     </button>
                     {el.watched ?
-                        <button><i className="fas fa-eye"></i></button> :
-                        <button><i className="far fa-eye"></i></button>
+                        <button className="watched-movie"><i className="fas fa-eye"></i></button> :
+                        <button className="watched-movie"><i className="far fa-eye"></i></button>
                     }
                 </div>
             }

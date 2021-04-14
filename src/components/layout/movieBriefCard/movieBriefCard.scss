@@ -1,11 +1,10 @@
 @import '../../../globalStyles/colors.scss';
 
-.collection-movie-card {
+.movie-brief-card__container {
     display: flex;
-    justify-items: center;
+    justify-content: space-between;
     flex-direction: column;
     flex-basis: 15%;
-    // flex: 1 1 30%;
     background: white;
     border-radius: 10px;
     margin: 0.5rem;
@@ -19,45 +18,49 @@
         transform: scale(1.05);
     }
     
-    &>* {
-        padding: 1rem;
-    }
-
     >h2 {
         display: flex;
         justify-content: center;
         align-items: center;
     }
     
-    .collection-movie-poster {
-        //flex-basis: 100%;
+    .movie-brief-card__poster {
         height: 22rem;
         width: 15rem;
         object-fit: cover;
         max-width: auto;
+        padding: 0rem;
+        border-radius: 10px;
     }
-    .collection-movie-actions-icons {
+
+    .movie-brief-card__title {
+        color: $color-header;
+        font-size: 1.1rem;
+        // font-family: "Montserrat",sans-serif;
+        font-weight: 500;
+        padding: 1rem 1rem 0.2rem 1rem;
+        text-align: center;
+    }
+
+    .movie-brief-card__action-icons {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding-bottom: 2rem;
-
-        .collection-movie-title {
-            color: $color-header;
-            font-size: 1.1rem;
-            font-family: "Montserrat",sans-serif;
-            font-weight: 500;
-
-        }
+        padding: 0.2rem 0.25rem 0.75rem 0.25rem;
+        justify-self: flex-end;
 
         >button {
             border: none;
-            font-size: 2rem;
+            font-size: 1.8rem;
             opacity: 0.5;
-            &:hover, &:active, &:focus {
-                // border: none;
+            
+            &:hover, &:active {
+                opacity: 1;
+            }
+            
+            &:focus {
                 outline: none;
-                opacity: 0.9;
+                opacity: 0.7;
             }
         }
     }

@@ -20,14 +20,14 @@ function SearchFriends() {
 
     useEffect(() => {
         dispatch(getAll())
-    }, [])
+    }, [searchVal])
 
     const handleEnterPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && searchVal && searchVal !== "") {
             history.push(`/search-friends?dispName=${searchVal}`);
             try {
                 const response = await searchUsers(searchVal);
-                if(response.status === 200) {
+                if (response.status === 200) {
                     setDispUsers(response.data.users);
                 } else {
                     setDispUsers([]);
@@ -38,14 +38,12 @@ function SearchFriends() {
         }
     }
 
-
-
     return (
         <div>
             <Topbar />
             <div className="container-search-friends">
                 <input
-                    className="navbar__search-input"
+                    className="user-search__search-input"
                     placeholder="Search friends..."
                     type="text"
                     value={searchVal}
@@ -53,15 +51,6 @@ function SearchFriends() {
                     onKeyDown={(e) => { handleEnterPress(e) }}
                 />
                 <div className="friend-cards-container">
-
-                    {dispUsers.map((user) =>
-                        <div className="friend-card">
-                            <img className="avatar" src={avatardefault} alt="friend's profile picture" />
-                            <p className="friend-name">{user.name}</p>
-                            <p className="friend-name">{user.displayedName}</p>
-                        </div>
-                    )}
-
                     {allFriends.map((friend) =>
                         <Link to={`/collection/${friend._id}`}>
                             <div className="friend-card">
@@ -71,7 +60,16 @@ function SearchFriends() {
                                 <p className="friend-name">{friend.displayedName}</p>
                             </div>
                         </Link>
-
+                    )}
+                </div>
+                <h1>Search new MovieMatch friends!</h1>
+                <div className="friend-cards-container">
+                    {dispUsers.map((user) =>
+                        <div className="friend-card">
+                            <img className="avatar" src={avatardefault} alt="friend's profile picture" />
+                            <p className="friend-name">{user.name}</p>
+                            <p className="friend-name">{user.displayedName}</p>
+                        </div>
                     )}
                 </div>
             </div>
