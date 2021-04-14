@@ -64,11 +64,20 @@ button {
     font-size: inherit;
     cursor: pointer;
 
-    &.heart-collection {
+    &.heart-collection, .watched-movie {
         color: $color-button;
+
         &.liked {
             color: $color-important;
         }
+        
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &.watched-movie {
+        color: $color-button;
 
         &:hover {
             transform: scale(1.1);
