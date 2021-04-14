@@ -71,6 +71,7 @@ const Login = () => {
             onSubmit={() => { onSubmit({ email, password }) }}
           />
           <h5><Link to="register">Don't have an account? Sign Up</Link></h5>
+          <h6><Link to ="/forgot-password">Forgot Password?</Link></h6>
         </div>
       </div>
     </div>

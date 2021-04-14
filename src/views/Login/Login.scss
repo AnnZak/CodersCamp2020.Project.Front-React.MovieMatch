@@ -19,7 +19,7 @@
         }
     }
 
-    h5 {
+    h5, h6 {
         padding: 1rem 0;
         display: flex;
         justify-content: center;
@@ -31,5 +31,9 @@
         &:focus {
             color: $color-button-background;
         }
+    }
+
+    h6 {
+        font-size: smaller;
     }
 }

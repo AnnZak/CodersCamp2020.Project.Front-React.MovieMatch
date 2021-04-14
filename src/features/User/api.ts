@@ -22,3 +22,12 @@ export const searchUsers = async (dispName: string) =>  {
         }
     );
 };
+
+export const forgotPassword = async (email:string) => {
+    return await axios.post(
+        `${API_URL}/users/forgotpassword`,
+        {
+            email
+        },
+    );
+}
