@@ -30,7 +30,7 @@ Additionally:
 5. A list of user's friends, possibility to add a user to friends 
 6. A view of friends' liked movies 
 7. Search movie by title 
-8. Display of the movie details (title, photo, description, production date, etc....) 
+8. Display of the movie details (title, photo, description, production date, etc.) 
 9. Account settings form - possibility to change name, displayed name, account e-mail and password 
 10. Logout
 
