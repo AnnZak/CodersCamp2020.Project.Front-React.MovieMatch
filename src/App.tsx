@@ -15,9 +15,28 @@ import SearchFriends from './views/SearchFriends/SearchFriends';
 import SearchMovies from './views/SearchMovies/SearchMovies';
 import RegisterConfirm from './views/RegisterConfirm/RegisterConfirm';
 import MovieCollection from './views/MovieCollection/MovieCollection';
+import { getToken } from './helpers/auth/auth';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+import { userSelector, getUserData, clearState as clearUserState } from './features/User';
 
 
 function App() {
+
+  const dispatch = useAppDispatch();
+  const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(userSelector);
+
+  useEffect(() => {
+    handleReload();
+  }, []);
+
+  const handleReload = async () => {
+    const token = getToken();
+    if(!token) return;
+
+    await dispatch(getUserData());
+    dispatch(clearUserState());
+  };
+
   return (
     <div className="App">
       <Router>
@@ -25,7 +44,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Registration} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
-          <Route exact path="/reset-password" component={ResetPassword} />
+          <Route exact path="/reset-password/:resetToken" component={ResetPassword} />
           <Route exact path="/check-email" component={CheckEmail} /> {/*TODO: only accesible through registration beeing succesful*/}
           <Route exact path="/register-confirm/:regToken" component={RegisterConfirm} />
           <PrivateRoute exact path="/" component={Dashboard} />

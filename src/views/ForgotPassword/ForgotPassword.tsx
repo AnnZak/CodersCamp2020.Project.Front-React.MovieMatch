@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ForgotPassword.scss'
 import Form from '../../components/layout/form/form';
 import TopLogo from '../../components/ui/topLogo/topLogo';
-import {forgotPassword} from '../../features/User/api'
+import { userApi } from '../../features/User'
 
 function ForgotPassword() {
 
@@ -20,7 +20,7 @@ function ForgotPassword() {
         } else {
             setEmailWarning("");
             try {
-                const response = await forgotPassword(email);
+                const response = await userApi.forgotPassword(email);
                 if(response.status === 200) {
                     setInfo(response.data.message);
                 } else {
