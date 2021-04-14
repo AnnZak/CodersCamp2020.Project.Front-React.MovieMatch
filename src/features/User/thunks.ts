@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from '../../constants';
 import { setToken } from '../../helpers/auth/auth';
 import { ErrorResponse, SuccessResponse } from "../common";
-import { LoginResponse, LoginCredentials, RegisterCredentials } from "./types";
+import { LoginResponse, LoginCredentials, RegisterCredentials, UserData } from "./types";
 import * as userApi from './api';
 
 type KnownReject = {
@@ -23,6 +23,23 @@ export const loginUser = createAsyncThunk<LoginResponse, LoginCredentials, Known
             if (response.status === 200) {
                 setToken(response.data.token);
                 return response.data as LoginResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            console.log("Error", error.response.data);
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+);
+
+export const getUserData = createAsyncThunk<UserData, void, KnownReject>(
+    'user/getData',
+    async (userCredentials?, thunkApi?) => {
+        try {
+            const response = await userApi.getUserData();
+            if (response.status === 200) {
+                return response.data as UserData;
             } else {
                 return thunkApi.rejectWithValue(response.data as ErrorResponse);
             }

@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { deleteToken } from '../../helpers/auth/auth';
 import { UNKNOWN_ERROR_MSG } from '../common';
 import { SliceState } from "./types";
-import { loginUser, registerUser, confirmRegistration } from './thunks';
+import { loginUser, registerUser, confirmRegistration, getUserData } from './thunks';
 
 const initialState: SliceState = {
     _id: '',
@@ -16,7 +16,7 @@ const initialState: SliceState = {
     errorMsg: '',
 }
 
-export const userSlice = createSlice({
+const userSlice = createSlice({
     name: 'user',
 
     initialState,
@@ -59,6 +59,28 @@ export const userSlice = createSlice({
             state.isFetching = true;
         });
 
+        //getData
+
+        builder.addCase(getUserData.fulfilled, (state, { payload }) => {
+            state._id = payload._id;
+            state.displayedName = payload.displayedName;
+            state.name = payload.name;
+            state.email = payload.email;
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.errorMsg = "";
+        });
+
+        builder.addCase(getUserData.rejected, (state, action) => {
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = action.payload ? action.payload.error : UNKNOWN_ERROR_MSG;
+        });
+
+        builder.addCase(getUserData.pending, (state) => {
+            state.isFetching = true;
+        });
+
         //register
 
         builder.addCase(registerUser.fulfilled, (state) => {
@@ -98,6 +120,7 @@ export const userSlice = createSlice({
 });
 
 export const userSelector = (state: RootState) => state.user;
+export const userReducer = userSlice.reducer;
 export const { clearState, resetState, logout } = userSlice.actions;
-export {loginUser, registerUser, confirmRegistration};
-export type {LoginCredentials, RegisterCredentials} from './types';
+
+

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { clearState, confirmRegistration, userSelector } from "../../features/User/UserSlice";
+import { clearState, confirmRegistration, userSelector } from "../../features/User";
 
 function RegisterConfirm() {
 
@@ -13,7 +13,6 @@ function RegisterConfirm() {
 
     const[error, setError] = useState<string>();
 
-    //wyciąga z paramsów registrationtoken, robi strzał do API tymże tokenem i robi history.push(/login)
     const { regToken } = useParams<{regToken: string}>();
 
     useEffect(() => {
