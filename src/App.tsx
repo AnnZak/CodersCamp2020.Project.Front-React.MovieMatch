@@ -19,6 +19,7 @@ import { deleteToken, getToken } from './helpers/auth/auth';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { userSelector, getUserData, clearState as clearUserState } from './features/User';
 import { getUserCollection } from './features/Movie/MovieSlice'
+import { getAll, getInvitations } from './features/Friends/FriendSlice'
 
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
     if(user.isSuccess) {
       dispatch(clearUserState());
       dispatch(getUserCollection(user._id));
+      dispatch(getAll());
+      dispatch(getInvitations());
     }
 
     if(user.isError) {

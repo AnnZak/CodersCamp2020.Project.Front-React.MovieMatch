@@ -6,6 +6,7 @@ import TopLogo from '../../components/ui/topLogo/topLogo';
 import Form from '../../components/layout/form/form';
 import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User'
 import {movieSelector, getUserCollection, clearState as clearMovieState} from '../../features/Movie/MovieSlice'
+import { friendsSelector, getAll, getInvitations } from '../../features/Friends/FriendSlice'
 
 const Login = () => {
 
@@ -18,7 +19,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { _id, isError, isSuccess, errorMsg } = useAppSelector(userSelector);
-  const movies = useAppSelector(movieSelector)
+  const movies = useAppSelector(movieSelector);
 
   const onSubmit = (data: LoginCredentials) => {
     const emailRegEx = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
@@ -52,6 +53,8 @@ const Login = () => {
     if (isSuccess) {
       dispatch(clearState());
       dispatch(getUserCollection(_id))
+      dispatch(getAll());
+      dispatch(getInvitations());
       history.push("/");
     }
   }, [isError, isSuccess]);
