@@ -3,7 +3,7 @@ import Topbar from '../../components/layout/topbar/topbar';
 import avatardefault from '../../assets/images/avatardefault.png';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { friendsSelector, getAll, Friend, invite, getInvitations } from '../../features/Friends/FriendSlice';
+import { friendsSelector, getAll, Friend, invite, getInvitations, accept, decline } from '../../features/Friends/FriendSlice';
 import { Link, useHistory } from 'react-router-dom';
 import { searchUsers } from '../../features/User/api';
 import Form from '../../components/layout/form/form';
@@ -108,6 +108,8 @@ function SearchFriends() {
                                 <img className="avatar" src={avatardefault} alt="friend's profile picture" />
                                 <p className="friend-name">{user.name}</p>
                                 <p className="friend-name">{user.displayedName}</p>
+                                <button onClick={() => {dispatch(accept(user._id))}}>Accept</button>
+                                <button onClick={() => {dispatch(decline(user._id))}}>Decline</button>
                             </div>
                         </div>
                         )}
