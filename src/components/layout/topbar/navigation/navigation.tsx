@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import './navigation.scss';
-import { userSelector } from '../../../../features/User/UserSlice';
+import { userSelector } from '../../../../features/User';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { searchMovies } from '../../../../features/Movie/MovieSlice';
 
