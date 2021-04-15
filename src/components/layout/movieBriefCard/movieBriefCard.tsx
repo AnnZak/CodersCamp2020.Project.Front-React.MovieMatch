@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 
 import moviedefault from '../../../assets/images/moviedefault.jpg';
 import './movieBriefCard.scss';
-import { removeFromLiked, addToLiked, movieSelector } from '../../../features/Movie/MovieSlice';
+import { removeFromLiked, addToLiked, toggleWatched, movieSelector } from '../../../features/Movie/MovieSlice';
 import { MovieDetailsResponse } from '../../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 
 function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: boolean } }) {
 
     const [heartClass, setHeartClass] = useState("heart-collection");
+    const [eye, setEye] = useState(false);
 
     const { userMovieCollection } = useAppSelector(movieSelector);
 
@@ -19,6 +20,8 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
             if (liked) return "heart-collection liked";
             else return "heart-collection";
         });
+        if (el.watched === true) setEye(true);
+        if (el.watched === false) setEye(false);
     }, [userMovieCollection]);
 
     const dispatch = useAppDispatch();
@@ -32,6 +35,19 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
             if (liked.payload !== movieId) {
                 await dispatch(removeFromLiked(movieId));
                 setHeartClass('heart-collection');
+            }
+        }
+        toggle();
+    }
+
+    function handleToggleWatched(movieId: string) {
+        const toggle = async () => {
+            const watched = await dispatch(toggleWatched(movieId));
+            if (watched.payload === "Watched changed to: true") {
+                setEye(true);
+            }
+            if (watched.payload?.message === "Watched changed to: false") {
+                setEye(false);
             }
         }
         toggle();
@@ -55,10 +71,10 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
                     <button className={heartClass} onClick={() => { handleToggleLiked(el.movie.imdbId) }}>
                         <i className="fas fa-heart"></i>
                     </button>
-                    {el.watched ?
-                        <button className="watched-movie"><i className="fas fa-eye"></i></button> :
-                        <button className="watched-movie"><i className="far fa-eye"></i></button>
-                    }
+                    {/* {!eye ?
+                        <button className="watched-movie" onClick={() => { handleToggleWatched(el.movie.imdbId) }}><i className="fas fa-eye"></i></button> :
+                        <button className="watched-movie" onClick={() => { handleToggleWatched(el.movie.imdbId) }}><i className="far fa-eye"></i></button>
+                    } */}
                 </div>
             }
         </div>
