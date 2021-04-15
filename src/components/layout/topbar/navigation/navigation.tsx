@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import './navigation.scss';
-import { userSelector } from '../../../../features/User/UserSlice';
+import { userSelector } from '../../../../features/User';
 import { useAppSelector } from '../../../../app/hooks';
+
 
 const Navigation = () => {
     const [searchValue, setSearchValue] = useState("");

@@ -77,3 +77,13 @@ export const editPassword = async (id: string, oldPassword: string, newPassword:
         }
     );
 };
+
+export const resetPassword = async (newPassword: string, resetToken: string) => {
+
+    return await axios.put(
+        `${API_URL}/users/resetpassword/${resetToken}`,
+        {
+            newPassword
+        },
+    );
+};
