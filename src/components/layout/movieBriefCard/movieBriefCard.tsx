@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import moviedefault from '../../../assets/images/moviedefault.jpg';
 import './movieBriefCard.scss';
-import { removeFromLiked, addToLiked, movieSelector } from '../../../features/Movie/MovieSlice';
+import { removeFromLiked, addToLiked, toggleWatched, movieSelector } from '../../../features/Movie/MovieSlice';
 import { MovieDetailsResponse } from '../../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 
@@ -37,6 +37,13 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
         toggle();
     }
 
+    function handleToggleWatched(movieId: string) {
+        const toggle = async () => {
+            await dispatch(toggleWatched(movieId));
+        }
+        toggle();
+    }
+
     return (
         <div className="movie-brief-card__container">
             {(el.movie.Poster && el.movie.Poster !== "N/A") ?
@@ -56,8 +63,8 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
                         <i className="fas fa-heart"></i>
                     </button>
                     {el.watched ?
-                        <button className="watched-movie"><i className="fas fa-eye"></i></button> :
-                        <button className="watched-movie"><i className="far fa-eye"></i></button>
+                        <button className="watched-movie" onClick={() => { handleToggleWatched(el.movie.imdbId) }}><i className="fas fa-eye"></i></button> :
+                        <button className="watched-movie" onClick={() => { handleToggleWatched(el.movie.imdbId) }}><i className="far fa-eye"></i></button>
                     }
                 </div>
             }
