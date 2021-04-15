@@ -6,7 +6,7 @@ import './Dashboard.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
 import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector, getSuggestedMovies } from '../../features/Movie/MovieSlice';
-import { userSelector } from '../../features/User/UserSlice';
+import { userSelector } from '../../features/User';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 

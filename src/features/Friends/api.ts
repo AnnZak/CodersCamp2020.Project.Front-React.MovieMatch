@@ -99,6 +99,7 @@ const getInvitations = async () => {
         `${API_URL}/friends/invitations`,
         {
             headers: { authorization: token },
+
         }
     );
 };

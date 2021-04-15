@@ -27,3 +27,5 @@ export type RegisterCredentials = {
     displayedName: string,
     password: string,
 };
+
+export type UserField = { name: string } | {displayedName: string} | {email: string}
