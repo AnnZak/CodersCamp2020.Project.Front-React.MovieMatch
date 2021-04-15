@@ -5,7 +5,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import './MovieCollection.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
-import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
+import { showCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
 import { getFriendById } from '../../features/Friends/api';
 import { userSelector } from '../../features/User';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
@@ -66,7 +66,6 @@ function MovieCollection() {
         dispatch(showCollection(userid)).then(unwrapResult).then(originalResult => {
             dispatch(clearState());
             for (const movie of originalResult) {
-                dispatch(getUserCollection(_id));
                 dispatch(clearState());
                 dispatch(getMovieDetails(movie.imdbId)).then(unwrapResult).then(originalResult => {
                     dispatch(clearState());
