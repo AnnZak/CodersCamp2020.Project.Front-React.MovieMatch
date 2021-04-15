@@ -52,7 +52,7 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                     }}>
                         {inputs.map((input, index) => {
                             return (
-                                <div className={
+                                <div key={`key${index}`} className={
                                     input.type === 'radio' || input.type === 'checkbox' || input.type === 'color' ?
                                         'form-item oneline' : 'form-item'
                                 }>

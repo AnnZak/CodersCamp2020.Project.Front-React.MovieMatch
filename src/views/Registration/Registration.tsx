@@ -23,7 +23,7 @@ function Registration() {
 
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(
+  const { isError, isSuccess } = useAppSelector(
     userSelector
   );
 

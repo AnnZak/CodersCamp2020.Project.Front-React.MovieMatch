@@ -5,7 +5,7 @@ import './SearchMovies.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
 import { userSelector } from '../../features/User/UserSlice';
-import { movieSelector, removeFromLiked, searchMovies, addToLiked, getUserCollection, getMovieDetails, clearState } from '../../features/Movie/MovieSlice';
+import { movieSelector, searchMovies, getUserCollection, getMovieDetails, clearState } from '../../features/Movie/MovieSlice';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 

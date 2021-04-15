@@ -24,7 +24,7 @@ const Dropdown = () => {
         <div className="topbar__dropdown">
             <ul>
                 <li>
-                    <a className="topbar__avatar-link" href="#" onClick={handleVisibility}><img className="topbar__avatar-img" src={avatardefault} /></a>
+                    <button className="topbar__avatar-link" onClick={handleVisibility}><img className="topbar__avatar-img" src={avatardefault} alt="user's avatar" /></button>
                     <ul className={visible ? "topbar__dropdown-menu visible" : "topbar__dropdown-menu invisible"}>
                         <li className="topbar__dropdown-menu__item"><Link to="/settings">Settings</Link></li>
                         <li className="topbar__dropdown-menu__item"><button onClick={handleLogOut}>Log Out</button></li>

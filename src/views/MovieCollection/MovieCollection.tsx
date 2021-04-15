@@ -5,7 +5,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import './MovieCollection.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
-import { showCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
+import { showCollection, getMovieDetails, clearState } from '../../features/Movie/MovieSlice';
 import { getFriendById } from '../../features/Friends/api';
 import { userSelector } from '../../features/User';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
@@ -96,8 +96,8 @@ function MovieCollection() {
                             <div className="collection__error-container">
                                 <h1>{errMessage}</h1>
                             </div> :
-                            displayedMovies.map((element) =>
-                                element.movie.Title && <MovieBriefCard el={element as { movie: MovieDetailsResponse, watched: boolean }} />
+                            displayedMovies.map((element, index) =>
+                                element.movie.Title && <MovieBriefCard key={`keymc${element.movie.imdbId}`} el={element as { movie: MovieDetailsResponse, watched: boolean }} />
                             )
                         }
                     </div>

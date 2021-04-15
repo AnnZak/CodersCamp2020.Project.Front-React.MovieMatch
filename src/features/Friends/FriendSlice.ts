@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, AsyncThunkAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import {clearState, UNKNOWN_ERROR_MSG} from '../common'
+import { clearState, UNKNOWN_ERROR_MSG } from '../common'
 import { SliceState } from "./types";
 import { getAll, search, invite, accept, decline, getInvitations } from './thunks';
 
@@ -90,7 +90,7 @@ export const friendSlice = createSlice({
 
         //accept invitation
 
-        builder.addCase(accept.fulfilled, (state, {meta}) => {
+        builder.addCase(accept.fulfilled, (state, { meta }) => {
             const invitationId = meta.arg;
 
             const index = state.invitations.received.map(invitation => invitation._id).indexOf(invitationId);
@@ -149,10 +149,6 @@ export const friendSlice = createSlice({
         });
     }
 });
-
-const removeById = <T>(array: Array<T>, id: string) => {
-
-}
 
 export const friendsSelector = (state: RootState) => state.friends
 export { getAll, search, invite, accept, decline, getInvitations }

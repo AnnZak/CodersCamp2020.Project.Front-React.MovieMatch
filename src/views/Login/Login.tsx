@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import TopLogo from '../../components/ui/topLogo/topLogo';
 import Form from '../../components/layout/form/form';
 import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User'
-import {movieSelector, getUserCollection, clearState as clearMovieState} from '../../features/Movie/MovieSlice'
+import { movieSelector, getUserCollection, clearState as clearMovieState } from '../../features/Movie/MovieSlice'
 
 const Login = () => {
 
@@ -17,7 +17,7 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const { _id, isError, isSuccess, errorMsg } = useAppSelector(userSelector);
+  const { _id, isError, isSuccess } = useAppSelector(userSelector);
   const movies = useAppSelector(movieSelector)
 
   const onSubmit = (data: LoginCredentials) => {
@@ -71,7 +71,7 @@ const Login = () => {
     <div className="login">
       <TopLogo />
       <div className="login-container">
-        <img className="login-container-picture" src="https://friendkit.cssninja.io/assets/img/illustrations/login/login.svg" />
+        <img className="login-container-picture" src="https://friendkit.cssninja.io/assets/img/illustrations/login/login.svg" alt="firneds by the table watching movies on their phones" />
         <div className="login-containers-form">
           <Form
             heading="Sign In to your account"
@@ -83,7 +83,7 @@ const Login = () => {
             onSubmit={() => { onSubmit({ email, password }) }}
           />
           <h5><Link to="register">Don't have an account? Sign Up</Link></h5>
-          <h6><Link to ="/forgot-password">Forgot Password?</Link></h6>
+          <h6><Link to="/forgot-password">Forgot Password?</Link></h6>
         </div>
       </div>
     </div>

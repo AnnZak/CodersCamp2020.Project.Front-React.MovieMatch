@@ -48,6 +48,8 @@
 
         .topbar__avatar-link {
             display: block;
+            outline: none;
+            border: none;
 
             >.topbar__avatar-img {
                 height: 3rem;
@@ -75,8 +77,10 @@
             >ul.topbar__dropdown-menu {
                 width: 100%;
             }
-            .topbar__avatar-link {
+            >button.topbar__avatar-link {
                 padding-top: 1rem;
+                width: 100%;
+                align-items: center;
             }
 
             >ul {
