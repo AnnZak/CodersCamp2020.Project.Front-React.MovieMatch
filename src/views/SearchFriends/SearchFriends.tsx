@@ -47,17 +47,7 @@ function SearchFriends() {
                         onChange={(e) => { setSearchVal(e.target.value) }}
                         onKeyDown={(e) => { handleEnterPress(e) }}
                     />
-                    <div className="friend-cards-container">
-                        {allFriends.map((friend) =>
-                            <Link to={`/collection/${friend._id}`}>
-                                <div className="friend-card">
-                                    <img className="avatar" src={avatardefault} alt="friend's profile picture" />
-                                    <p className="friend-name">{friend.name}</p>
-                                    <p className="friend-name">{friend.displayedName}</p>
-                                </div>
-                            </Link>
-                        )}
-                    </div>
+                    
                     
                     <div className="friend-cards-container">
                         
@@ -87,6 +77,18 @@ function SearchFriends() {
                             </div>
                             )}
                             
+                        )}
+                    </div>
+                    <h1>Your friends!</h1>
+                    <div className="friend-cards-container">
+                        {allFriends.map((friend) =>
+                            <Link to={`/collection/${friend._id}`}>
+                                <div className="friend-card">
+                                    <img className="avatar" src={avatardefault} alt="friend's profile picture" />
+                                    <p className="friend-name">{friend.name}</p>
+                                    <p className="friend-name">{friend.displayedName}</p>
+                                </div>
+                            </Link>
                         )}
                     </div>
                 </div>
