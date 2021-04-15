@@ -84,7 +84,7 @@ function Dashboard() {
                                 <h2 className="db__error-message">{suggestErrMessage}</h2>
                             </div> :
                             suggestedMovies.slice(0, 6).map((element) =>
-                                element.movie.Title && <MovieBriefCard el={element as { movie: MovieDetailsResponse }} />
+                                element.movie.Title && <MovieBriefCard key={`keydb${element.movie.imdbId}`} el={element as { movie: MovieDetailsResponse }} />
                             )
                         }
                     </div>

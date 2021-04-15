@@ -66,7 +66,7 @@ function SearchMovies(props: { location?: { search?: string } }) {
                             <h1>{errMessage}</h1>
                         </div> :
                         displayedMovies.map((element) =>
-                            element.movie.Title && <MovieBriefCard el={element as { movie: MovieDetailsResponse }} />
+                            element.movie.Title && <MovieBriefCard key={`mvbreifcard${element.movie.imdbId}`} el={element as { movie: MovieDetailsResponse }} />
                         )
                     }
                 </div>

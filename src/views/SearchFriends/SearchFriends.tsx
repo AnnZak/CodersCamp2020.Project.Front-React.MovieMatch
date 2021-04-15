@@ -49,9 +49,9 @@ function SearchFriends() {
                 />
                 <div className="friend-cards-container">
                     {allFriends.map((friend) =>
-                        <Link to={`/collection/${friend._id}`}>
-                            <div className="friend-card">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <Link to={`/collection/${friend._id}`} key={`friendcard${friend._id}`}>
+                            <div className="friend-card" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                 <img className="avatar" src={avatardefault} alt="friend's profile avatar" />
                                 <p className="friend-name">{friend.name}</p>
                                 <p className="friend-name">{friend.displayedName}</p>
@@ -76,12 +76,12 @@ function SearchFriends() {
                         }
 
                         return (
-                            <div className="friend-card">
+                            <div className="friend-card" >
                                 {/* <img className="avatar" src={avatardefault} alt="friend's profile avatar" />
                             <p className="friend-name">{user.name}</p>
                             <p className="friend-name">{user.displayedName}</p> */}
                                 <div className="friend-card">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                     <img className="avatar" src={avatardefault} alt="friend's profile avatar" />
                                     <p className="friend-name">{user.name}</p>
                                     <p className="friend-name">{user.displayedName}</p>
@@ -97,9 +97,9 @@ function SearchFriends() {
 
                         const user = invitation.sender;
                         return (
-                            <div className="friend-card">
+                            <div className="friend-card" key={`invpending${user._id}`}>
                                 <div className="friend-card">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                     <img className="avatar" src={avatardefault} alt="friend's profile avatar" />
                                     <p className="friend-name">{user.name}</p>
                                     <p className="friend-name">{user.displayedName}</p>
@@ -118,9 +118,9 @@ function SearchFriends() {
 
                         const user = invitation.receiver;
                         return (
-                            <div className="friend-card">
+                            <div className="friend-card" key={`invsent${user._id}`}>
                                 <div className="friend-card">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                     <img className="avatar" src={avatardefault} alt="friend's profile avatar" />
                                     <p className="friend-name">{user.name}</p>
                                     <p className="friend-name">{user.displayedName}</p>
