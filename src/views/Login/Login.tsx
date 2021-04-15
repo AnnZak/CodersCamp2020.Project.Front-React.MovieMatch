@@ -52,6 +52,7 @@ const Login = () => {
     if (isSuccess) {
       dispatch(clearState());
       dispatch(getUserCollection(_id))
+      history.push("/");
     }
   }, [isError, isSuccess]);
 
@@ -61,7 +62,6 @@ const Login = () => {
     }
     if (isSuccess) {
       dispatch(clearMovieState());
-      history.push("/");
     }
   }, [movies.isError, movies.isSuccess])
 
