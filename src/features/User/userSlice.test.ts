@@ -1,4 +1,4 @@
-import {userReducer, clearState} from './userSlice'
+import {userReducer, clearState} from './UserSlice'
 import {SliceState} from './types';
 
 describe('user reducer', () => {
