@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: boolean } }) {
 
     const [heartClass, setHeartClass] = useState("heart-collection");
+    const [eye, setEye] = useState(false);
 
     const { userMovieCollection } = useAppSelector(movieSelector);
 
@@ -19,6 +20,8 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
             if (liked) return "heart-collection liked";
             else return "heart-collection";
         });
+        if (el.watched === true) setEye(true);
+        if (el.watched === false) setEye(false);
     }, [userMovieCollection]);
 
     const dispatch = useAppDispatch();
@@ -39,7 +42,13 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
 
     function handleToggleWatched(movieId: string) {
         const toggle = async () => {
-            await dispatch(toggleWatched(movieId));
+            const watched = await dispatch(toggleWatched(movieId));
+            if (watched.payload === "Watched changed to: true") {
+                setEye(true);
+            }
+            if (watched.payload?.message === "Watched changed to: false") {
+                setEye(false);
+            }
         }
         toggle();
     }
@@ -62,10 +71,10 @@ function MovieBriefCard({ el }: { el: { movie: MovieDetailsResponse, watched?: b
                     <button className={heartClass} onClick={() => { handleToggleLiked(el.movie.imdbId) }}>
                         <i className="fas fa-heart"></i>
                     </button>
-                    {el.watched ?
+                    {/* {!eye ?
                         <button className="watched-movie" onClick={() => { handleToggleWatched(el.movie.imdbId) }}><i className="fas fa-eye"></i></button> :
                         <button className="watched-movie" onClick={() => { handleToggleWatched(el.movie.imdbId) }}><i className="far fa-eye"></i></button>
-                    }
+                    } */}
                 </div>
             }
         </div>
