@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Friend } from './types'
+import {Friend, InvitationCollection} from './types'
 import * as friendsApi from './api';
 import { ErrorResponse, SuccessResponse } from "../common";
 
@@ -84,5 +84,25 @@ export const decline = createAsyncThunk<
         if (response.status === 200) return response.data as SuccessResponse;
 
         return thunkApi.rejectWithValue(response.data);
+    }
+);
+
+export const getInvitations = createAsyncThunk<
+    InvitationCollection,
+    void,
+    {
+        rejectValue: ErrorResponse,
+    }
+>(
+    "friends/invitations",
+    async (never, thunkApi) => {
+        try {
+            const response = await friendsApi.getInvitations();
+            if(response.status === 200) return response.data as InvitationCollection;
+    
+            return thunkApi.rejectWithValue(response.data as ErrorResponse);
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
     }
 );
