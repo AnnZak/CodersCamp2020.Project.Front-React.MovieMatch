@@ -12,15 +12,15 @@
         justify-content: space-evenly;
         align-items: center;
         flex-direction: column;
-        height: 18rem;
+        height: 15rem;
         width: 12rem;
         background: white;
         border-radius: 6px;
         margin: 0.5rem;
         padding: 1rem;
         border: 1px solid $color-movies-border;
+        box-shadow: 2px 8px 20px $color-movies-border;
 
-      
         .friend-name {
             font-family: 'Lato';
             font-size: 1rem;
@@ -50,10 +50,37 @@
                 background-color: $color-button-background;
                 color: $color-white;
             }
+            
+            button:hover {
+                border: 1ps solid $color-button-background;
+                box-shadow: 2px 1px 6px 0 rgba(0,0,0,0.24)
+            }
         }
     }
 }
 
+button {
+    margin: 10px;
+    margin-top: 10%;;
+    background-color: $color-button-background;
+    color: $color-white;
+}
+
+button:hover {
+    border: 1ps solid $color-button-background;
+    box-shadow: 2px 1px 6px 0 rgba(0,0,0,0.24)
+}
+
+h1 {
+    margin: 1.5rem 0;
+}
+
+h3 {
+    display: block;
+    color: $color-placeholder;
+    font-size: 1rem;
+    padding: 0.7rem;
+}
 
 .container-search-friends {
     display: flex;
@@ -61,124 +88,18 @@
     flex: 1 auto;
 
     .friend-card-main {
-        width: 60%;
-
+        width: 75%;
 
         .user-search__search-input{
             width: 70%;
             margin-top: 5%;
             margin-bottom: 5%;
-        }
-        
-     
+        } 
     }
 
     .friend-cards-right {
         display:flex;
-
         flex-direction: column;
-        padding: 2rem;
-
-        .friend-cards-right-pending {
-            padding-bottom: 25%;
-
-            // .friend-cards-container {
-            //     display: flex;
-            //     flex-wrap: wrap;
-            //     flex-basis: 1300px;
-    
-            //     .friend-card {
-            //         position: relative;
-            //         display: flex; 
-            //         justify-content: center;
-            //         align-items: center;
-            //         flex-direction: column;
-            //         flex: 1 1 22%;
-            //         background: white;
-            //         border-radius: 6px;
-            //         margin: 0.5rem;
-            //         padding: 1rem;
-            //         margin-top: 2rem;
-            //         max-width: 250px;
-            //         border: 1px solid $color-movies-border;
-
-                
-            //         .friend-name {
-            //             font-family: 'Lato';
-            //             font-size: 1rem;
-            //             padding-top: 1rem;
-            //             font-weight: 600;
-            //             color: $color-header;
-    
-            //             &:last-child {
-            //                 padding-top: 0.3rem;
-            //                 font-weight: 400;
-            //                 color: $color-dark;
-            //             }
-            //         }  
-
-            //         .friend-cardbutton {
-            //             display: flex;
-            //         }
-
-            //        
-                    
-            //         .avatar {
-            //             max-height: 5.5rem;
-            //         }
-            //     }
-            // }
-        }
-
-        .friend-cards-right-sent {
-
-            // .friend-cards-container {
-            //     display: flex;
-            //     flex-wrap: wrap;
-            //     flex-basis: 1300px;
-    
-            //     .friend-card {
-            //         display: flex; 
-            //         margin-top: 2rem;
-            //         justify-content: center;
-            //         align-items: center;
-            //         flex-direction: column;
-            //         flex: 1 1 22%;
-            //         background: white;
-            //         border-radius: 6px;
-            //         margin: 0.5rem;
-            //         padding: 1rem;
-            //         max-width: 200px;
-            //         border: 1px solid $color-movies-border;
-    
-                  
-            //         .friend-name {
-            //             font-family: 'Lato';
-            //             font-size: 1rem;
-            //             padding-top: 1rem;
-            //             font-weight: 600;
-            //             color: $color-header;
-    
-            //             &:last-child {
-            //                 padding-top: 0.3rem;
-            //                 // color: red;
-            //                 font-weight: 400;
-            //                 color: $color-dark;
-            //             }
-            //         }  
-                    
-            //         .avatar {
-            //             max-height: 5.5rem;
-            //         }
-            //     }
-            // }
-        }
-
-               
-        
-
-
+        padding: 0;
     }
-
-    
 }
