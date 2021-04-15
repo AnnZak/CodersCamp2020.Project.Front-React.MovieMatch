@@ -4,12 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import './navigation.scss';
 import { userSelector } from '../../../../features/User';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { searchMovies } from '../../../../features/Movie/MovieSlice';
+
 
 const Navigation = () => {
     const [searchValue, setSearchValue] = useState("");
 
-    const dispatch = useAppDispatch();
     const history = useHistory();
     const { _id } = useAppSelector(userSelector);
 

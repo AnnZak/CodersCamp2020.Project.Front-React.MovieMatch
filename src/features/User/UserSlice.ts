@@ -25,6 +25,7 @@ const userSlice = createSlice({
             state.isError = false;
             state.isSuccess = false;
             state.isFetching = false;
+            state.errorMsg = "";
             return state;
         },
         resetState: (state) => {
