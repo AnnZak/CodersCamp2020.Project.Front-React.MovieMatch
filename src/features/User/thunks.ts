@@ -84,3 +84,23 @@ export const confirmRegistration = createAsyncThunk<SuccessResponse, string, Kno
         }
     }
 )
+
+
+type UserField = { name?: string, displayedName?: string, email?: string}
+type ChangeParams = {id: string, toChange: UserField}
+
+export const changeData = createAsyncThunk<SuccessResponse, ChangeParams, KnownReject>(
+    'user/changeData',
+    async (params: ChangeParams, thunkApi) => {
+
+        try {
+            const response = await userApi.editData(params.id, params.toChange);
+            if(response.status === 200) return response.data as SuccessResponse;
+            
+            return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+)

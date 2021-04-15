@@ -44,3 +44,46 @@ export const forgotPassword = async (email:string) => {
         },
     );
 }
+
+type UserField = { name?: string, displayedName?: string, email?: string}
+
+export const editData = async (id: string, toChange: UserField) => {
+
+    const token = getToken();
+    if(!token) throw new Error("no token");
+
+    return await axios.patch(
+        `${API_URL}/users/${id}`,
+        toChange,
+        {
+            headers: { authorization: token },
+        }
+    );
+};
+
+export const editPassword = async (id: string, oldPassword: string, newPassword: string) => {
+
+    const token = getToken();
+    if(!token) throw new Error("no token");
+
+    return await axios.patch(
+        `${API_URL}/users/${id}/password`,
+        {
+            oldPassword,
+            newPassword
+        },
+        {
+            headers: { authorization: token },
+        }
+    );
+};
+
+export const resetPassword = async (newPassword: string, resetToken: string) => {
+
+    return await axios.put(
+        `${API_URL}/users/resetpassword/${resetToken}`,
+        {
+            newPassword
+        },
+    );
+};

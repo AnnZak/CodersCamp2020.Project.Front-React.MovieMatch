@@ -53,9 +53,15 @@
                     font-weight: 600;
                 }
 
-                .input-description {
+                .input-warning {
                     padding-bottom: 0.5rem;
                     color: $color-important;
+                }
+                
+                .input-info {
+                    padding: 1rem;
+                    color: $color-logo;
+                    line-height: 1.2rem;
                 }
 
                 input[type=submit] {

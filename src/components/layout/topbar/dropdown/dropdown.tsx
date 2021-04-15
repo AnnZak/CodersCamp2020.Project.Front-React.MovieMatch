@@ -3,7 +3,7 @@ import './dropdown.scss';
 import avatardefault from '../../../../assets/images/avatardefault.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/hooks';
-import { logout } from '../../../../features/User/UserSlice';
+import { logout } from '../../../../features/User';
 
 const Dropdown = () => {
 

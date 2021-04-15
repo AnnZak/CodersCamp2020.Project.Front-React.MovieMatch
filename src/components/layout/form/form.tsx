@@ -10,7 +10,9 @@ interface IInput {
     placeholder?: string;
     attr?: { accept?: string };
     setValue?: Function;
+    onClick?: Function;
     paragraph?: string;
+    paragraphAfter?: string;
 }
 
 interface IProps {
@@ -55,14 +57,16 @@ function Form({ heading, inputs, formNavButtons, formNavFunctions, info, onSubmi
                                         'form-item oneline' : 'form-item'
                                 }>
                                     {input.label && <label htmlFor={`input${index}`}>{input.label}</label>}
-                                    {input.paragraph && (<p className="input-description">{input.paragraph}</p>)}
+                                    {input.paragraph && (<p className="input-warning">{input.paragraph}</p>)}
                                     <input type={input.type}
                                         id={`input${index}`}
                                         placeholder={input.placeholder ? input.placeholder : undefined}
                                         value={input.value ? input.value : undefined}
                                         accept={input.attr && input.attr.accept ? input.attr.accept : undefined}
                                         onChange={(e) => { if (input.setValue) input.setValue(e.target.value); }}
+                                        onClick={(e) => { if (input.onClick) input.onClick(); }}
                                     />
+                                    {input.paragraphAfter && <p className="input-info">{input.paragraphAfter}</p>}
                                 </div>
                             );
                         })}

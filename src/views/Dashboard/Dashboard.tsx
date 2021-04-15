@@ -5,8 +5,8 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import './Dashboard.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
-import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector, getSuggestedMovies } from '../../features/Movie/MovieSlice';
-import { userSelector } from '../../features/User/UserSlice';
+import { showCollection, getMovieDetails, clearState, movieSelector, getSuggestedMovies } from '../../features/Movie/MovieSlice';
+import { userSelector } from '../../features/User';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
@@ -47,7 +47,6 @@ function Dashboard() {
             if (!searchedMovies) setSuggestErrMessage("Couldn't load suggestions.")
             dispatch(clearState());
             for (const movie of originalResult) {
-                dispatch(getUserCollection(_id));
                 dispatch(clearState());
                 dispatch(getMovieDetails(movie.imdbID)).then(unwrapResult).then(originalResult => {
                     dispatch(clearState());
@@ -64,7 +63,6 @@ function Dashboard() {
         dispatch(showCollection(_id)).then(unwrapResult).then(originalResult => {
             dispatch(clearState());
             for (const movie of originalResult) {
-                dispatch(getUserCollection(_id));
                 dispatch(clearState());
                 dispatch(getMovieDetails(movie.imdbId)).then(unwrapResult).then(originalResult => {
                     dispatch(clearState());

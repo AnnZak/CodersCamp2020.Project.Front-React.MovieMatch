@@ -5,7 +5,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import './MovieCollection.scss';
 import Topbar from '../../components/layout/topbar/topbar';
 import MovieBriefCard from '../../components/layout/movieBriefCard/movieBriefCard';
-import { showCollection, getUserCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
+import { showCollection, getMovieDetails, clearState, movieSelector } from '../../features/Movie/MovieSlice';
 import { getFriendById } from '../../features/Friends/api';
 import { userSelector } from '../../features/User';
 import { MovieDetailsResponse } from '../../features/Movie/ts/movieTypes';
@@ -45,20 +45,27 @@ function MovieCollection() {
     const { _id } = useAppSelector(userSelector);
 
     useEffect(() => {
+
+        const getName = async () => {
+            try {
+                const res = await getFriendById(`${userid}`);
+                setCollectionOwner((state) => { return ` ${res.data.displayedName}` });
+            } catch (error) {
+                setErrMessage(` Unidentified User`);
+            }
+            if (userid !== _id) {
+            } else setCollectionOwner(" You");
+        }
+
         setDisplayedMovies([displayedInitialState]);
         setErrMessage("");
         setCollectionOwner("");
 
-        if (userid !== _id) {
-            getFriendById(userid).then((res) => {
-                setCollectionOwner(`Browse ${res.data.displayedName}'s`);
-            }).catch(() => { setCollectionOwner("Browse") });
-        } else setCollectionOwner("Your");
+        getName();
 
         dispatch(showCollection(userid)).then(unwrapResult).then(originalResult => {
             dispatch(clearState());
             for (const movie of originalResult) {
-                dispatch(getUserCollection(_id));
                 dispatch(clearState());
                 dispatch(getMovieDetails(movie.imdbId)).then(unwrapResult).then(originalResult => {
                     dispatch(clearState());
@@ -83,7 +90,7 @@ function MovieCollection() {
             <Topbar />
             <div className="collection__container-outer">
                 <div className="container-collection-movies">
-                    {errMessage === "" && <h1 className="collection__main-header">{collectionOwner} collection</h1>}
+                    {errMessage === "" && <h1 className="collection__main-header">Movies liked by<span className="collection__owner">{collectionOwner}</span></h1>}
                     <div className="collection-movie-cards-container">
                         {errMessage !== "" ?
                             <div className="collection__error-container">

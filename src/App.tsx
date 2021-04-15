@@ -15,26 +15,39 @@ import SearchFriends from './views/SearchFriends/SearchFriends';
 import SearchMovies from './views/SearchMovies/SearchMovies';
 import RegisterConfirm from './views/RegisterConfirm/RegisterConfirm';
 import MovieCollection from './views/MovieCollection/MovieCollection';
-import { getToken } from './helpers/auth/auth';
+import { deleteToken, getToken } from './helpers/auth/auth';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { userSelector, getUserData, clearState as clearUserState } from './features/User';
+import { getUserCollection } from './features/Movie/MovieSlice'
 
 
 function App() {
 
   const dispatch = useAppDispatch();
-  const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(userSelector);
+  const user = useAppSelector(userSelector);
 
   useEffect(() => {
     handleReload();
   }, []);
+
+  useEffect(() => {
+
+    if(user.isSuccess) {
+      dispatch(clearUserState());
+      dispatch(getUserCollection(user._id));
+    }
+
+    if(user.isError) {
+      dispatch(clearUserState());
+      deleteToken();
+    }
+  },[user.isSuccess, user.isError])
 
   const handleReload = async () => {
     const token = getToken();
     if(!token) return;
 
     await dispatch(getUserData());
-    dispatch(clearUserState());
   };
 
   return (

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Login.scss';
-import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User'
 import { Link, useHistory } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import TopLogo from '../../components/ui/topLogo/topLogo';
 import Form from '../../components/layout/form/form';
+import { loginUser, userSelector, clearState, LoginCredentials } from '../../features/User'
+import {movieSelector, getUserCollection, clearState as clearMovieState} from '../../features/Movie/MovieSlice'
 
 const Login = () => {
 
@@ -16,9 +17,8 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const { isFetching, isError, isSuccess, errorMsg } = useAppSelector(
-    userSelector
-  );
+  const { _id, isError, isSuccess, errorMsg } = useAppSelector(userSelector);
+  const movies = useAppSelector(movieSelector)
 
   const onSubmit = (data: LoginCredentials) => {
     const emailRegEx = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
@@ -51,9 +51,21 @@ const Login = () => {
     }
     if (isSuccess) {
       dispatch(clearState());
-      history.push('/');
+      dispatch(getUserCollection(_id))
+      history.push("/");
     }
   }, [isError, isSuccess]);
+
+  useEffect(() => {
+    if (movies.isError) {
+      dispatch(clearMovieState());
+    }
+    if (isSuccess) {
+      dispatch(clearMovieState());
+    }
+  }, [movies.isError, movies.isSuccess])
+
+
 
   return (
     <div className="login">

@@ -11,9 +11,7 @@ const getAll = async () => {
     const response = await axios.get(
         `${API_URL}/friends`,
         {
-            headers: {
-                authorization: token,
-            },
+            headers: { authorization: token }
         }
     );
 
@@ -28,7 +26,7 @@ const search = async (displayedName?: string, page?: number, limit?: number) => 
     return await axios.get(
         `${API_URL}/friends`,
         {
-            headers: token,
+            headers: { authorization: token },
             params: {
                 page,
                 limit,
@@ -88,9 +86,22 @@ const getFriendById = async (friendId: string) => {
     return await axios.get<Friend>(
         `${API_URL}/friends/${friendId}`,
         {
-            headers: token,
+            headers: { authorization: token },
         }
     );
 };
 
-export { getAll, search, invite, acceptInvitation, declineInvitation, getFriendById }
+const getInvitations = async () => {
+
+    const token = getToken();
+
+    return await axios.get(
+        `${API_URL}/friends/invitations`,
+        {
+            headers: { authorization: token },
+
+        }
+    );
+};
+
+export { getAll, search, invite, acceptInvitation, declineInvitation, getFriendById, getInvitations }
