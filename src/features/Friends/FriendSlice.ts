@@ -2,11 +2,15 @@ import { createSlice, createAsyncThunk, AsyncThunkAction } from '@reduxjs/toolki
 import { RootState } from '../../app/store';
 import {clearState, UNKNOWN_ERROR_MSG} from '../common'
 import { SliceState } from "./types";
-import { getAll, search, invite, accept, decline } from './thunks';
+import { getAll, search, invite, accept, decline, getInvitations } from './thunks';
 
 
 const initialState: SliceState = {
     allFriends: [],
+    invitations: {
+        sent: [],
+        received: []
+    },
     shownFriends: [],
     isFetching: false,
     isSuccess: false,
@@ -84,7 +88,16 @@ export const friendSlice = createSlice({
             state.errorMsg = payload?.error || UNKNOWN_ERROR_MSG;
         });
 
-        builder.addCase(accept.fulfilled, (state) => {
+        //accept invitation
+
+        builder.addCase(accept.fulfilled, (state, {meta}) => {
+            const invitationId = meta.arg;
+
+            const index = state.invitations.received.map(invitation => invitation._id).indexOf(invitationId);
+
+            state.allFriends.push(state.invitations.received[index].sender)
+            state.invitations.received.splice(index, 1);
+
             state.isFetching = false;
             state.isSuccess = true;
         });
@@ -99,7 +112,11 @@ export const friendSlice = createSlice({
             state.errorMsg = payload?.error || UNKNOWN_ERROR_MSG;
         });
 
-        builder.addCase(decline.fulfilled, (state) => {
+        //decline invitation
+
+        builder.addCase(decline.fulfilled, (state, { meta }) => {
+            const invitationId = meta.arg;
+            state.invitations.received = state.invitations.received.filter(invitation => invitationId !== invitation._id)
             state.isFetching = false;
             state.isSuccess = true;
         });
@@ -113,9 +130,30 @@ export const friendSlice = createSlice({
             state.isError = true;
             state.errorMsg = payload?.error || UNKNOWN_ERROR_MSG;
         });
+
+        //get all invitations
+        builder.addCase(getInvitations.fulfilled, (state, { payload }) => {
+            state.invitations = payload;
+            state.isFetching = false;
+            state.isSuccess = true;
+        });
+
+        builder.addCase(getInvitations.pending, (state) => {
+            state.isFetching = true;
+        });
+
+        builder.addCase(getInvitations.rejected, (state, { payload }) => {
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload?.error || UNKNOWN_ERROR_MSG;
+        });
     }
 });
 
+const removeById = <T>(array: Array<T>, id: string) => {
+
+}
+
 export const friendsSelector = (state: RootState) => state.friends
-export { getAll, search, invite, accept, decline }
+export { getAll, search, invite, accept, decline, getInvitations }
 export type { Friend } from './types'
