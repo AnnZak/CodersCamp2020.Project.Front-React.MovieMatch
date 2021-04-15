@@ -4,11 +4,37 @@ import { SearchMoviesResponse, MovieDetailsResponse, MovieCollectionResponse } f
 import { RootState } from '../../app/store';
 import { API_URL } from '../../constants';
 import { getToken } from '../../helpers/auth/auth';
+import { SuccessResponse } from '../common';
 
 type ErrorResponse = {
     error?: string,
     message?: string,
 };
+
+export const toggleWatched = createAsyncThunk<SuccessResponse, string, {rejectValue: ErrorResponse}>(
+    'movie/toggle',
+    async (movieId, thunkApi) => {
+        try {
+            const token = getToken();
+            if (!token) return thunkApi.rejectWithValue({ error: "Token invalid" });
+
+            const response = await axios({
+                method: 'PATCH',
+                headers: {
+                    'authorization': token,
+                },
+                url: `${API_URL}/movies/${movieId}`
+            });
+            if (response.status === 200) {
+                return response.data as SuccessResponse;
+            } else {
+                return thunkApi.rejectWithValue(response.data as ErrorResponse);
+            }
+        } catch (error) {
+            return thunkApi.rejectWithValue(error.response.data as ErrorResponse);
+        }
+    }
+)
 
 export const getUserCollection = createAsyncThunk<
     MovieCollectionResponse,
@@ -441,6 +467,31 @@ export const movieSlice = createSlice({
         });
 
         builder.addCase(getUserCollection.pending, (state) => {
+            state.isSuccess = false;
+            state.isFetching = true;
+            state.isError = false;
+            state.errorMsg = '';
+        });
+
+        //toggle watched
+        builder.addCase(toggleWatched.fulfilled, (state, { meta }) => {
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMsg = '';
+
+            const index = state.userMovieCollection.map(movie => movie.imdbId).indexOf(meta.arg);
+            state.userMovieCollection[index].watched = !state.userMovieCollection[index].watched;
+        });
+
+        builder.addCase(toggleWatched.rejected, (state, { payload }) => {
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMsg = payload && payload.message ? payload.message : payload && payload.error ? payload.error : 'unknown error occured';
+        });
+
+        builder.addCase(toggleWatched.pending, (state) => {
             state.isSuccess = false;
             state.isFetching = true;
             state.isError = false;
