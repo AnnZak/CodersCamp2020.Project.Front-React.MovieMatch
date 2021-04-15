@@ -69,6 +69,7 @@ const userSlice = createSlice({
             state.isFetching = false;
             state.isSuccess = true;
             state.errorMsg = "";
+            return state;
         });
 
         builder.addCase(getUserData.rejected, (state, action) => {
